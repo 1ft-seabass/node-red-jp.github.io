@@ -8,7 +8,7 @@ title: Installation
 Node-REDはNode.js <code>0.10.x</code> と <code>0.12.x</code>をサポートしています。
 
 <div class="doc-callout"><em>Note</em>:  Node <code>0.12.x</code> のサポートは、Node-RED <code>0.11.0</code>で追加されました。
-我々のcore runtimeとnodeはテスト済みですが、サードパーティのノードに関してはサポートしていない可能性があります。</div>
+我々の作成したコアランタイムとノードはテスト済みですが、サードパーティのノードに関してはサポートしていない可能性があります。</div>
 
 <div class="doc-callout"><em>Note</em>: 我々は現在、node.js v4.x.x or versions of io.jsをサポートしていません。</div>
 
