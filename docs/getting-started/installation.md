@@ -3,16 +3,16 @@ layout: default
 title: Installation
 ---
 
-### Install Node.js
+### Node.jsのインストール 
 
-Node-RED supports Node.js <code>0.10.x</code> and <code>0.12.x</code>.
+Node-REDはNode.js <code>0.10.x</code> と <code>0.12.x</code>をサポートしています。
 
-<div class="doc-callout"><em>Note</em>: Support for Node <code>0.12.x</code> was added in Node-RED <code>0.11.0</code>.
-Whilst we have tested the core runtime and its nodes, 3rd party nodes may not yet fully support it.</div>
+<div class="doc-callout"><em>Note</em>:  Node <code>0.12.x</code> のサポートは、Node-RED <code>0.11.0</code>で追加されました。
+我々の作成したコアランタイムとノードはテスト済みですが、サードパーティのノードに関してはサポートしていない可能性があります。</div>
 
-<div class="doc-callout"><em>Note</em>: We do <em>not</em> currently support node.js v4.x.x or versions of io.js.</div>
+<div class="doc-callout"><em>Note</em>: 我々は現在、node.js v4.x.x or versions of io.jsをサポートしていません。</div>
 
-You can get the latest supported version of Node <code>0.12.x</code> from:
+Node <code>0.12.x</code> の最新版は以下からダウンロードできます。:
 
  - Linux Binaries: [32-bit](https://nodejs.org/dist/v0.12.7/node-v0.12.7-linux-x86.tar.gz)
                    or
@@ -22,79 +22,71 @@ You can get the latest supported version of Node <code>0.12.x</code> from:
                       or
                       [64-bit](https://nodejs.org/dist/v0.12.7/x64/node-v0.12.7-x64.msi)
 
-Other download options are available [here](http://nodejs.org/dist/v0.12.7/).
+他のダウンロード元は [ここ](http://nodejs.org/dist/v0.12.7/)にあります。
 
-You may want to use a version from your operating system's [package manager](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+OSのパッケージマネージャからインストールする場合は [ここ](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)をご参照ください。
 
-There are specific instructions available for certain hardware platforms:
+ハードウェアへのインストール方法は、以下を参照してください。:
 
  - [Raspberry Pi](../hardware/raspberrypi.html)
  - [BeagleBone Black](../hardware/beagleboneblack.html)
 
-### Install Node-RED
+### Node-REDをインストールする  
 
-For Node-RED 0.10.4 or later, the easiest way to install Node-RED is to use node's
-package manager, npm. Installing it as a global module adds the command `node-red`
-to your system path:
+Node-RED 0.10.4 以降では, Node-REDをインストールする最も簡単な方法は、nodeのパッケージマネージャであるnpmを使用する方法です。 
+グローバルインストールで、`node-red`コマンドをシステムに加えるには以下の命令を行ってください。:
 
     sudo npm install -g --unsafe-perm node-red
 
 <div class="doc-callout">
-<em>Note</em>: <code>sudo</code> is required if running as a non-root user on Linux/OS X. If
-running on Windows, you will need to run in a <a href="https://technet.microsoft.com/en-gb/library/cc947813%28v=ws.10%29.aspx">command shell as Administrator</a>,
-without the <code>sudo</code> command.
+<em>Note</em>: <code>sudo</code> はLinux/OS Xでルートユーザ以外のユーザとして実行するときに必要となるコマンドです。Windowsで実行するときは、<a href="https://technet.microsoft.com/en-gb/library/cc947813%28v=ws.10%29.aspx">Administratorとしてコマンドプロンプトから</a>,
+<code>sudo</code>コマンドを使わずに実行してください。
 </div>
 
 <div class="doc-callout">
-<em>Note</em>: During the install some errors may be reported by the <code>node-gyp</code>
-command. These are typically <em>non-fatal</em> errors and are related to optional dependencies
-that require a compiler in order to build them. <b>Node-RED will work without these
-optional dependencies</b>, but you may find additional node modules that require the
-ability to compile native code. You can find out how to install the <code>node-gyp</code>
-compiler dependencies <a href="https://github.com/TooTallNate/node-gyp#installation">here</a>.
+<em>Note</em>: インストール中、いくつかのエラーが<code>node-gyp</code>コマンドから報告される可能性があります。
+それらのエラーは概して<em>致命的ではない</em> エラーであり、それらのエラーはオプショナルな依存性に関係しており、それらを構築するためのコンパイラを要求しています。
+ <b>Node-RED はそれらのオプショナルな依存性にかかわらず動きます。</b>しかしnodeモジュールを追加する際にネイティブコードをコンパイルする必要がある場合があります。 <code>node-gyp</code>
+のインストール方法は <a href="https://github.com/TooTallNate/node-gyp#installation">ここ</a>に記述されています。
 </div>
 
-### Alternative install methods
+### 他のインストール方法
 
-#### Download a release
+#### zipをダウンロードする
 
-You can download the latest release from [here](https://github.com/node-red/node-red/releases/latest).
-The zip contains a top-level folder called `node-red-X.Y.Z` where `X.Y.Z` is the
-version number. Once extracted, from within that top-level folder, run the
-following command:
+最新版は[ここ](https://github.com/node-red/node-red/releases/latest)からダウンロードできます。
+このzipファイルは`node-red-X.Y.Z` (`X.Y.Z`はバージョンナンバー) という最上位フォルダを持っています。
+展開した後、最上位フォルダの中から、以下のコマンドを実行してください。:
 
     npm install --production
 
-#### For Development - from GitHub
+#### 開発者向け -GitHubを使う
 
-Running the code from GitHub is only intended for users who are happy to be using
-development code, or for developers wanting to contribute to the code.
+GitHubからコードを実行するのは、開発コードの使用が好きな方か、コード開発に参加したい方にのみおすすめします。
 
-You can clone the source repository directly from GitHub:
+GitHubからソースリポジトリをクローンするには以下のコマンドを実行します。:
 
     git clone https://github.com/node-red/node-red.git
 
-Once cloned, the core pre-requisite modules must be installed :
+クローンが終わったら、前もって必要なモジュールはインストールされているので以下のコマンドを実行します:
 
     cd node-red
     npm install
 
 <div class="doc-callout">
-<em>Note</em>: when running from a clone of the git repository, it is necessary
-to install all dependencies, not just the production level ones. This is why the
- <code>--production</code> option should not be used.
+<em>Note</em>: gitのクローンから実行する際、全ての依存性をインストールする必要性があります。
+ <code>--production</code> オプションは使用しないでください。
 </div>
 
-You will also need to install `grunt-cli` in order to build the application before
-you can use it. This must be done globally.
+また、アプリケーションをビルドしそれを使用する前に、`grunt-cli` をインストールする必要があります。 このインストールはグローバルで行う必要があります。
 
     sudo npm install -g grunt-cli
 
-You can then build and run the application
+上のコマンドを実行した後、アプリケーションのビルドと実行が可能になります。
 
     grunt build
     node red
 
-### Next steps
+### 次のステップ
 
-Once installed, you are ready to [run Node-RED](running.html).
+インストールが終わったら、[Node-REDの実行](running.html)を行います。
