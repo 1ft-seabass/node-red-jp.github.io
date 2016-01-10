@@ -2,48 +2,32 @@
 layout: default
 title: Documentation
 ---
-## Overview
+## 概要
 
-Welcome to the Node-RED documentation.
+Node-REDドキュメント
 
 ### Getting Started
 
-This guide will help you get Node-RED installed and running in just a few minutes.
+わずか数分でNode-REDをインストールして実行するためのガイドです。
 
-- [Installation](getting-started/installation.html)
-- [Running](getting-started/running.html)
-- [Adding Nodes](getting-started/adding-nodes.html)
-- [Upgrading](getting-started/upgrading.html)
-- [Creating your first flow](getting-started/first-flow.html)
-- [Creating your second flow](getting-started/second-flow.html)
+- [インストール](getting-started/installation.html)
+- [実行](getting-started/running.html)
+- [Nodeの追加](getting-started/adding-nodes.html)
+- [アップグレード](getting-started/upgrading.html)
+- [はじめてのFlow](getting-started/first-flow.html)
+- [Flow作成](getting-started/second-flow.html)
 
-### Using Node-RED
+### Node-REDの利用
 
-This guide covers how to configure and use Node-RED.
+Node-REDの設定と利用についてのガイドです。
 
-- [Configuration](configuration.html)
-- [Securing Node-RED](security.html)
-- [How to write Functions](writing-functions.html)
-- [How to embed Node-RED into an existing Node.js app](embedding.html)
+- [設定](configuration.html)
+- [セキュリティ](security.html)
+- [Adminツール](node-red-admin.html)
+- [Function Nodeの書き方](writing-functions.html)
+- [既存アプリケーションへの組込み](embedding.html)
 
-### Creating Nodes
+### Nodeの作成
 
-[This guide](creating-nodes/) covers how to create your own nodes and get them added to the palette.
-
-### Other places to get help
-
-If you have a question, suggestion or just want to say hello, there are various
-places you can do so:
-
- - Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/node-red)
-   and the [blog](http://blog.nodered.org)
- - Follow [@nodered](http://twitter.com/nodered) on Twitter
- - Chat on `#nodered` on `irc.freenode.net`
-
-When reporting bugs or difficulties, please try to include both the Node.js and
-Node-RED versions you are using. Both can be found it the console output when
-Node-RED is started:
-
-    01 Jan 12:00:00 - [info] Node-RED version: v0.10.4
-    01 Jan 12:00:00 - [info] Node.js  version: v0.10.36
+独自のNodeを作成するガイドは[こちら](creating-nodes/)です。
 
