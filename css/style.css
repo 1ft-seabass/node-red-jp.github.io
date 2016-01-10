@@ -53,9 +53,9 @@ h4 {
 }
 .header-content {
     width: 100%;
-	max-width: 1155px;
-	min-width: 755px;
-	margin: 0 auto;
+    max-width: 1155px;
+    min-width: 755px;
+    margin: 0 auto;
     background: #333;
     border-bottom: 5px solid #333;
 }
@@ -112,7 +112,7 @@ h4 {
     color: #999;
     text-align: center;
 }
-    
+
 
 /**** END HEADER ****/
 
@@ -144,7 +144,7 @@ h4 {
 
 .ets-link {
     margin: 10px 0px;
-    
+
 }
 .ets-globe {
     width: 60px;
@@ -154,15 +154,15 @@ h4 {
     display: none;
 }
 @media handheld, only screen and (max-width: 755px) {
-    
+
     .header .menu {
         display: inline-block;
     }
-    
+
     .header-content {
         min-width: 0;
     }
-    
+
     .header-content .brand {
         float: none;
     }
@@ -183,5 +183,4 @@ h4 {
         border: none;
     }
 }
-
 
