@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Installation
+title: インストール
 ---
 
-### Node.jsのインストール 
+### Node.jsのインストール
 
 Node-REDはNode.js <code>0.10.x</code> と <code>0.12.x</code>をサポートしています。
 
@@ -31,9 +31,9 @@ OSのパッケージマネージャからインストールする場合は [こ�
  - [Raspberry Pi](../hardware/raspberrypi.html)
  - [BeagleBone Black](../hardware/beagleboneblack.html)
 
-### Node-REDをインストールする  
+### Node-REDをインストールする
 
-Node-RED 0.10.4 以降では, Node-REDをインストールする最も簡単な方法は、nodeのパッケージマネージャであるnpmを使用する方法です。 
+Node-RED 0.10.4 以降では, Node-REDをインストールする最も簡単な方法は、nodeのパッケージマネージャであるnpmを使用する方法です。
 グローバルインストールで、`node-red`コマンドをシステムに加えるには以下の命令を行ってください。:
 
     sudo npm install -g --unsafe-perm node-red

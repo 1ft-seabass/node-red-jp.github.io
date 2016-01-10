@@ -1,157 +1,162 @@
 ---
 layout: default
-title: Configuration
+title: 設定
 ---
-The following properties can be used to configure Node-RED.
+Node-REDを設定するために以下のプロパティが利用できます。
 
-When run as a standalone application, these properties are read from the `settings.js`
-file. The location of this file is determined in the order:
+スタンドアローンのアプリケーションとして実行すると、これらのプロパティは`settings.js`ファイルから読み込まれます。このファイルの場所は以下の順に決定されます。
 
- - set using the `--settings|-s` command-line argument
- - in the user directory if it was specified by the `--userDir|-u` command-line argument
- - in the default user directory: `$HOME/.node-red/settings.js`
- - in the node-red install directory
+ - 起動時に`--settings|-s`オプションで指定した場所
+ - 起動時に`--userDir|-u`オプションで指定されたディレクトリ
+ - デフォルトのユーザディレクトリ`$HOME/.node-red/settings.js`
+ - Node-REDがインストールされたディレクトリ
 
-Node-RED includes a default `settings.js` file that will be used in absence of a
-user-provided settings file. It can also be used as a starting point for creating
-your own settings file. It can be seen on GitHub [here](https://github.com/node-red/node-red/blob/master/settings.js).
+Node-REDにはユーザが指定する`settings.js`が存在しない場合に使用するデフォルトの`settings.js`ファイルが含まれています。また、独自の`settings.js`の雛形として使用できます。[here](https://github.com/node-red/node-red/blob/master/settings.js)のGitHub上でも確認できます。
 
-When [embedded](embedding.html), they are passed in the call to `RED.init()`.
-However, when run in this mode, certain properties are ignored and are left to
-the embedding application to implement.
+[既存アプリケーションへの組込み](embedding.html)の場合、`settings`プロパティは`RED.init()`の呼び出しでNode-REDへ渡されます。ただ、このモードで実行すると特定のプロパティは無視されます。
 
-### Runtime Configuration
+### Node-RED実行時の設定
 
 flowFile
-: the file used to store the flows. Default: `flows_<hostname>.json`
+: Flow設定をファイルに保存する場合のファイル名です。デフォルト: `flows_<hostname>.json`
 
 userDir
-: the directory to store all user data, such as flow and credential files and all
-  library data. Default: `$HOME/.node-red`
+: Flow設定をファイルに保存する場合のファイルへのPathです。デフォルト: `$HOME/.node-red`
 
 nodesDir
-: a directory to search for additional installed nodes. Node-RED searches the `nodes`
-  directory under install directory. This property allows an additional directory
-  to be searched, so that nodes can be installed outside of the Node-RED install
-  structure.
+: 自作のNodeなどを追加するディレクトリを指定できます。ここで指定したディレクトリ内にNodeの`.js`と`.html`ファイルを配置するとNode-REDのパレットに表示されるようになります。
 
 uiHost
-: the interface to listen for connections on. Default: `0.0.0.0` -
+: ホストです。デフォルト: `0.0.0.0` -
   *all IPv4 interfaces*.
 
   *Standalone only*.
 
 uiPort
-: the port used to serve the editor UI. Default: `1880`.
+: ポートです。デフォルト: `1880`.
 
   *Standalone only*.
 
 httpAdminRoot
-: the root url for the editor UI. If set to `false`, all admin endpoints are disabled. This includes both API endpoints and the editor UI. To disable just the editor UI, see the `disableEditor` property below. Default: `/`
+: Flow EditorのPathを指定できます。ちなみに`false`を指定するとEditorが無効になります。デフォルト: `/`
 
 httpAdminAuth
 : *Deprecated*: see `adminAuth`.
 
-  enables HTTP Basic Authentication on the editor UI:
+  Flow EditorにBasic認証を設けます。以下が設定例。
 
       httpAdminAuth: {user:"nol", pass:"5f4dcc3b5aa765d61d8327deb882cf99"}
 
-  The `pass` property is the md5 hash of the actual password. The following
-  command can be used to generate the hash:
+  `pass`はMD5ハッシュを指定します。上記の例では実際にBasic認証ダイアログへ入力するパスワードは`password`という文字列になるということです。コンソールなどで以下のnodeコマンドを実行することでハッシュ値を得られます。
 
       node -e "console.log(require('crypto').createHash('md5').update('YOUR PASSWORD HERE','utf8').digest('hex'))"
 
   *Standalone only*.
 
 httpNodeRoot
-: the root url for nodes that provide HTTP endpoints. If set to `false`, all node-based HTTP endpoints are disabled. Default: `/`
+: HTTP In NodeのHTTPエンドポイントのPathを指定できます。ちなみに`false`Editorが無効になります。デフォルト: `/`
 
 httpNodeAuth
-: enables HTTP Basic Authentication. See `httpAdminAuth` for format.
+: HTTP In NodeのHTTPエンドポイントにBasic認証を設けます。設定方法は`httpAdminAuth`と同様です。
 
 httpRoot
-: this sets the root url for both admin and node endpoints. It overrides the values set by `httpAdminRoot` and `httpNodeRoot`.
+: `httpRoot`を指定すると`httpAdminRoot`と`httpNodeRoot`を同じPathで上書きします。
 
 https
-: enables https, with the specified options object, as defined
-  [here](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener).
+: HTTPSを有効にします。以下が設定例。詳細は[here](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)。
+
+      https: {
+        key: fs.readFileSync('privatekey.pem'),
+        cert: fs.readFileSync('certificate.pem')
+      },
 
   *Standalone only*.
 
 disableEditor
-: if set to `true`, prevents the editor UI from being served by the runtime. The admin api endpoints remain active. Default: `false`.
+: `true`を指定するとFlow Editorが無効になります。`httpAdminRoot`を`false`にした場合はUIもAPIも無効になりますが、こちらはUIのみ無効になります。デフォルト: `false`
 
 httpStatic
-: a local directory from which to serve static web content from. This content is
-  served from the top level url, `/`. When this property is used, `httpAdminRoot` must
-  also be used to make editor UI available at a path other than `/`.
+: ここで指定したPathを静的なWebコンテンツとして表示できます。例えば`/home/username/.node-red/`と指定した場合、`/home/username/.node-red/index.html`を作成すると`/`へアクセスすると作成した`index.html`が表示されます。したがって`httpStatic`を指定する場合は`httpAdminRoot`は`/`より下層のPathにする必要があります。
 
   *Standalone only*.
 
 httpStaticAuth
-: enabled HTTP Basic Authentication on the static content. See `httpAdminAuth` for format.
+: `httpStatic`にBasic認証を設けます。設定方法は`httpAdminAuth`と同様です。
 
 httpNodeCors
-: enables cross-origin resource sharing for the nodes that provide HTTP endpoints,
-  as defined [here](https://github.com/troygoode/node-cors#configuration-options)
+: HTTP In NodeのHTTPエンドポイントのCross-Origin Resource Sharing (CORS) を有効にします。以下が設定例。詳細は[here](https://github.com/troygoode/node-cors#configuration-options)
+
+      httpNodeCors: {
+        origin: "*",
+        methods: "GET,PUT,POST,DELETE"
+      },
 
 httpNodeMiddleware
-: an HTTP middleware function that is added to all HTTP In nodes. This allows whatever custom processing,
-  such as authentication, is needed for the nodes. The format of the middleware function is
-  documented [here](http://expressjs.com/guide/using-middleware.html#middleware.application).
+: HTTP In NodeのHTTPエンドポイントにHTTPミドルウェアを追加できます。HTTPエンドポイントでセッションとクッキーのハンドラを利用したい場合は以下のように設定します。ミドルウェア機能の形式は[こちら](http://expressjs.com/guide/using-middleware.html#middleware.application)で文書化されています。
 
       httpNodeMiddleware: function(req,res,next) {
-          // Perform any processing on the request.
-          // Be sure to call next() if the request should be passed
-          // to the relevant HTTP In node.
-      }
+        session({
+          store: new MongoStore({
+            url: process.env.MONGOLAB_URI
+          })
+        })(req, res, function() {
+          cookieParser()(req, res, next);
+        });
+      },
 
-### Editor Configuration
+### Flow Editorの設定
 
 adminAuth
-: enables user-level security in the editor and admin API. See [security](security.html)
-  for more information.
+: Flow Editorにログインフォームを設けます。以下が設定例。
+
+      adminAuth: {
+        type: "credentials",
+        users: [{
+          username: "admin",
+          password: "$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN.",
+          permissions: "*"
+        }]
+      }
+
+- `users`リストで複数のユーザを設定できます
+- パスワードはbcryptアルゴリズムによるハッシュ値を指定します
+- `permissions`でユーザ毎に`*`（フルアクセス）か`read`（read only）権限が付与できます
+
+      node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 8));" YOUR PASSWORD HERE
 
 paletteCategories
-: defines the order of categories in the palette. If a node's category is not in
-  the list, the category will get added to the end of the palette. If not set,
-  the following default order is used:
+: Flow Editorのパレットのカテゴリの順序を設定します。カテゴリがリストにない場合はパレットの最後に追加されます。デフォルトの順序は以下。
 
       ['subflows', 'input', 'output', 'function', 'social', 'storage', 'analysis', 'advanced'],
 
-   _Note_: Until the user creates a subflow the subflow category will be empty and will
-   not be visible in the palette.
+   _Note_: Sub Flowを作成するまでSub Flowカテゴリは空のままでパレットには表示されません。
 
-### Node Configuration
+### Nodeの設定
 
-Any node type can define its own settings to be provided in the file.
+独自のNode Typeはファイルで提供される独自の設定を定義することができます。
 
 functionGlobalContext
-: Function Nodes - a collection of objects to attach to the global function
-  context. For example,
+: Function Nodeの中では他のライブラリを`require`できませんが`functionGlobalContext`であらかじめ`require`しておくことで`context.global`からライブラリにアクセスできるようになります。以下が設定例。
 
       functionGlobalContext: { os:require('os') }
 
-  can be accessed in a function node as:
+  上記のように設定してFunction Nodeで以下のようにしてDebug Nodeに吐くと`os`オブジェクトが格納されていることがわかります。ただしライブラリが`npm`でグローバルにインストールされているか、`settings.js`より下層にインストールされていなければいけません。
 
-      context.global.os
+      msg.payload = context.global.os;
+      return msg;
 
 debugMaxLength
-: Debug Nodes - the maximum length, in characters, of any message sent to the
-  debug sidebar tab. Default: 1000
+: Debug NodeでDebugに表示する文字数を指定します。Debugに表示する文字が`...`で途切れてしまう場合はここを増やします。デフォルト: 1000
 
 mqttReconnectTime
-: MQTT Nodes - if the connection is lost, how long to wait, in milliseconds,
-  before attempting to reconnect. Default: 5000
+: MQTT Nodeの接続が切断された場合の再接続までの待機時間。デフォルト: 5000ミリ秒（5秒）
 
 serialReconnectTime
-: Serial Nodes - how long to wait, in milliseconds, before attempting to reopen
-  a serial port. Default: 5000
+: Serial Nodeの接続が切断された場合の再接続までの待機時間。デフォルト: 5000ミリ秒（5秒）
 
 socketReconnectTime
-: TCP Nodes - how long to wait, in milliseconds, before attempting to reconnect.
-  Default: 10000
+: TCP Nodeの接続が切断された場合の再接続までの待機時間。
+  デフォルト: 10000ミリ秒（10秒）
 
 socketTimeout
-: TCP Nodes - how long to wait, in milliseconds, before timing out a socket.
-  Default: 120000
+: TCP Nodeのタイムアウト時間。デフォルト: 120000ミリ秒（120秒）

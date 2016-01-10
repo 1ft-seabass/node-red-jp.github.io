@@ -3,12 +3,13 @@ layout: default
 title: Getting Started
 ---
 
-This guide will help you get Node-RED installed and running in just a few minutes.
+わずか数分でNode-REDをインストールして実行するためのガイドです。
 
-1. [Installation](installation.html)
-2. [Upgrading](upgrading.html)
-3. [Running](running.html)
-4. [Creating your first flow](first-flow.html)
-5. [Creating your second flow](second-flow.html)
+- [インストール](getting-started/installation.html)
+- [実行](getting-started/running.html)
+- [Nodeの追加](getting-started/adding-nodes.html)
+- [アップグレード](getting-started/upgrading.html)
+- [はじめてのFlow](getting-started/first-flow.html)
+- [Flow作成](getting-started/second-flow.html)
 
 
