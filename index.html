@@ -17,21 +17,21 @@ layout: barebones
     <div class="grid">
         <div class="col-1-2">
             <div class="content blurb" style="margin-top: 30px;">
-            <p>Node-RED is a tool for wiring together hardware devices, APIs and online services in new and interesting ways.</p>
+            <p>Node-REDはハードウェアデバイス/APIおよびオンラインサービスを接続するためのツールです。</p>
             <p><h3>Getting Started</h3></p>
-            <p>For Linux/OS X, if you already have Node.js installed, run:</p>
+            <p>Linux/OS Xで既にNode.jsをインストールしている場合は以下を実行します。</p>
             <pre style="background: #666; color: #eee; padding: 10px; border-radius:3px">
 $ sudo npm install -g node-red
 $ node-red
 </pre>
-             <p>Otherwise, head over to the <a href="docs/getting-started/">Getting Started guide</a>.</p>
-             <p>Already got Node-RED installed and wonder where the download button has gone? Head over to the <a href="docs/getting-started/upgrading.html">Upgrading guide</a>.</p>
+             <p>それ以外の場合は<a href="docs/getting-started/">Getting Started</a>をご覧ください。</p>
+             <p>既にNode-REDをインストール済みでアップグレードする場合は<a href="docs/getting-started/upgrading.html">Upgrading</a>をご覧ください。</p>
             </div>
         </div>
         <div class="col-1-2">
             <div class="content feature" style="margin-top: 40px;">
                 <img style="box-shadow: 10px 10px 30px #999;" src="images/node-red-screenshot-sm.png" />
-             <p>Latest version: <a href="https://www.npmjs.com/package/node-red"><span class="node-red-latest-version">v0.11.1</span> (npm)</a></p>
+             <p>最新バージョン <a href="https://www.npmjs.com/package/node-red"><span class="node-red-latest-version">v0.12.5</span> (npm)</a></p>
             </div>
         </div>
     </div>
@@ -45,19 +45,19 @@ $ node-red
         </div>
         <div class="col-1-2">
             <div class="content blurb">
-                <h3>Browser-based flow editing</h3>
-                <p>Node-RED provides a browser-based flow editor that makes it easy to wire together flows using the wide range nodes in the palette. Flows can be then deployed to the runtime in a single-click.</p>
-                <p>JavaScript functions can be created within the editor using the a rich text editor.</p>
-                <p>A built-in library allows you to save useful functions, templates or flows for re-use.</p>
+                <h3>ブラウザ上でFlowを編集</h3>
+                <p>Node-REDが提供するブラウザ上のFlowエディタは、あらゆるNode（プラグイン/モジュール）を大きなワークスペースに配置して接続することで、簡単にハードウェアデバイス/APIおよびオンラインサービスを接続することができます。また、作成したFlowはシングルクリックで簡単に実行環境へデプロイできます。</p>
+                <p>リッチテキストエディタでJavascriptプログラミングが行えるNodeでプログラムを作成することもできます。</p>
+                <p>作成したテンプレートやFlowはエディタに組込まれたライブラリへ保存して再利用することができます。</p>
             </div>
         </div>
     </div>
     <div class="grid">
         <div class="col-1-2">
             <div class="content blurb">
-                <h3>Built on Node.js</h3>
-                <p>The light-weight runtime is built on Node.js, taking full advantage of its event-driven, non-blocking model. This makes it ideal to run at the edge of the network on low-cost hardware such as the Raspberry Pi as well as in the cloud.</p>
-                <p>With over 120,000 modules in Node's package repository, it is easy to extend the range of palette nodes to add new capabilities.</p>
+                <h3>Node.js上に構築</h3>
+                <p>Node-REDはイベント駆動型/ノンブロッキングモデルをフル活用するためにNode.js上に構築されています。これは、ネットワークのエッジに置くRaspberry Piのような低コストのハードウェアだけでなくクラウド上で実行することにおいても理想的です。</p>
+                <p>また、既にたくさん存在するNode.jsモジュールを利用して、Node-REDの新しい機能を簡単に拡張することができます。</p>
             </div>
         </div>
         <div class="col-1-2">
@@ -70,9 +70,9 @@ $ node-red
         </div>
         <div class="col-1-2">
             <div class="content blurb">
-                <h3>Social Development</h3>
-                <p>The flows created in Node-RED are stored using JSON which can be easily imported and exported for sharing with others.</p>
-                <p>An online flow library allows you to share your best flows with the world.</p>
+                <h3>Flowの共有</h3>
+                <p>Node-REDで作成したFlowは簡単に他の人と共有するために、JSONを利用してインポートおよびエクスポートすることができます。</p>
+                <p><a href="http://flows.nodered.org/" target="_blank">オンラインFlowライブラリ</a>では、あなたの作成したFlowを世界中に共有することができます。</p>
             </div>
         </div>
     </div>
@@ -80,39 +80,43 @@ $ node-red
 <!-- Nodes -->
 <div class="nodes">
     <div class="grid">
-        <div class="content headline"><h3>A selection of the nodes available</h3></div>
+        <div class="content headline"><h3>利用可能なNode</h3></div>
         <div class="col-1-2">
-            <div class="content"><div class="node-image"><img src="images/nr-node-6.png"/></div><div class="node-block"><h3>Transform</h3><h4>JS Functions <br/> Mustache Templates</h4></div></div>
-            <div class="content"><div class="node-image"><img src="images/nr-node-4.png"/></div><div class="node-block"><h3>Social</h3><h4>Twitter &bull; Twilio <br/> Email &bull; IRC &bull; XMPP</div></div>
-            <div class="content"><div class="node-image"><img src="images/nr-node-5.png"/></div><div class="node-block"><h3>Storage</h3><h4>Filesystem &bull; MongoDB <br/> MySQL &bull; PostgreSQL  </div></div>
+            <div class="content"><div class="node-image"><img src="images/nr-node-6.png"/></div><div class="node-block"><h3>変換</h3><h4>JS Functions <br/> Mustache テンプレート</h4></div></div>
+            <div class="content"><div class="node-image"><img src="images/nr-node-4.png"/></div><div class="node-block"><h3>ソーシャル</h3><h4>Twitter &bull; Twilio <br/> Email &bull; IRC &bull; XMPP</div></div>
+            <div class="content"><div class="node-image"><img src="images/nr-node-5.png"/></div><div class="node-block"><h3>ストレージ</h3><h4>ファイルシステム &bull; MongoDB <br/> MySQL &bull; PostgreSQL  </div></div>
         </div>
         <div class="col-1-2">
-            <div class="content"><div class="node-image"><img src="images/nr-node-1.png"/></div><div class="node-block"><h3>Network</h3><h4>HTTP &bull; TCP <br/> UDP &bull; MQTT</h4></div></div>
-            <div class="content"><div class="node-image"><img src="images/nr-node-3.png"/></div><div class="node-block"><h3>Hardware</h3><h4>Raspberry Pi <br/> BeagleBone Black</h4></div></div>
-            <div class="content"><div class="node-image"><img src="images/nr-node-2.png"/></div><div class="node-block"><h3>Analysis</h3><h4>Sentiment <br/> Statistics</h4></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="links">
-    <div class="grid">
-        <div class="col-1-2">
-            <div class="content"><a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a> <a href="http://github.com/node-red/node-red">Find the code on GitHub</a></div>
-            <div class="content"><a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a> <a href="http://twitter.com/nodered">Follow us on Twitter</a></div>
-        </div>
-        <div class="col-1-2">
-            <div class="content"><a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a> <a href="https://groups.google.com/forum/#!forum/node-red">Join the mailing list</a></div>
-            <div class="content"><a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a> <a href="http://blog.nodered.org/rss">Subscribe to the blog</a></div>
+            <div class="content"><div class="node-image"><img src="images/nr-node-1.png"/></div><div class="node-block"><h3>ネットワーク</h3><h4>HTTP &bull; TCP <br/> UDP &bull; MQTT</h4></div></div>
+            <div class="content"><div class="node-image"><img src="images/nr-node-3.png"/></div><div class="node-block"><h3>ハードウェア</h3><h4>Raspberry Pi <br/> BeagleBone Black</h4></div></div>
+            <div class="content"><div class="node-image"><img src="images/nr-node-2.png"/></div><div class="node-block"><h3>分析</h3><h4>Sentiment <br/> Statistics</h4></div></div>
         </div>
     </div>
 </div>
-
 
 <div class="footer">
-    <div class="grid">
-        <div class="content">
-            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
-            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+    <div class="links">
+        <div class="grid">
+            <div class="col-1-3">
+                <p><a href="http://nodered.org">Node-RED</a> is a visual wiring tool for the Internet of Things.</p>
+                <p>A creation of <a href="http://ibm.com/blogs/et" target="_blank">IBM Emerging Technologies</a></p>
+            </div>
+            <div class="col-1-6">
+                <ul>
+                    <li><a href="http://github.com/node-red/node-red" target="_blank">GitHub</a></li>
+                    <li><a href="https://www.npmjs.com/package/node-red" target="_blank">npm</a></li>
+                    <li><a href="http://twitter.com/nodered" target="_blank">Twitter</a></li>
+                    <li><a href="https://groups.google.com/forum/#!forum/node-red" target="_blank">メーリングリスト</a></li>
+                </ul>
+            </div>
+            <div class="col-1-6">
+                <ul>
+                    <li><a href="http://blog.nodered.org" target="_blank">ブログ</a></li>
+                    <li><a href="http://flows.nodered.org" target="_blank">Flowライブラリ</a></li>
+                    <li><a href="https://nodered.jp/docs">ドキュメント</a></li>
+                    <li><a href="https://nodered.jp/docs/api">API</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
