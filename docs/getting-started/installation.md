@@ -5,50 +5,45 @@ title: インストール
 
 ### Node.jsのインストール
 
-Node-REDはNode.js <code>0.10.x</code> と <code>0.12.x</code>をサポートしています。
+Node-REDはNode.js <code>0.10.x</code> 以降をサポートしています。
 
-<div class="doc-callout"><em>Note</em>:  Node <code>0.12.x</code> のサポートは、Node-RED <code>0.11.0</code>で追加されました。
-我々の作成したコアランタイムとノードはテスト済みですが、サードパーティのノードに関してはサポートしていない可能性があります。</div>
+<div class="doc-callout"><em>Note</em>:  Node.js <code>5.x</code> 及び NPM <code>3.x</code> は現在活発に開発されており、安定した環境を求める場合はお勧めできません。多くのサードパーティのNodeパッケージ、特にバイナリコンポーネントが含まれている場合はNode.js 5.xをサポートしていない可能性があります。わからない場合はパッケージの作成者に確認してください。</div>
 
-<div class="doc-callout"><em>Note</em>: 我々は現在、node.js v4.x.x or versions of io.jsをサポートしていません。</div>
+Node <code>4.x</code> の最新の長期サポート（LTS）バージョンは以下からダウンロードできます。:
 
-Node <code>0.12.x</code> の最新版は以下からダウンロードできます。:
+- Linux Binaries: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-linux-x86.tar.gz) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-linux-x64.tar.gz)
+- Max OS X Installer: [Universal](https://nodejs.org/dist/latest-v4.x/node-v4.5.0.pkg)
+- Windows Installer: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-x86.msi) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-x64.msi)
 
- - Linux Binaries: [32-bit](https://nodejs.org/dist/v0.12.7/node-v0.12.7-linux-x86.tar.gz)
-                   or
-                   [64-bit](http://nodejs.org/dist/v0.12.7/node-v0.12.7-linux-x64.tar.gz)
- - Max OS X Installer: [Universal](https://nodejs.org/dist/v0.12.7/node-v0.12.7.pkg)
- - Windows Installer: [32-bit](https://nodejs.org/dist/v0.12.7/node-v0.12.7-x86.msi)
-                      or
-                      [64-bit](https://nodejs.org/dist/v0.12.7/x64/node-v0.12.7-x64.msi)
+お使いのオペレーティングシステム用の [パッケージ版](https://nodejs.org/en/download/package-manager/) を使用するのが最も簡単です。
 
-他のダウンロード元は [ここ](http://nodejs.org/dist/v0.12.7/)にあります。
-
-OSのパッケージマネージャからインストールする場合は [ここ](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)をご参照ください。
-
-ハードウェアへのインストール方法は、以下を参照してください。:
+ハードウェアへのインストール方法は、以下を参照してください。
 
  - [Raspberry Pi](../hardware/raspberrypi.html)
  - [BeagleBone Black](../hardware/beagleboneblack.html)
 
+他のダウンロード元は [ここ](https://nodejs.org/dist/latest-v4.x/)にあります。
+
 ### Node-REDをインストールする
 
-Node-RED 0.10.4 以降では, Node-REDをインストールする最も簡単な方法は、nodeのパッケージマネージャであるnpmを使用する方法です。
-グローバルインストールで、`node-red`コマンドをシステムに加えるには以下の命令を行ってください。:
+Node-REDをインストールする最も簡単な方法は、nodeのパッケージマネージャであるnpmを使用する方法です。
+グローバルインストールで`node-red`コマンドをシステムに加えるには以下の命令を行ってください。
 
     sudo npm install -g --unsafe-perm node-red
 
 <div class="doc-callout">
+<em>Note</em>: Node-REDのインストールに<code>npm 1.1</code>を使用しないでください。次のコマンドで最新の<code>npm 2.x</code>にバージョンアップしてください: <code>sudo npm install -g npm@2.x</code><br />
 <em>Note</em>: <code>sudo</code> はLinux/OS Xでルートユーザ以外のユーザとして実行するときに必要となるコマンドです。Windowsで実行するときは、<a href="https://technet.microsoft.com/en-gb/library/cc947813%28v=ws.10%29.aspx">Administratorとしてコマンドプロンプトから</a>,
-<code>sudo</code>コマンドを使わずに実行してください。
-</div>
-
-<div class="doc-callout">
+<code>sudo</code>コマンドを使わずに実行してください。<br />
 <em>Note</em>: インストール中、いくつかのエラーが<code>node-gyp</code>コマンドから報告される可能性があります。
 それらのエラーは概して<em>致命的ではない</em> エラーであり、それらのエラーはオプショナルな依存性に関係しており、それらを構築するためのコンパイラを要求しています。
  <b>Node-RED はそれらのオプショナルな依存性にかかわらず動きます。</b>しかしnodeモジュールを追加する際にネイティブコードをコンパイルする必要がある場合があります。 <code>node-gyp</code>
 のインストール方法は <a href="https://github.com/TooTallNate/node-gyp#installation">ここ</a>に記述されています。
 </div>
+
+#### 次のステップ
+
+インストールが終わったら[Node-REDの実行](running.html)を行います。
 
 ### 他のインストール方法
 
@@ -56,7 +51,7 @@ Node-RED 0.10.4 以降では, Node-REDをインストールする最も簡単な
 
 最新版は[ここ](https://github.com/node-red/node-red/releases/latest)からダウンロードできます。
 このzipファイルは`node-red-X.Y.Z` (`X.Y.Z`はバージョンナンバー) という最上位フォルダを持っています。
-展開した後、最上位フォルダの中から、以下のコマンドを実行してください。:
+展開した後、最上位フォルダの中から、以下のコマンドを実行してください。
 
     npm install --production
 
@@ -64,11 +59,11 @@ Node-RED 0.10.4 以降では, Node-REDをインストールする最も簡単な
 
 GitHubからコードを実行するのは、開発コードの使用が好きな方か、コード開発に参加したい方にのみおすすめします。
 
-GitHubからソースリポジトリをクローンするには以下のコマンドを実行します。:
+GitHubからソースリポジトリをクローンするには以下のコマンドを実行します。
 
     git clone https://github.com/node-red/node-red.git
 
-クローンが終わったら、前もって必要なモジュールはインストールされているので以下のコマンドを実行します:
+クローンが終わったら、前もって必要なモジュールはインストールされているので以下のコマンドを実行します。
 
     cd node-red
     npm install
@@ -87,6 +82,13 @@ GitHubからソースリポジトリをクローンするには以下のコマ�
     grunt build
     node red
 
-### 次のステップ
+#### シリアルポート
 
-インストールが終わったら、[Node-REDの実行](running.html)を行います。
+Node.js v0.10.xを使用していてシリアルポートのNodeを使用する場合、またはNode.js v0.12.x場合は、手動でシリアルポートNodeの古いバージョンをインストールする必要があります。
+
+    cd $HOME/.node-red
+    npm install node-red-node-serialport@0.0.5
+
+#### 次のステップ
+
+インストールが終わったら[Node-REDの実行](running.html)を行います。
