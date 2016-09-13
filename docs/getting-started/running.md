@@ -1,10 +1,9 @@
 ---
 layout: default
-title: Running
+title: 起動
 ---
 
-If you have installed Node-RED as a global npm package, you can use the `node-red`
-command:
+グローバルnpmパッケージとしてインストールしたNode-REDは`node-red`コマンドで起動できます。
 
     $ node-red
 
@@ -24,72 +23,61 @@ command:
     25 Feb 22:51:10 - [info] Starting flows
     25 Feb 22:51:10 - [info] Started flows
 
-You can then access the Node-RED editor at <http://localhost:1880>.
+次にNode-REDエディタにアクセスします。 <http://localhost:1880>.
 
-There are specific instructions available for certain hardware platforms:
+以下は特定のハードウェア・プラットフォームで実行するためのガイドです。
 
  - [Raspberry Pi](../hardware/raspberrypi.html#starting-node-red)
  - [BeagleBone Black](../hardware/beagleboneblack.html)
 
-#### Running from a local install - Linux & Mac OS X
+#### ローカルインストール時の実行方法 - Linux & Mac OS X
 
-The `node-red` command can still be accessed even if Node-RED hasn't been installed
-as a global npm package.
+`node-red` はNode-REDをグローバルnpmパッケージとしてインストールしていなくても利用可能です。
 
-If you have npm installed Node-RED, this script will be `node_modules/node-red/bin/node-red`,
-relative to the directory you ran `npm install` in. If you have installed from a
-release zip file, the script will be `node-red-X.Y.Z/bin/node-red`, relative to
-the directory you extracted the zip into.
+コマンドスクリプトの実体はNode-REDをローカルnpmパッケージとしてインストールした場合は `npm install` したディレクトリから相対パスで `node_modules/node-red/bin/node-red` に存在します。また、リリースされたzipファイルからインストールした場合はzipファイルを展開したディレクトリから相対パスで `node-red-X.Y.Z/bin/node-red` に存在します。
 
-First make the `node-red` start script executable:
+まずは `node-red` コマンドに実行権限を与えます。
 
     chmod +x <node-red-install-directory>/bin/node-red
 
-Then you can start Node-RED with:
+するとNode-REDを起動できるようになります。
 
     <node-red-install-directory>/bin/node-red
 
-#### Running from a local install - Windows
+#### ローカルインストール時の実行方法 - Windows
 
-On Windows, run the following command from the same directory you ran `npm install`
-in, or that you extracted the release zip file:
+Windowsではインストールディレクトリから次のコマンドを実行します。
 
     node node_modules/node-red/red.js
 
 
-### Command-line usage
+### コマンドラインの使用方法
 
-    Usage: node-red [-v] [-?] [--settings settings.js] [--userDir DIR] [flows.json]
+    使用方法: node-red [-v] [-?] [--settings settings.js] [--userDir DIR] [flows.json]
 
-    Options:
-      -s, --settings FILE  use specified settings file
-      -u, --userDir  DIR   use specified user directory
-      -v                   enable verbose output
-      -?, --help           show usage
+    オプション:
+      -s, --settings FILE  設定ファイルのパスを指定する
+      -u, --userDir  DIR   ユーザディレクトリのパスを指定する
+      -v                   詳細ログの表示
+      -?, --help           使用方法の確認
 
-#### Storing user data
+#### ユーザディレクトリ
 
-By default, Node-RED stores your data in the directory `$HOME/.node-red`. For
-backwards compatibility reasons, if Node-RED detects user data in its install
-directory, it will use that instead. The [upgrading](upgrading.html) documentation
-includes a section on migrating your data out of the Node-RED install directory.
+デフォルトのユーザディレクトリは `$HOME/.node-red` です。
+Node-REDは後方互換性の理由からインストールディレクトリでユーザデータを発見した場合は優先的に参照します。[アップグレード](upgrading.html) ドキュメントにNode-REDインストールディレクトリからのデータ移行方法が含まれています。
 
-To override what directory to use, the `--userDir` command-line option can be used.
+ユーザディレクトリのパスは `--userDir` コマンドラインオプションで変更可能です。
 
-#### Passing arguments to the underlying node.js process
+#### Node-REDが動作するNode.jsプロセスへのパラメータの渡し方
 
-There are occasions when it is necessary to pass arguments to the underlying
-node.js process. For example, when running on devices like the Raspberry Pi or
-BeagleBone Black that have a constrained amount of memory.
+メモリの使用量に制約があるRaspberry PiやBeagleBone BlackなどのデバイスでNode-REDを動作させる場合はNode-REDが動作するNode.jsプロセスにパラメータを渡す必要があります。
 
-To do this, you must use the `node-red-pi` start script in place of `node-red`.
-_Note_: this script is not available on Windows.
+また、起動スクリプトは `node-red` コマンドの代わりに `node-red-pi` 利用しなければいけません。
+_Note_: このスクリプトはWindowsでは利用できません。
 
-Alternatively, if are running Node-RED using the `node` command, you must provide
-arguments for the node process before specifying `red.js` and the arguments you
-want passed to Node-RED itself.
+ `node` コマンドでNode-REDを起動している場合は `red.js` の前にパラメータを指定する必要があります。
 
-The following two commands show these two approaches:
+具体的には以下のようなコマンドになります。
 
     node-red-pi --max-old-space-size=128 --userDir /home/user/node-red-data/
     node --max-old-space-size=128 red.js --userDir /home/user/node-red-data/
@@ -97,104 +85,87 @@ The following two commands show these two approaches:
 
 ### Starting Node-RED on boot
 
-There are many methods of starting, stopping and monitoring applications at boot
-time. The guide below sets out what we believe to be the most straight-forward for
-the majority of users. For Windows PM2 does not autorun as a service -
-you may prefer the [NSSM option](#alternative-options) below.
+開始/停止および起動時にアプリケーションを監視する方法が多くあります。Raspberry Piのユーザーに特にお勧めします。以下のガイドは最も率直な方法だと思います。Windowsの場合、PM2はサービスとして自動的に実行されないので[NSSMオプション](#alternative-options)が良いかもしれません。
 
 #### Using PM2
 
-[PM2](https://github.com/Unitech/pm2) is a process manager for Node.js. It makes
-it easy to run applications on boot and ensure they are restarted if necessary.
+[PM2](https://github.com/Unitech/pm2)はNode.jsのプロセスマネージャです。必要に応じて再起動を保証するように起動することも簡単にできます。
+
+<em>Note</em>: PM2はGNU AGPL-3.0ライセンスの下で公開されています - 利用する前にライセンスの条件をご確認ください。
+</div>
 
 ##### 1. Install PM2
 
     sudo npm install -g pm2
 
 <div class="doc-callout">
-<em>Note</em>: <code>sudo</code> is required if running as a non-root user on Linux/OS X. If
-running on Windows, you will need to run in a <a href="https://technet.microsoft.com/en-gb/library/cc947813%28v=ws.10%29.aspx">command shell as Administrator</a>,
-without the <code>sudo</code> command.
+<em>Note</em>: Linux/OS X上でroot以外のユーザーとして実行している場合に <code>sudo</code> が必要です。Windows上で実行している場合は <code>sudo</code> コマンドなしで<a href="https://technet.microsoft.com/en-gb/library/cc947813%28v=ws.10%29.aspx">管理者としてコマンドシェル</a>で実行する必要があります。
 </div>
 
 <div class="doc-callout">
-If running on Windows, you should also ensure <code>tail.exe</code> is on your path, as
-described <a href="https://github.com/Unitech/PM2/blob/development/ADVANCED_README.md#windows">here</a>.
+Windows上で実行している場合、 <a href="https://github.com/Unitech/PM2/blob/development/ADVANCED_README.md#windows">ここ</a>に記載されているように　<code>tail.exe</code> がパス上に存在することを確認する必要があります。
 </div>
 
-##### 2. Determine the exact location of the `node-red` command.
+##### 2. Node-REDコマンドの場所
 
-If you have done a global install of node-red, then on Linux/OS X the `node-red`
-command will probably be either: `/usr/bin/node-red` or `/usr/local/bin/node-red`.
-The command `which node-red` can be used to confirm the location.
+Linux/OS XにNode-REDをグローバルnpmインストールしている場合の `node-red`
+コマンドの実体へのパスは `/usr/bin/node-red` か `/usr/local/bin/node-red` です。
+いずれにしても `which node-red` コマンドで確認できます。
 
-If you have done a local install, it will be `node_modules/node-red/bin/node-red`,
-relative to where you ran `npm install` from.
+Node-REDをローカルnpmインストールしている場合は `npm install` インストールしたディレクトリからの相対位置で `node_modules/node-red/bin/node-red` となります。
 
-##### 3. Tell PM2 to run Node-RED
+##### 3. PM2にNode-REDコマンドを指定
 
-The following command tells PM2 to run Node-RED, assuming `/usr/bin/node-red` as
-the location of the `node-red` command.
+次のコマンドはPM2に `node-red` コマンドの位置を通知しています。
 
-The `--` argument must appear before any arguments you want to pass to node-red.
+Node-REDに渡したい任意のオプションは `--` の前に指定しなければいけません。
 
     pm2 start /usr/bin/node-red -- -v
 
 <div class="doc-callout">
-<em>Note</em>: if you are running on a device like the Raspberry Pi or BeagleBone
-Black that have a constrained amount of memory, you must pass an additional argument:
+<em>Note</em>: メモリの使用量に制約があるRaspberry PiやBeagleBone BlackなどのデバイスでNode-REDを動作させる場合はNode-REDが動作するNode.jsプロセスにパラメータを渡す必要があります。
 
 <pre>pm2 start /usr/bin/node-red --node-args="--max-old-space-size=128" -- -v</pre>
 </div>
 
-<div class="doc-callout">
-<em>Note</em>: if you want to run as the root user, you must use the `--userDir`
-option to specify where Node-RED should store your data.
-</div>
-
-This will start Node-RED in the background. You can view information about the
-process and access the log output using the commands:
+以下はバックグラウンドでのNode-REDを起動しているプロセスに関する情報を表示したりログにアクセスすることができます。
 
     pm2 info node-red
     pm2 logs node-red
 
-More information about managing processes under PM2 is available [here](https://github.com/Unitech/pm2#process-management).
+PM2のプロセス管理についての詳細は[こちら](https://github.com/Unitech/pm2#process-management)をご覧ください。
 
+##### 4. PM2起動スクリプト
 
-##### 4. Tell PM2 to run on boot
+PM2は実行されているプラ​​ットフォームに適した起動スクリプトを作成することが可能です。
 
-PM2 is able to generate and configure a startup script suitable for the platform
-it is being run on.
-
-Run these commands and follow the instructions it provides:
+以下のコマンドを実行して提供される指示に従ってください。
 
     pm2 save
     pm2 startup
 
-for newer Linux systems that use **systemd** use
+**systemd** を利用するには以下のようにします。
 
     pm2 startup systemd
 
 <div class="doc-callout">
-<em>Temporary Note:</em> There's an <a href="https://github.com/Unitech/PM2/issues/1321" target="_new">
-open issue</a> on PM2 on GitHub which highlights an issue that has been introduced recently.
-Linux users need to manually edit the generated `/etc/init.d/pm2-init.sh` file and replace
+<em>Temporary Note:</em> PM2のGitHubに<a href="https://github.com/Unitech/PM2/issues/1321" target="_new">
+open issue</a>があります。Linuxユーザは手動で<code>/etc/init.d/pm2-init.sh</code>ファイルを修正する必要があります。
 
 <pre>export PM2_HOME="/root/.pm2"</pre>
 
-to point at the correct directory, which would be like:
+上記部分を以下のように修正します。
 
 <pre>export PM2_HOME="/home/{youruser}/.pm2"</pre>
 </div>
 
-##### 5. Reboot
+##### 5. 再起動
 
-Finally, reboot and check everything starts as expected.
+全てが期待通り起動したら再起動の確認もしてください。
 
-#### Alternative options
+#### その他の方法
 
-There are many alternative approaches. The following are some of those created
-by members of the community.
+他にも以下の様な様々なアプローチがあります。
 
  - [An init.d script](https://gist.github.com/bigmonkeyboy/9962293)  by dceejay (linux)
  - [An init.d script](https://gist.github.com/Belphemur/cf91100f81f2b37b3e94) by Belphemur (linux)
