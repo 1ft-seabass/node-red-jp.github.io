@@ -11,7 +11,7 @@ Node-REDを設定するために以下のプロパティが利用できます。
  - デフォルトのユーザディレクトリ`$HOME/.node-red/settings.js`
  - Node-REDがインストールされたディレクトリ
 
-Node-REDにはユーザが指定する`settings.js`が存在しない場合に使用するデフォルトの`settings.js`ファイルが含まれています。また、独自の`settings.js`の雛形として使用できます。[here](https://github.com/node-red/node-red/blob/master/settings.js)のGitHub上でも確認できます。
+Node-REDにはユーザが指定する`settings.js`が存在しない場合に使用するデフォルトの`settings.js`ファイルが含まれています。また、独自の`settings.js`の雛形として使用できます。[GitHub上](https://github.com/node-red/node-red/blob/master/settings.js)でも確認できます。
 
 [既存アプリケーションへの組込み](embedding.html)の場合、`settings`プロパティは`RED.init()`の呼び出しでNode-REDへ渡されます。ただ、このモードで実行すると特定のプロパティは無視されます。
 
@@ -24,7 +24,7 @@ userDir
 : Flow設定をファイルに保存する場合のファイルへのPathです。デフォルト: `$HOME/.node-red`
 
 nodesDir
-: 自作のNodeなどを追加するディレクトリを指定できます。ここで指定したディレクトリ内にNodeの`.js`と`.html`ファイルを配置するとNode-REDのパレットに表示されるようになります。
+: 自作のNodeなどを追加するディレクトリを指定できます。ここで指定したディレクトリ内にNodeの`.js`と`.html`ファイルを配置するとNode-REDのパレットに表示されるようになります。Node-REDの外部のPathも指定できます。デフォルト: `$HOME/.node-red/nodes`
 
 uiHost
 : ホストです。デフォルト: `0.0.0.0` -
@@ -130,6 +130,48 @@ paletteCategories
       ['subflows', 'input', 'output', 'function', 'social', 'storage', 'analysis', 'advanced'],
 
    _Note_: Sub Flowを作成するまでSub Flowカテゴリは空のままでパレットには表示されません。
+
+### Editorテーマ
+
+Editorのテーマは次の設定オブジェクトを使用して変更することができます。すべての項目はオプションです。
+
+    editorTheme: {
+        page: {
+            title: "Node-RED",
+            favicon: "/absolute/path/to/theme/icon",
+            css: "/absolute/path/to/custom/css/file"
+        },
+        header: {
+            title: "Node-RED",
+            image: "/absolute/path/to/header/image", // or null to remove image
+            url: "http://nodered.org" // optional url to make the header text/image a link to this url
+        },
+        deployButton: {
+            type:"simple",
+            label:"Save",
+            icon: "/absolute/path/to/deploy/button/image" // or null to remove image
+        },
+        menu: { // Hide unwanted menu items by id. see editor/js/main.js:loadEditor for complete list
+            "menu-item-import-library": false,
+            "menu-item-export-library": false,
+            "menu-item-keyboard-shortcuts": false,
+            "menu-item-help": {
+                label: "Alternative Help Link Text",
+                url: "http://example.com"
+            }
+        },
+        userMenu: false, // Hide the user-menu even if adminAuth is enabled
+        login: {
+            image: "/absolute/path/to/login/page/big/image" // a 256x256 image
+        }
+    },
+
+### ダッシュボード
+
+ui
+: Node-RED-Dashboard のホームPathです。 これは **httpNodeRoot** の相対パスとなります。
+
+    ui : { path: "mydashboard" },
 
 ### Nodeの設定
 
