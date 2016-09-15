@@ -1,54 +1,56 @@
 ---
 layout: default
-title: Upgrading
+title: アップグレード
 ---
 
-If you have installed Node-RED as a global npm package, you can upgrade to the
-latest version with the following command:
+<div class="doc-callout"><em>Note</em>: Raspian JessieにプリインストールされているNode-REDをお使いの場合は<a href="/docs/hardware/raspberrypi#upgrading">アップグレード手順</a>を参照してください。</div>
 
+現在、我々はnpmバージョン2を利用することをお勧めしています。アップグレードする前に `npm -v` コマンドを実行してインストールされているnpmのバージョンを確認してください。
+
+    sudo npm i -g npm@2.x
+    hash -r
+
+グローバルnpmパッケージとしてのNode-REDをインストールしている場合は、次のコマンドを使用して最新のバージョンにアップグレードすることができます。
+
+    sudo npm cache clean
     sudo npm update -g --unsafe-perm node-red
 
-### Upgrading node.js
+### Node.jsのアップグレード
 
-If you upgrade node.js, for example from v0.10.x to v0.12.x, it is better to
-re-install Node-RED as follows:
+Node.jsを `v0.10.x` から `v4.3.x` にアップグレードする場合は次のようにNode-REDを再インストールすることをお勧めします。
 
     sudo npm cache clean
     sudo npm install -g --unsafe-perm node-red
 
-### Upgrading from before Node-RED 0.10.4
+----
 
-In releases prior to 0.10.4, the default behaviour was to write user data into
-the Node-RED install directory. This made upgrading a painful experience. The
-following guide takes you through moving your existing data out of the install
-directory.
+### Node-REDバージョン0.10.4以前からのアップグレード
 
-1. Choose where you want to store your data. By default, Node-RED 0.10.4 will
-   use `$HOME/.node-red`, but you can override that with the `--userDir` option.
+バージョン0.10.4以前のNode-REDはデフォルトでインストールディレクトリにユーザデータを書き込んでいました。以降のバージョンではこの構造が変わりました。以下はユーザデータの移行方法です。
 
-2. Take a back-up copy of the entire Node-RED install directory, just in case.
+1. ユーザデータを保存する場所を選択します。Node-REDバージョン0.10.4以降ではデフォルトで `$HOME/.node-red` ですが、Node-RED起動時の `--userDir` オプションで任意の場所を指定できます。
 
-3. Move the following files from the Node-RED install directory to your chosen
-   user data directory:
+2. 念のためNode-REDインストールディレクトリ全体のバックアップコピーを取ります。
 
-   - `settings.js` - if you have customised it
-   - all files beginning with `flows_`
+3. 選択したユーザーデータディレクトリにNode-REDインストールディレクトリに存在する以下のファイルを移動します。
+
+   - `settings.js` - カスタマイズしている場合
+   - `flows_` で始まる全てのファイル
    - `.config.json`
-   - `.sessions.json` - if it exists
-   - the entire `lib/` directory
-   - any additional nodes you have manually installed under the `nodes/` directory
+   - `.sessions.json` - 存在する場合
+   - `lib/` ディレクトリ全体
+   - `nodes/` ディレクトリ全体（手動でインストールされている任意の追加ノード）
 
-4. With your data moved, ensure that the new directory and the files within it are
-owned by and writeable by the user that you use to run Node-RED.
+4. 移動先のディレクトリとファイルにNode-REDが書き込み権限を持っていることを確認します。
 
-5. Delete the old Node-RED install directory and install the
-   new version following the [install instructions](installation.html).
+5. [インストール手順](installation)に従い新しいバージョンのNode-REDをインストールして古いバージョンのNode-REDを削除します。
 
-6. If you had npm-installed any additional nodes, or manually copied in nodes
-   which have their own npm dependencies, you will need to [reinstall them](adding-nodes.html).
+6. 特定のnpmパッケージに依存しているNodeを手動でインストールしていた場合は、依存するnpmパッケージを[再インストール](adding-nodes)します。
 
 _Note_: the reason for using the `--unsafe-perm` option is that when node-gyp tries
 to recompile any native libraries it tries to do so as a "nobody" user and then
 fails to get access to certain directories. This causes the nodes in question
 (eg serialport) not to be installed. Allowing it root access during install
 allows the nodes to be installed correctly during the upgrade.
+
+_Note_: node-gypは任意のネイティブライブラリを再コンパイルした場合に"nobody"ユーザが特定のディレクトリのアクセスに失敗したということです。この場合Nodeが正しくインストールされないことがあります（例えばserialport）`--unsafe-perm` オプションを使用することでNodeを正しくインストールできることがあります。

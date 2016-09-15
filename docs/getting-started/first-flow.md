@@ -1,75 +1,60 @@
 ---
 layout: default
-title: Creating your first flow
+title: はじめてのFlow
 ---
 
-#### 1. Add an Inject node
+#### 1. Inject nodeの追加
 
-The Inject node allows you to inject messages into a flow, either by clicking
-the button on the node, or setting a time interval between injects.
+Inject nodeはNode上のボタンをクリック、またはInject間隔を設定することにより、Flowにメッセージを流すことができます。
 
-Drag one onto the workspace from the palette.
+パレットからワークスペース上にInject nodeをドラッグします。
 
-Open the sidebar (Ctrl-Space, or via the dropdown menu) and select the Info tab.
+サイドバー（ `Ctrl` キーを押しながら `Space` キー、またはドロップダウンメニューから）を開きInfoタブを選択します。
 
-Select the newly added Inject node to see information about its properties and a
-description of what it does.
+Nodeのプロパティや振る舞いの情報を表示するには追加したInject nodeを選択します。
 
-#### 2. Add a Debug node
+#### 2. Debug nodeの追加
 
-The Debug node causes any message to be displayed in the Debug sidebar. By
-default, it just displays the payload of the message, but it is possible to
-display the entire message object.
+Debug nodeはサイドバーのDebugタブにメッセージが表示されるNodeです。デフォルトでは `msg.payload` を表示し、設定次第では `msg` （メッセージオブジェクト全体）を表示することもできます。
 
-#### 3. Wire the two together
+#### 3. 2つのNodeをワイヤーでつなぐ
 
-Connect the Inject and Debug nodes together by dragging between the output port
-of one to the input port of the other.
+Inject/Debug node双方のポートをドラッグしてワイヤーでつなぐことで2つのNodeを接続します。
 
-#### 4. Deploy
+#### 4. デプロイ
 
-At this point, the nodes only exist in the editor and must be deployed to the
-server.
+この時点ではNodeはエディタのみしか存在しないのでサーバーにデプロイする必要があります。
 
-Click the Deploy button. Simple as that.
+Deployボタンをクリックするとサーバにデプロイできます。
 
-With the Debug sidebar tab selected, click the Inject button. You should see
-numbers appear in the sidebar. By default, the Inject node uses the number of
-milliseconds since January 1st, 1970 as its payload. Let's do something more
-useful with that.
+サイドバーのDebugタブを選択した状態でInjectボタンをクリックするとDebugタブに数字が表示されるはずです。デフォルトでInject nodeのペイロードは1970年1月1日以降のミリ秒数（タイムスタンプ）をメッセージに流します。それでは、より有用なことをやってみましょう。
 
-#### 5. Add a Function node
+#### 5. Function nodeの追加
 
-The Function node allows you to pass each message though a JavaScript function.
+Function nodeには実際にJavaScriptを書くことができます。
 
-Wire the Function node inbetween the Inject and Debug nodes. You'll need to
-delete the existing wire (select it and hit delete on the keyboard).
+Inject/Debug nodeの間にFunction nodeを配置します。
 
-Double-click on the Function node to bring up the edit dialog. Copy the follow
-code into the function field: 
+配置したFunction nodeをダブルクリックすると設定ダイアログが開きます。Function項目に次のコードをコピーして貼り付けます。
 
 {% highlight javascript %}
-// Create a Date object from the payload
+// Payloadから日付オブジェクトを生成
 var date = new Date(msg.payload);
-// Change the payload to be a formatted Date string
+// 日付文字列に変換して再度Payloadをセット
 msg.payload = date.toString();
-// Return the message so it can be sent on
+// 次のNodeへmsgオブジェクトを返す
 return msg;
 {% endhighlight %}
 
-Click Ok to close the edit dialog and then click the deploy button.
+OKボタンをクリックして設定ダイアログを閉じ、デプロイボタンをクリックしてデプロイします。
 
-Now when you click the Inject button, the messages in the sidebar will be more
-readable time stamps.
+InjectボタンをクリックするとサイドバーのDebugタブに、より読みやすいタイムスタンプが表示されます。
 
 ***
 
-#### Source
+#### ソース
 
-The flow created in this example is represented by the following json. It can be
-imported straight into the editor by pasting the json into the Import dialog
-(Ctrl-I or via the dropdown menu).
+この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは `Ctrl` キーを押しながら `I` キー、またはドロップダウンメニューから選択可能）
 
 
     [{"id":"58ffae9d.a7005","type":"debug","name":"","active":true,"complete":false,"x":640,"y":200,"wires":[]},{"id":"17626462.e89d9c","type":"inject","name":"","topic":"","payload":"","repeat":"","once":false,"x":240,"y":200,"wires":[["2921667d.d6de9a"]]},{"id":"2921667d.d6de9a","type":"function","name":"Format timestamp","func":"// Create a Date object from the payload\nvar date = new Date(msg.payload);\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n// Return the message so it can be sent on\nreturn msg;","outputs":1,"x":440,"y":200,"wires":[["58ffae9d.a7005"]]}]
-    

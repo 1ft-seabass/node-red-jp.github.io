@@ -1,31 +1,25 @@
 ---
 layout: default
-title: Adding Nodes
+title: Nodeの追加
 ---
 
-Node-RED comes with a core set of useful nodes, but there are a growing number
-of additional nodes available for install from both the Node-RED project as well
-as the wider community.
+Node-REDは有用なNodeが標準で付属していますが、Node-REDプロジェクト以外のコミュニティでもNode-REDにインストール可能なNodeが日々増加しています。
 
-You can search for available nodes in the [Node-RED library](http://flows.nodered.org)
-or on the [npm repository](https://www.npmjs.com/browse/keyword/node-red).
+利用可能なNodeは[Node-REDライブラリ](http://flows.nodered.org)や[npm repository](https://www.npmjs.com/browse/keyword/node-red)で探してみましょう。
 
-### Installing npm packaged nodes
+### npmパッケージングされたNodeのインストール方法
 
-To install an npm-packaged node, you can either install it locally within your
-user data directory (by default, `$HOME/.node-red`):
+npmパッケージングされたNodeをインストールするには、ユーザーデータディレクトリ内にローカルインストールするかグローバルインストールすます (デフォルトのユーザーデータディレクトリ, `$HOME/.node-red`):
 
     cd $HOME/.node-red
     npm install <npm-package-name>
 
-or globally alongside Node-RED:
+グローバルインストールの場合:
 
     sudo npm install -g <npm-package-name>
 
-You will need to restart Node-RED for it to pick-up the new nodes.
+新しくインストールしたNodeを反映されるためにはNode-REDを再起動する必要があります。
 
-### Installing individual node files
+### Nodeファイルを配置してインストールする方法
 
-It is also possible to install nodes by copying their `.js` and `.html` files into
-a `nodes` directory within your user data directory. If these nodes have any npm
-dependencies, they must be also be installed within the user data directory.
+ユーザーデータディレクトリ内のノードのディレクトリにインストールするNodeの `.js` や ``.html` ファイルをコピーすることによってNodeをインストールすることも可能です。ただし、インストールするNodeが依存しているnpmパッケージはユーザーデータディレクトリ内にインストールされている必要があります。
