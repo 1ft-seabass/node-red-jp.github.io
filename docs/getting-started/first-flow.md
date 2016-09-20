@@ -9,7 +9,7 @@ Inject nodeはNode上のボタンをクリック、またはInject間隔を設�
 
 パレットからワークスペース上にInject nodeをドラッグします。
 
-サイドバー（ `Ctrl` キーを押しながら `Space` キー、またはドロップダウンメニューから）を開きInfoタブを選択します。
+サイドバーのInfoタブを選択します。
 
 Nodeのプロパティや振る舞いの情報を表示するには追加したInject nodeを選択します。
 
@@ -23,11 +23,11 @@ Inject/Debug node双方のポートをドラッグしてワイヤーでつなぐ
 
 #### 4. デプロイ
 
-この時点ではNodeはエディタのみしか存在しないのでサーバーにデプロイする必要があります。
+この時点ではNodeやFlowはエディタ上にしか存在しないのでサーバーにデプロイする必要があります。
 
 Deployボタンをクリックするとサーバにデプロイできます。
 
-サイドバーのDebugタブを選択した状態でInjectボタンをクリックするとDebugタブに数字が表示されるはずです。デフォルトでInject nodeのペイロードは1970年1月1日以降のミリ秒数（タイムスタンプ）をメッセージに流します。それでは、より有用なことをやってみましょう。
+サイドバーのDebugタブを選択した状態でInjectボタンをクリックするとDebugタブに数字が表示されるはずです。デフォルトでInject nodeのPayloadは1970年1月1日以降のミリ秒数（タイムスタンプ）をメッセージに流します。それでは、より有用なことをやってみましょう。
 
 #### 5. Function nodeの追加
 
@@ -54,7 +54,7 @@ InjectボタンをクリックするとサイドバーのDebugタブに、より
 
 #### ソース
 
-この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは `Ctrl` キーを押しながら `I` キー、またはドロップダウンメニューから選択可能）
+この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは `Ctrl` キーを押しながら `i` キー、またはドロップダウンメニューから選択可能）
 
 
     [{"id":"58ffae9d.a7005","type":"debug","name":"","active":true,"complete":false,"x":640,"y":200,"wires":[]},{"id":"17626462.e89d9c","type":"inject","name":"","topic":"","payload":"","repeat":"","once":false,"x":240,"y":200,"wires":[["2921667d.d6de9a"]]},{"id":"2921667d.d6de9a","type":"function","name":"Format timestamp","func":"// Create a Date object from the payload\nvar date = new Date(msg.payload);\n// Change the payload to be a formatted Date string\nmsg.payload = date.toString();\n// Return the message so it can be sent on\nreturn msg;","outputs":1,"x":440,"y":200,"wires":[["58ffae9d.a7005"]]}]

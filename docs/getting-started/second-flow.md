@@ -3,7 +3,7 @@ layout: default
 title: Flow作成
 ---
 
-今回はもう少し複雑で有益なFlowを作成するために外部ソースからデータを取り込むFlowを作成します。
+今回はもう少し有益なFlowを作成するために外部ソースからデータを取り込むFlowを作成します。
 
  - 外部Webサイトへアクセスします
  - いくつかの情報を取得します
@@ -59,7 +59,7 @@ Function nodeの出力数を<b>2</b>にします。
 
 Debug nodeを2つ追加します。
 
-#### 5. Wire them all together
+#### 5. すべてのNodeをワイヤーで接続
 
   - ワイヤーでInject nodeのOutputポートとHttpRequest nodeのInputポートを接続します
   - ワイヤーでHttpRequest nodeのOutputポートとFunction nodeのInputポートを接続します
@@ -67,11 +67,11 @@ Debug nodeを2つ追加します。
 
 #### 6. デプロイ
 
-この時点ではNodeはエディタのみしか存在しないのでサーバーにデプロイする必要があります。
+この時点ではNodeやFlowはエディタ上にしか存在しないのでサーバーにデプロイする必要があります。
 
 Deployボタンをクリックするとサーバにデプロイできます。
 
-サイドバーのDebugタブを選択（ `Ctrl` キーを押しながら `Space` キー、またはドロップダウンメニューを経由でDebugタブをクリック）してInjectボタンをクリックします。次のような内容のエントリが表示されます。
+サイドバーのDebugタブを選択してInjectボタンをクリックします。次のような内容のエントリが表示されます。
 
     (Object) { "demand": 34819, "frequency": 50.04 }
 
@@ -82,17 +82,17 @@ Deployボタンをクリックするとサーバにデプロイできます。
 
 #### 7. まとめ
 
-これで、イギリスの総電力消費量をWeb経由で取得し、電力需要と周波数をJavaScriptオブジェクトに変換します。
+これでイギリスの総電力消費量をWeb経由で取得し、電力需要と周波数をJavaScriptオブジェクトに変換しました。
 
 このオブジェクトはFunction nodeの1つ目のOutputから出力されます。
 
-この周波数は全体的なストレスの指標です。周波数が50Hz未満の場合、ナショナルグリッド社全体に余分な負荷があるかもしれません。これは、Function nodeの2つ目のOutputから出力されたメッセージが示しています。Payloadが `true` の場合、グリッドの容量があります。
+この周波数は全体的な負荷指標です。周波数が50Hz未満の場合、ナショナルグリッド社全体に余分な負荷があるかもしれません。これはFunction nodeの2つ目のOutputから出力されたメッセージが示しています。Payloadが `true` の場合、グリッドの容量があります。
 
 ***
 
 #### ソース
 
-この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは `Ctrl` キーを押しながら `I` キー、またはドロップダウンメニューから選択可能）
+この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは `Ctrl` キーを押しながら `i` キー、またはドロップダウンメニューから選択可能）
 
 
     [{"id":"11b032a3.ee4fcd","type":"inject","name":"Tick","topic":"","payload":"","repeat":"","crontab":"*/5 * * * *","once":false,"x":161,"y":828,"z":"6480e14.f9b7f2","wires":[["a2b3542e.5d4ca8"]]},{"id":"a2b3542e.5d4ca8","type":"http request","name":"UK Power","method":"GET","url":"http://realtimeweb-prod.nationalgrid.com/SystemData.aspx","x":301,"y":828,"z":"6480e14.f9b7f2","wires":[["2631e2da.d9ce1e"]]},{"id":"2631e2da.d9ce1e","type":"function","name":"UK Power Demand","func":"// does a simple text extract parse of the http output to provide an\n// object containing the uk power demand, frequency and time\n\nif (~msg.payload.indexOf('<span')) {\n    var dem = msg.payload.split('Demand:')[1].split(\"MW\")[0];\n    var fre = msg.payload.split('Frequency:')[1].split(\"Hz\")[0];\n\n    msg.payload = {};\n    msg.payload.demand = parseInt(dem.split(\">\")[1].split(\"<\")[0]);\n    msg.payload.frequency = parseFloat(fre.split(\">\")[1].split(\"<\")[0]);\n    \n    msg2 = {};\n    msg2.payload = (msg.payload.frequency >= 50) ? true : false;\n\n    return [msg,msg2];\n}\n\nreturn null;","outputs":"2","valid":true,"x":478,"y":828,"z":"6480e14.f9b7f2","wires":[["8e56f4d3.71a908"],["cd84371b.327bc8"]]},{"id":"8e56f4d3.71a908","type":"debug","name":"","active":true,"complete":false,"x":678,"y":798,"z":"6480e14.f9b7f2","wires":[]},{"id":"cd84371b.327bc8","type":"debug","name":"","active":true,"complete":false,"x":679,"y":869,"z":"6480e14.f9b7f2","wires":[]}]

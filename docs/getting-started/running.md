@@ -73,7 +73,9 @@ Node-REDは後方互換性の理由からインストールディレクトリで
 メモリの使用量に制約があるRaspberry PiやBeagleBone BlackなどのデバイスでNode-REDを動作させる場合はNode-REDが動作するNode.jsプロセスにパラメータを渡す必要があります。
 
 また、起動スクリプトは `node-red` コマンドの代わりに `node-red-pi` 利用しなければいけません。
-_Note_: このスクリプトはWindowsでは利用できません。
+
+<div class="doc-callout">
+<em>Note</em>: このスクリプトはWindowsでは利用できません。</div>
 
  `node` コマンドでNode-REDを起動している場合は `red.js` の前にパラメータを指定する必要があります。
 
@@ -91,6 +93,7 @@ _Note_: このスクリプトはWindowsでは利用できません。
 
 [PM2](https://github.com/Unitech/pm2)はNode.jsのプロセスマネージャです。必要に応じて再起動を保証するように起動することも簡単にできます。
 
+<div class="doc-callout">
 <em>Note</em>: PM2はGNU AGPL-3.0ライセンスの下で公開されています - 利用する前にライセンスの条件をご確認ください。
 </div>
 
@@ -103,7 +106,7 @@ _Note_: このスクリプトはWindowsでは利用できません。
 </div>
 
 <div class="doc-callout">
-Windows上で実行している場合、 <a href="https://github.com/Unitech/PM2/blob/development/ADVANCED_README.md#windows">ここ</a>に記載されているように　<code>tail.exe</code> がパス上に存在することを確認する必要があります。
+<em>Note</em>: Windows上で実行している場合、 <a href="https://github.com/Unitech/PM2/blob/development/ADVANCED_README.md#windows">ここ</a>に記載されているように　<code>tail.exe</code> がパス上に存在することを確認する必要があります。
 </div>
 
 ##### 2. Node-REDコマンドの場所

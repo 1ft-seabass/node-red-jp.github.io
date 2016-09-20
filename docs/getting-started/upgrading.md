@@ -47,10 +47,6 @@ Node.jsを `v0.10.x` から `v4.3.x` にアップグレードする場合は次�
 
 6. 特定のnpmパッケージに依存しているNodeを手動でインストールしていた場合は、依存するnpmパッケージを[再インストール](adding-nodes)します。
 
-_Note_: the reason for using the `--unsafe-perm` option is that when node-gyp tries
-to recompile any native libraries it tries to do so as a "nobody" user and then
-fails to get access to certain directories. This causes the nodes in question
-(eg serialport) not to be installed. Allowing it root access during install
-allows the nodes to be installed correctly during the upgrade.
-
-_Note_: node-gypは任意のネイティブライブラリを再コンパイルした場合に"nobody"ユーザが特定のディレクトリのアクセスに失敗したということです。この場合Nodeが正しくインストールされないことがあります（例えばserialport）`--unsafe-perm` オプションを使用することでNodeを正しくインストールできることがあります。
+<div class="doc-callout">
+<em>Note</em>: node-gypは任意のネイティブライブラリを再コンパイルした場合に"nobody"ユーザが特定のディレクトリのアクセスに失敗したということです。この場合Nodeが正しくインストールされないことがあります（例えばserialport）`--unsafe-perm` オプションを使用することでNodeを正しくインストールできることがあります。
+</div>
