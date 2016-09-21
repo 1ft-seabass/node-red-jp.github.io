@@ -22,7 +22,7 @@ Node-REDドキュメント
 Node-REDの設定と利用についてのガイドです。
 
 - [設定](configuration.html)
-- [セキュリティ](security.html)
+- [認証](security.html)
 - [Function Nodeの書き方](writing-functions.html)
 - [既存アプリケーションへの組込み](embedding.html)
 

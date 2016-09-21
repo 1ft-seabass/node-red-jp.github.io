@@ -1,61 +1,54 @@
 ---
 layout: default
-title: Embedding into an existing app
+title: 既存アプリケーションへの組込み
 ---   
 
-It is possible to embed Node-RED into a larger application. A typical scenario
-would be where you use Node-RED to generate flows of data that you want to
-display on a web dashboard - all from the same application.
+既存のアプリケーションにNode-REDを組込むことが可能です。ダッシュボードアプリケーションに表示するデータのフローを作成するエディタとしてNode-REDを使用するようなシナリオが考えられます。
 
+組込むにはNode-REDを組込みたいアプリケーションの `package.json` の `dependencies` に `node-red` を追加します。
 
-Add `node-red` to the module dependencies in your application's `package.json`,
-along with any of the individual node dependencies you may have.
-
-The following is a minimal example of embedded the runtime into a wider Express
-application.
+以下の例はNode-REDをExpressアプリケーションへ組込むミニマムな構成です。
 
 {% highlight javascript %}
 var http = require('http');
 var express = require("express");
 var RED = require("node-red");
 
-// Create an Express app
+// Expressアプリケーションの生成
 var app = express();
 
-// Add a simple route for static content served from 'public'
+// 静的コンテンツのルートを追加
 app.use("/",express.static("public"));
 
-// Create a server
+// サーバの生成
 var server = http.createServer(app);
 
-// Create the settings object - see default settings.js file for other options
+// 設定オブジェクトの生成 - 他のオプションについてはデフォルトの 'settings.js' ファイルを参照してください
 var settings = {
     httpAdminRoot:"/red",
     httpNodeRoot: "/api",
     userDir:"/home/nol/.nodered/",
-    functionGlobalContext: { }    // enables global context
+    functionGlobalContext: { }    // グローバルコンテキストを有効化
 };
 
-// Initialise the runtime with a server and settings
+// サーバと設定とランタイムの初期化
 RED.init(server,settings);
 
-// Serve the editor UI from /red
+// エディタUIのルートを '/red' に指定
 app.use(settings.httpAdminRoot,RED.httpAdmin);
 
-// Serve the http nodes UI from /api
+// HTTP node UIのルートを '/api' に指定
 app.use(settings.httpNodeRoot,RED.httpNode);
 
 server.listen(8000);
 
-// Start the runtime
+// ランタイム起動
 RED.start();
 {% endhighlight %}
-    
-When this approach is used, the `settings.js` file included with Node-RED is not
-used. Instead, the settings are passed to the `RED.init` call as shown above.
 
-Furthermore, the following settings are ignored as they are left to you to
-configure the Express instance as you want it:
+ちなみに `settings.js` で設定していた内容は `RED.init` で渡さなければいけません。したがって上記のようにベタに書くか `setting.js` を `module.exports` して `require` します。
+
+更に以下の設定は既存アプリケーションで決められるべきなので無効化されます。
 
  - `uiHost`
  - `uiPort`
@@ -64,5 +57,3 @@ configure the Express instance as you want it:
  - `httpStatic`
  - `httpStaticAuth`
  - `https`
-
-

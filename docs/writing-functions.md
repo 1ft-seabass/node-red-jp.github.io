@@ -1,57 +1,41 @@
 ---
 layout: default
-title: Writing Functions
+title: Functions Nodeの書き方
 ---
 
-The Function node allows arbitrary code to be run against the messages that are
-passed in, and then return zero or more messages to continue the flow. 
+Function nodeは前のNodeから渡されるメッセージに対して任意のコードを実行して後続のNodeへメッセージを返します。
 
-The message is passed in as a JSON object called `msg`. By convention it will
-have a `msg.payload` property containing the body of the message. Some nodes
-also attach a `msg.topic` property - a hangover from Node-RED's MQTT origins.
+メッセージは `msg` というJSONオブジェクトとして渡されます。慣例ではメッセージ本文を含む `msg.payload` プロパティを持ちます。一部のNodeではMQTTの名残で `msg.topic` プロパティを持ちます。
 
-Other nodes may attach their own properties to the message, and they should be
-described in their documentation.
+Nodeは `msg` に任意のプロパティを付与することができ、それをドキュメントに示す必要があります。
 
-### Writing a Function
+### Functionの作成
 
-The code entered into the Function node represents the *body* of the function.
-When a message arrives, the code is wrapped into a full function declaration and
-then run within a secure sandbox.
+Function nodeに入力されたコードは関数の本体を表します。メッセージが到着するとコードは完全な関数宣言にラップしてから安全なサンドボックス内で実行されます。
 
-The most simple function simply returns the message exactly as-is:
+最も簡単なFunctionは単にメッセージをそのまま返します。
 
 {% highlight javascript %}
 return msg;
 {% endhighlight %}
 
-If the function returns `null`, then no message is passed on and the flow ends.
+Functionで `null` を返した場合は何もメッセージが返されずFlowが終了します。
 
-The returned message object does not need to be same object as was passed in;
-the function can construct a completely new object before returning it. For
-example:
+返されるメッセージオブジェクトは渡されたオブジェクトと同一である必要はありません。Functionはメッセージを返す前に完全に新しいオブジェクトを作成することができます。
 
 {% highlight javascript %}
 var newMsg = { payload: msg.payload.length };
 return newMsg;
 {% endhighlight %}
 
-<div class="doc-callout"><em>Note</em>: constructing a new message object will
-lose any message properties of the received message. This will break some flows,
-for example the HTTP In/Response flow requires the <code>msg.req</code> and
-<code>msg.res</code> properties to be preserved end-to-end.</div>
+<div class="doc-callout"><em>Note</em>: 新しいメッセージオブジェクトを作成すると受信したメッセージのいずれかのメッセージプロパティを失うことになります。これは一部のFLowを中断します。例えばHTTP In/Responseを用いたFlowでは<code>msg.req</code>と<code>msg.res</code>プロパティが必要です。
+</div>
 
+#### 複数Output ####
 
+Functionの編集ダイアログでOutputの数を定義できます。複数のOutputがある場合は配列として返します。配列の各要素は各Outputに対応します。
 
-#### Multiple Outputs ####
-
-The function edit dialog allows the number of outputs to be defined. If there
-is more than one output, an array of objects should be returned. Each element
-of the array maps to the corresponding output.
-
-This makes it easy to write a function that sends the message to different
-outputs depending on some condition. For example, this function would send
-anything on topic `banana` to the second output rather than the first:
+これは条件に応じて異なるメッセージをOutputするFunctionを記述できます。例えば以下のFunctionではTopicが `banana` の場合、1番目のOutputには何も送信せず、2番目のOutputに `msg` を送信します。
 
 {% highlight javascript %}
 if (msg.topic == "banana") {
@@ -61,30 +45,22 @@ if (msg.topic == "banana") {
 }
 {% endhighlight %}
 
-
-Combining with the earlier example, the following example passes the original
-message as-is on the first output, and a message containing the payload length
-on the second output:
+次の例は前の例と組み合わせることで1番目のOutputには元のメッセージを、2番目のOutputにはPayloadのメッセージ文字列長を返します。
 
 {% highlight javascript %}
 var newMsg = { payload: msg.payload.length };
 return [msg, newMsg];
 {% endhighlight %}
 
-#### Multiple Messages ####
+#### 複数メッセージ ####
 
-A function can return multiple messages on an output by returning an array of
-objects within the returned array. When multiple messages are returned for an
-output, subsequent nodes will receive the messages one at a time, in the order
-they were returned. In the following example, `msg1`, `msg2`, `msg3` will be
-sent sequentially to the first output. `msg4` will be sent to the second output.
+Functionから返された配列内に更に配列を返すことにより、Outputに複数のメッセージを返すことができます。複数のメッセージがOutputとして返された場合、後続のNodeはそれらが返された順序でメッセージを受信します。次の例では `msg1`, `msg2`, `msg3`, は1番目のOutputに順次送信されます。 `msg4` は2番目のOutputに送信されます。
 
 {% highlight javascript %}
 return [ [ msg1, msg2, msg3 ], msg4 ];
 {% endhighlight %}
-    
-The following example splits the received payload into individual words and
-returns a message for each of the words.
+
+次の例では受信したPayloadの単語を分割し、各単語を要素とした配列を返します。
 
 {% highlight javascript %}
 var outputMsgs = [];
@@ -95,13 +71,11 @@ for (var w in words) {
 return [ outputMsgs ];
 {% endhighlight %}
 
-#### Sending messages asynchronously
+#### 非同期メッセージ送信
 
-If the function needs to perform an asynchronous action before sending a message,
-it cannot return the message at the end of the function.
+Functionで非同期処理を実行する場合はFunctionの終了時にメッセージを返すことができません。
 
-Instead, it can make use of the `node.send()` function, passing in the message(s)
-to be sent. For example:
+その代わり非同期処理の完了時（コールバックのタイミング）に `node.send()` メソッドを利用することで後続のNodeにメッセージ（複数可）を返すことができます。
 
 {% highlight javascript %}
 doSomeAsyncWork(msg, function(result) {
@@ -110,9 +84,9 @@ doSomeAsyncWork(msg, function(result) {
 return;
 {% endhighlight %}
 
-#### Logging events
+#### イベントログ出力
 
-If a node needs to log something to the console, it can use one of the follow functions:
+Nodeがコンソールにログ出力する必要がある場合は以下のいずれかのメソッドを使用します。
 
 {% highlight javascript %}
 node.log("Something happened");
@@ -120,50 +94,43 @@ node.warn("Something happened you should know about");
 node.error("Oh no, something bad happened");
 {% endhighlight %}
 
-The `warn` and `error` messages also get sent to the flow editor debug tab.
+`warn` や `error` のメッセージもエディタのDebugタブに送信されます。
 
-#### Handling errors
+#### エラーハンドリング
 
-If the function encounters an error that should halt the current flow, it should
-return nothing. To trigger a Catch node on the same tab, the function should call
-`node.error` with the original message as a second argument:
+Functionはエラーが発生した場合にFlowを停止しつつ何かメッセージを返さなければいけません。同じシート上のCatch nodeにキャッチさせるには第2引数に元のメッセージを含めた `node.error` メソッドを呼び出す必要があります。
 
 {% highlight javascript %}
 node.error("hit an error", msg);
 {% endhighlight %}
 
-#### Context ####
+#### コンテキスト ####
 
-Aside from the `msg` object, the function also has access to a `context` object.
-This can be used to hold data between invocations of the specific function.
+Functionはmsgオブジェクトとは別にcontextオブジェクトへアクセスできます。これはFunctionの処理間でデータを共有するために使用することができます。
 
-The following example maintains a count of how many times the function has been
-run:
+次の例ではFunctionが実行された回数をカウントしてcontextオブジェクトに保持しています。
 
 {% highlight javascript %}
-// initialise the counter to 0 if it doesn't exist already
+// まだ "context.count" プロパティが存在しない場合はカウントを初期化
 context.count = context.count || 0;    
 context.count += 1;
-// make it part of the outgoing msg object
+// 現在のカウント数をmsgオブジェクトの一部のプロパティとする
 msg.count = context.count;
 {% endhighlight %}
 
-The context object is *not* persisted across restarts of Node-RED.
+contextオブジェクトはNode-REDを再起動すると初期化されます。
 
-#### Global Context ####
+#### グローバルコンテキスト ####
 
-There is also a global context available that is shared by, and accessible to
-all functions. For example to make the variable foo available globally across the canvas:
+すべてのFunctionからアクセス可能なグローバルで共有されているコンテキスト。例えばエディタ上でグローバルに利用可能な変数 `foo` を作るには以下のようにします。
 
 {% highlight javascript %}
-context.global.foo = "bar";   // this is now available to other function blocks.
+context.global.foo = "bar";   // これは他のFunctionから利用できる
 {% endhighlight %}
 
-The global context can also be pre-populated with objects when Node-RED starts. This
-is defined in the main *settings.js* file under the *functionGlobalContext*
-property.
+Node-REDの起動時に任意のオブジェクトをグローバルコンテキストに取り込むことができます。これは `settings.js` の `functionGlobalContext` プロパティで定義できます。
 
-For example, the built-in `os` module can be made available to, all functions:
+例えば以下のように定義するとグローバルコンテキストの `osModule` プロパティにアクセスすることでOSモジュールのすべての機能を利用することができるようになります。
 
 {% highlight javascript %}
 functionGlobalContext: {
@@ -171,16 +138,12 @@ functionGlobalContext: {
 }
 {% endhighlight %}
 
-at which point, the module can be referenced within a function as 
-`context.global.osModule`.
+Function内から上記 `osModule` プロパティにアクセスするには `context.global.osModule` のように記述します。
 
-#### Other objects ####
+#### その他のオブジェクト ####
 
-The Function node also makes the following object available:
+Function nodeでは次のオブジェクトが利用可能です。
 
-* `console` - useful for making calls to `console.log` whilst debugging, although
-  `node.log` is the preferred method of logging
-* `util` - the Node.js `util` module
-* `Buffer` - the Node.js `Buffer` module
-
-
+* `console` - `node.log` はログ記録の好ましい方法ですがデバッグする場合は `console.log` を利用する方が有用
+* `util` - Node.jsの `util` モジュール
+* `Buffer` - Node.jsの `Buffer` モジュール
