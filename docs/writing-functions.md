@@ -128,6 +128,12 @@ contextオブジェクトはNode-REDを再起動すると初期化されます�
 context.global.foo = "bar";   // これは他のFunctionから利用できる
 {% endhighlight %}
 
+また、`.get` で参照できます。
+
+{% highlight javascript %}
+var myfoo = global.get("foo");  // myfooの値は"bar"
+{% endhighlight %}
+
 Node-REDの起動時に任意のオブジェクトをグローバルコンテキストに取り込むことができます。これは `settings.js` の `functionGlobalContext` プロパティで定義できます。
 
 例えば以下のように定義するとグローバルコンテキストの `osModule` プロパティにアクセスすることでOSモジュールのすべての機能を利用することができるようになります。
@@ -138,12 +144,28 @@ functionGlobalContext: {
 }
 {% endhighlight %}
 
-Function内から上記 `osModule` プロパティにアクセスするには `context.global.osModule` のように記述します。
+Function内から上記 `osModule` プロパティにアクセスするには `global.get('osModule')` のように記述します。
+
+任意の外部モジュールを `require` している場合は、そのモジュールをnpm経由でユーザディレクトリに手動でインストールする必要があります。
+
+{% highlight javascript %}
+cd ~/.node-red
+npm i name_of_3rd_party_module_to_be_required
+{% endhighlight %}
+
+<div class="doc-callout"><em>Note</em>: Node-RED v0.13以前のドキュメントではグローバルコンテキストにアクセスする方法はサブプロパティを参照する方法でした。
+<pre>
+context.global.foo = "bar";
+var osModule = context.global.osModule;
+</pre>
+この方法はまだサポートされていますが、<code> global.get </code> / <code> global.set </code>でのアクセスが推奨されます。これは将来のリリースでコンテキストデータが永続化できるようになるためです。</div>
 
 #### その他のオブジェクト ####
 
 Function nodeでは次のオブジェクトが利用可能です。
 
+* `Buffer` - Node.jsの `Buffer` モジュール
 * `console` - `node.log` はログ記録の好ましい方法ですがデバッグする場合は `console.log` を利用する方が有用
 * `util` - Node.jsの `util` モジュール
-* `Buffer` - Node.jsの `Buffer` モジュール
+* `setTimeout/clearTimeout` - the javascript timeout functions.
+* `setInterval/clearInterval` - the javascript interval functions.

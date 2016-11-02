@@ -1,68 +1,46 @@
 ---
 layout: default
-title: Creating Nodes
+title: Nodeの作成
 ---
 
-The main way Node-RED can be extended is to add new nodes into its palette.
+パレットに新しいNodeを追加することでNode-REDを拡張することができます。Node作成方法について以下のセクションを参照ください。
 
-*This guide is still being written - please provide any feedback to the
-[mailing list](https://groups.google.com/forum/#!forum/node-red)*
+ - [Node作成](first-node.html)
+ - [JavaScriptファイル](node-js.html)
+ - [HTMLファイル](node-html.html)
+ - [コンテキスト](context.html)
+ - [プロパティ](properties.html)
+ - [クレデンシャル](credentials.html)
+ - [UI](appearance.html)
+ - [ステータス](status.html)
+ - [設定](config-nodes.html)
+ - [パッケージング](packaging.html)
+ - [国際化](i18n.html)
 
-This is a placeholding overview page - it'll be replaced with a proper overview
-once the guide is complete.
+### ガイドライン
 
-The following sections exist and are largely complete:
+新しいNodeを作成する際に従うべき幾つかの一般的な原則があります。これらは標準Nodeのアプローチに従って一貫したユーザー体験を提供するのに役立ちます。
 
- - [Creating your first node](first-node.html)
- - [JavaScript File](node-js.html)
- - [HTML File](node-html.html)
- - [Node properties](properties.html)
- - [Node appearance](appearance.html)
- - [Node status](status.html)
- - [Configuration nodes](config-nodes.html)
- - [Packaging](packaging.html)
+- **Nodeの目的は明確に定義されるべきです**
 
-To do:
+   APIのすべての可能なオプションを公開したNodeは、潜在的に、各Nodeのグループは、単一の目的を果たすことはあまり有用です。
+   A node that exposes every possible option of an API is potentially less useful that a group of nodes that each serve a single purpose.
 
-1. library
-2. custom http endpoints
+- **Nodeはどんな機能に関わらず使いやすく作りましょう**
 
+   複雑さを隠蔽して専門用語やドメイン固有の知識の使用を避けます。
 
-### General guidance
+- **多様なメッセージ型が渡されても正常に処理するようにしましょう**
 
-There are some general principles to follow when creating new nodes. These reflect
-the approach taken by the core nodes and help provided a consistent user-experience.
+   メッセージは文字列、数値、Boolean、Buffer、オブジェクト、配列、nullなどの様々な型で渡される可能性があります。いずれの型であっても正しく処理される必要があります。
 
-Nodes should:
+- **Nodeの送信には一貫性を持つべきです**
 
-- **be well-defined in their purpose.**
+   Nodeがメッセージにどんなプロパティを付与するか一貫性を持ち且つ予測可能であり、それらをドキュメント化する必要があります。
 
-   A node that exposes every possible option of an API is potentially less useful
-   that a group of nodes that each serve a single purpose.
-   
-- **be simple to use, regardless of the underlying functionality.**
+- **Flowの先頭、中間、または末尾に座って - いないすべてを一度に。**
+  sit at the beginning, middle or end of a flow - not all at once.
 
-   Hide complexity and avoid the use of jargon or domain-specific knowledge.
+- **エラーをキャッチしましょう**
 
-- **be forgiving in what types of message properties it accepts.**
-
-   Message properties can be strings, numbers, booleans, Buffers, objects, arrays
-   or nulls. A node should do The Right Thing when faced with any of these. 
-
-- **be consistent in what they send.**
-
-   Nodes should document what properties they add to messages, and they should
-   be consistent and predictable in their behaviour.
-
-- **sit at the beginning, middle or end of a flow - not all at once.**
-
-- **catch errors.**
-
-   If a node throws an uncaught error, Node-RED will stop the entire flow as the
-   state of the system is no longer known.
-   
-   Wherever possible, nodes must catch errors or register error handlers for any
-   asynchronous calls they make.
-   
-
-  
+   NodeがエラーをスローしてもNode-RED全体は停止しません。Nodeは可能な限りエラーをキャッチし、作成したすべての非同期呼び出しのエラーハンドラを登録する必要があります。

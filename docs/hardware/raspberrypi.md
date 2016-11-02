@@ -1,90 +1,235 @@
 ---
 layout: default
-title: Raspberry Pi
+title: Running on Raspberry Pi
 ---
 
-### Install Node.js
+There are two ways to get started with Node-RED on a Raspberry Pi.
 
-As the Pi 2 uses a different processor (Arm v7) compared with the original
+  - use the version preinstalled in **Raspbian Jessie** image since November 2015.
+  - or **manual install** from the `npm` repository - see [further below](#manual-install).
+
+You can then start [using the editor](#using-the-editor).
+
+## Raspbian Jessie
+
+As of the November 2015 version of Raspbian Jessie, Node-RED comes preinstalled on
+the SD card image that can be downloaded from [RaspberryPi.org](https://www.raspberrypi.org/downloads/raspbian/).
+
+If you already have an older version of Jessie, you can install or upgrade Node-RED
+using the standard package manager:
+
+    sudo apt-get update
+    sudo apt-get install nodered
+
+**Note:** If you have upgraded to **node.js 4.x** or above then you cannot use apt-get to upgrade Node-RED. Use the standard <a href="/docs/getting-started/upgrading">upgrading instructions</a> instead.
+
+#### Running Node-RED
+
+To start Node-RED, you can either:
+
+  - on the Desktop, select `Menu -> Programming -> Node-RED`.
+  - or run `node-red-start` in a new terminal window.
+
+*Note:* closing the window (or ctrl-c) does not stop Node-RED running. It will continue running in the background.
+
+To stop Node-RED, run the command `node-red-stop`.
+
+#### Autostart on boot (preloaded versions)
+
+If you want Node-RED to run when the Pi boots up you can use one of the following
+commands depending on the version you have installed.
+
+For version 0.12.5 of Node-RED and later:
+
+    sudo systemctl enable nodered.service
+
+For version 0.12.1 of Node-RED - SD card Jessie Nov 2015:
+
+    sudo update-rc.d nodered defaults
+
+#### Adding nodes
+
+To add additional nodes you must first install the `npm` tool, as it is not included
+in the default installation. The following commands install `npm` and then upgrade
+it to the latest `2.x` version.
+
+    sudo apt-get install npm
+    sudo npm install -g npm@2.x
+    hash -r
+    cd ~/.node-red
+    npm install node-red-{example node name}
+
+*Note:* npm version 3 is the latest version, but is currently *not* recommended for use.
+
+### Upgrading Node-RED
+
+To update Node-RED, you can use the standard package manager:
+
+    sudo apt-get update
+    sudo apt-get install nodered
+
+This will grab the latest version that has been made available on the Raspbian
+repositories. *Note*: there may be a slight delay between a release being made
+to the `npm` repositories and it being available in Raspbian.
+
+<div class="doc-callout"><em>Note:</em> If you have upgraded to <em>node.js 4.x</em> or above then you can
+no longer use apt-get to upgrade Node-RED. Instead use the standard <a href="/docs/getting-started/upgrading">upgrading instructions</a>.</div>
+
+### Upgrading node.js
+
+#### Upgrade script
+
+As of version 0.14.x there is a script in the pre-installed version of Node-RED that
+will do a full upgrade to the latest nodejs LTS and latest release version of Node-RED.
+
+**Note** - it runs as *sudo* and does delete existing nodejs and Node-RED directories.
+If you have installed any extra nodes or npm globally (ie anything NOT installed in the `~/.node-red` directory)
+then please ensure you back them up first.
+
+**Caveat emptor.** The script has only really been tested on clean installs of Node-RED, and is thus best
+used before you install lots of other nodes.  To upgrade, run the command:
+
+    update-nodejs-and-nodered
+
+The script also tries to rebuild any nodes with native plugins that you have installed in
+the `~/.node-red` directory. This may fail, and you may need to manually rebuild or re-install some
+of the nodes you previous had installed. To rebuild:
+
+    cd ~/.node-red
+    npm rebuild
+
+To see the list of nodes you had installed:
+
+    cd ~/.node-red
+    npm ls --depth=0
+
+#### Next
+
+You will then need to restart Node-RED.
+You can then start [using the editor](#using-the-editor).
+
+----
+
+## Manual install
+
+#### Using newer versions of node.js
+
+The pre-install uses the default node.js within Debian Jessie, which is version
+0.10.29. If manually installing we recommend using a more recent versions of node.js such as v4.x
+
+As of Node-RED version 0.14.x there is a script in the pre-installed version of Node-RED that
+will do a full upgrade to the latest node.js LTS and latest release version of Node-RED. See *Upgrading node.js* above.
+
+If you upgrade node.js by hand then you will also need to rebuild any installed nodes that have binary dependancies.
+
+    cd ~/.node-red
+    npm rebuild
+
+#### Manual steps
+
+To do this you must uninstall the built-in version and re-install using the
+instructions below. To uninstall:
+
+    node-red-stop
+    sudo apt-get remove nodered
+    sudo apt-get remove nodejs nodejs-legacy
+    sudo apt-get remove npm   # if you installed npm
+
+This will remove all the built in packages but leave your workspace - by default
+at `~/.node-red` . You may then proceed to re-install as per instructions below
+
+
+#### Install Node.js
+
+As the Pi 2 and 3 use a different processor (Arm v7) compared with the original
 Pi (Arm v6) the method of installing node.js is slightly different.
 
-<div class="doc-callout"><em>Note</em>: Version 4.x.x of node.js and versions of io.js are <em>not</em> currently supported.</div>
+##### Raspberry Pi 2 and 3
 
-#### Raspberry Pi 2
-
-To install Node.js on Pi 2 - and other Arm7 processor based boards, run
+To install Node.js on Pi 2 or 3 - and other Arm7 processor based boards, run
 the following commands:
 
-    curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
-    sudo apt-get install -y build-essential python-dev python-rpi.gpio nodejs
+    curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
+    sudo apt-get install -y build-essential python-rpi.gpio nodejs
 
 This also installs some additional dependencies.
 
-If you are upgrading a Raspberry Pi version 1 image for the Pi 2, it is recommended
-to clean up some hidden node directories before installing Node-RED:
+##### Raspberry Pi
 
-    sudo npm cache clean
+The simplest way to install Node.js and other dependencies on Pi (version 1), Pi Zero, Pi A+/B+ is
 
-#### Raspberry Pi
+    wget http://node-arm.herokuapp.com/node_latest_armhf.deb
+    sudo dpkg -i node_latest_armhf.deb
+    sudo apt-get install build-essential python-rpi.gpio
+    hash -r
 
-The simplest way to install Node.js and other dependencies on Pi (version 1) is
-
-    wget http://node-arm.herokuapp.com/node_archive_armhf.deb
-    sudo dpkg -i node_archive_armhf.deb
-    sudo apt-get install build-essential python-dev python-rpi.gpio
+**Note**: Debian/Raspbian Wheezy is now "End of Life", and so documentation is now aimed at Jessie as a minimum.
+Wheezy users will need to upgrade GCC to v4.8 - see <a href="https://node-arm.herokuapp.com/" target="_new">here</a>.
 
 ### Install Node-RED
 
-The easiest way to install Node-RED is to use node's
-package manager, npm:
+Install the latest stable version of Node-RED using node's package manager, npm:
 
+    sudo npm cache clean
     sudo npm install -g --unsafe-perm  node-red
 
 <div class="doc-callout">
-<em>Note</em>: During the install some errors may be reported by the <code>node-gyp</code>
+<p><em>Note</em>: During the install some errors may be reported by the <code>node-gyp</code>
 command. These are typically <em>non-fatal</em> errors and are related to optional dependencies
 that require a compiler in order to build them. <b>Node-RED will work without these
 optional dependencies</b>, but you may find additional node modules that require the
 ability to compile native code. You can find out how to install the <code>node-gyp</code>
 compiler dependencies <a href="https://github.com/TooTallNate/node-gyp#installation">here</a>.
+</p>
+<p><em>Note</em>: The <code>node-red-start</code> and <code>node-red-stop</code>
+commands included with the Jessie preinstall are <em>not</em> included with the
+main version of Node-RED. To restore them, see the section below on <a href="#adding-autostart-capability-using-systemd">Adding Autostart capability using SystemD</a>.
+</p>
 </div>
 
 If there are any npm errors (not warnings, not gyp errors) during install, try
-running `sudo npm cache clean` and re-trying the install. Npm should be version
-1.4.28 or better. Type `npm -v` to check.
+running `sudo npm cache clean` and re-trying the install. `npm` should be version
+2.x. Type `npm -v` to check.
 
-_Note_: the reason for using the `--unsafe-perm` option is that when node-gyp tries
+<div class="doc-callout"><em>Note</em>: the reason for using the
+<code>--unsafe-perm</code> option is that when node-gyp tries
 to recompile any native libraries it tries to do so as a "nobody" user and often
 fails to get access to certain directories. This causes alarming warnings that look
 like errors... but sometimes are errors. Allowing node-gyp to run as root using
-this flag avoids this - or rather shows up any real errors instead.
+this flag avoids this - or rather shows up any real errors instead.</div>
 
-For alternative install options, see the [main installation instructions](../getting-started/installation.html#install-node-red).
+For alternative install options, see the [main installation instructions](../getting-started/installation#install-node-red).
 
-Once installed, you should verify which version of the Python RPi.GPIO libraries
-have been installed.
+#### Accessing GPIO
+
+If you plan to access the GPIO pins with Node-RED, you should verify which version of the Python RPi.GPIO libraries are installed.
 
 Node-RED includes a Raspberry Pi specific script `nrgpio` for interacting with
-the hardware GPIO pins. This script can also be used to check what version of
-the underlying library is installed:
+the hardware GPIO pins. If you have installed as a global npm module, this script should be located at:
 
-    <node-red-install-directory>/nodes/core/hardware/nrgpio ver 0
+    /usr/lib/node_modules/node-red/nodes/core/hardware/nrgpio ver
+    or
+    /usr/local/lib/node_modules/node-red/nodes/core/hardware/nrgpio ver
 
-<div class="doc-callout">If you have installed as a global npm module, this script will be located at:
-<pre>/usr/local/lib/node_modules/node-red/nodes/core/hardware/nrgpio</pre>
-</div>
+You must have at least 0.5.11 for the Pi2 or 0.5.8 for the original Pi.
+If you do not then the following commands will install the latest available:
 
-This command should return 0.5.11 or newer. You must have at least 0.5.11 for the Pi2 and
-0.5.8 for the original Pi. If you do not then the following commands will grab
-the latest available:
+    sudo apt-get update && sudo apt-get install python-rpi.gpio
 
-    sudo apt-get update && sudo apt-get install python-dev python-rpi.gpio
+If you want to run as a user other than pi (or root), you will need either to add that user to
+the [sudoers list](https://www.raspberrypi.org/documentation/linux/usage/users.md) - or maybe just access to python - for example by adding the
+following to sudoers using visudo.
 
-<div class="doc-callout">
-Using RPi.GPIO is a change from our using WiringPi in v0.9.1 - the main benefits
-are that we can get software PWM on all output pins, and easier access to
-interrupts on inputs meaning faster response times (rather than polling).
-</div>
+    NodeREDusername ALL=(ALL) NOPASSWD: /usr/bin/python
+
+
+#### Serial port on Raspbian Wheezy
+
+If you want to use the serial port node with Node.js v0.10.x or v0.12.x and
+have manually installed Node-RED on Raspbian Wheezy, you will need to manually
+install a specific version of the serial port node. To do this:
+
+    sudo npm i -g --unsafe-perm node-red-node-serialport@0.0.5
 
 ### Starting Node-RED
 
@@ -97,8 +242,8 @@ be specified:
 
     node-red-pi --max-old-space-size=128
 
-If you decide to run Node-RED using the node command directly, this option must appear between node
-and red.js.
+If you decide to run Node-RED using the node command directly, this option must
+appear between node and red.js.
 
     node --max-old-space-size=128 red.js
 
@@ -107,7 +252,59 @@ running nothing else on your Pi you can afford to increase that figure to 256
 and possibly even higher. The command `free -h` will give you some clues as to
 how much memory is currently available.
 
-### Using the Editor
+**Note**: The pre-installed version of Node-RED on Raspbian that uses the `node-red-start`
+command also sets it to 128MB by default. If you do want to change that, the
+file you need to edit (as sudo) is `/lib/systemd/system/nodered.service`. See
+below for how to add this to a manually installed version.
+
+#### Adding Autostart capability using SystemD
+
+The preferred way to autostart Node-RED on Pi is to use the built in systemd
+capability.  The pre-installed version does this by using a `nodered.service`
+file and start and stop scripts. You may install these by running the following
+commands
+
+    sudo wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/nodered.service -O /lib/systemd/system/nodered.service
+    sudo wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/node-red-start -O /usr/bin/node-red-start
+    sudo wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/node-red-stop -O /usr/bin/node-red-stop
+    sudo chmod +x /usr/bin/node-red-st*
+    sudo systemctl daemon-reload
+
+**Info:** These commands are run as root (sudo) - They download the three required
+files to their correct locations, make the two scripts executable and then
+reload the systemd daemon.
+
+Node-RED can then be started and stopped by using the commands `node-red-start`
+and `node-red-stop`
+
+To then enable Node-RED to run automatically at every boot and upon crashes
+
+    sudo systemctl enable nodered.service
+
+It can be disabled by
+
+    sudo systemctl disable nodered.service
+
+Systemd uses the `/var/log/system.log` for logging.  To filter the log use
+
+    sudo journalctl -f -u nodered -o cat
+
+#### Changing the systemd environment - using a proxy
+
+If you need to use a proxy for http requests - you need to set the *HTTP_PROXY* environment variable.
+When using *systemd* this must be done within the service configuration. To edit this use sudo to edit the file `/lib/systemd/system/nodered.service` and add another `Environment=` line, for example:
+
+    Nice=5
+    Environment="NODE_OPTIONS=--max-old-space-size=128"
+    Environment="HTTP_PROXY=my-proxy-server-address"
+
+Save the file, and then run:
+
+    sudo systemctl daemon-reload
+
+to reload the configuration. Stop and restart Node-RED.
+
+## Using the Editor
 
 Once Node-RED is running - point a browser to the machine where Node-RED is running.
 One way to find the IP address of the Pi is to use the command
@@ -116,69 +313,61 @@ One way to find the IP address of the Pi is to use the command
 
 Then browse to `http://{the-ip-address-returned}:1880/`
 
-### Making Node-RED autostart on boot (optional)
+<div class="doc-callout">
+ <em>Note:</em> the default browser included in Raspbian, Epiphany,
+has some quirks that mean certain keyboard short-cuts do not work within the
+Node-RED editor. We <b>strongly</b> recommend installing the Firefox-ESR browser instead:
+<pre>
+    sudo apt-get install firefox-esr
+</pre>
+</div>
 
-See [Starting Node-RED on boot](../getting-started/running.html#starting-node-red-on-boot) for Linux.
+You can then start creating your [first flow](../getting-started/first-flow).
 
+## Extra Nodes
 
-### Accessing GPIO pins
+To install extra nodes make sure you are in your user-directory, by default this is `~/.node-red`.
 
-The RPi.GPIO library requires root access in order to configure and manage the GPIO pins.
-For us that means that the **nrgpio** command must be executable by the user that is running Node-RED.
-That user **must** have root access to run python in order to access the pins
-directly. The default user pi does have this access and is the recommended user
-with which to run Node-RED.
+     cd ~/.node-red
 
-If you want to run as a different user you will need either to add that user to
-the sudoers list - or maybe just access to python - for example by adding the following to sudoers using visudo.
-
-    NodeREDusername ALL=(ALL) NOPASSWD: /usr/bin/python
-
-We are currently looking at ways to reduce this exposure further.
-
-### Extra Nodes
-
-There are also some extra hardware specific nodes (for the Pibrella, PiFace and
-LEDBorg plug on modules) available via [npm](https://www.npmjs.com/search?q=node-red-node-+).
+There are some extra hardware specific nodes (e.g. for the Pibrella, PiFace and
+LEDBorg plug on modules, Neopixel leds, temperature sensors, etc) available via the **[flows library](http://flows.nodered.org/)**.
 For example the Pibrella node can be installed as follows
 
-        cd ~/.node-red
-        npm install node-red-node-pibrella
+    cd ~/.node-red
+    npm install node-red-node-pibrella
 
-### Note
+You then need to stop and restart Node-RED to load the new nodes, and then refresh the flow editor page in the browser.
 
- * **Midori Browser** - the old Midori browser does not have adequate javascript support to
-use it with Node-RED. If you want to use a built in browser on the Pi please
-install the Epiphany browser and use that pointed at http://localhost:1880.
-Epiphany is now the default Raspbian browser, or you can install it by
+    node-red-stop
+    node-red-start
 
-        sudo apt-get install epiphany-browser
+There is a [command line admin](../node-red-admin) tool that may be useful if you need to do this a lot.
 
-***
+## Interacting with the Pi hardware
 
-### Interacting with the Pi hardware
-
-There are two main ways of interacting with a Raspberry Pi using Node-RED.
+There are several ways of interacting with a Raspberry Pi using Node-RED.
 
 **rpi-gpio nodes**  (default)
 : provided in the palette for monitoring and controlling the GPIO
-  pins. This is the simplest and recommended way.
+  pins. This is the simplest and recommended method.
 
-**wiring-pi module** (optional)
-: this provides complete access to the GPIO pins, and other devices, within
+**contrib-gpio nodes** (optional)
+: additional nodes from @monteslu that provide generic gpio support for Pi, BeagleBone, Arduino, Edison, etc. They can be installed from [here](https://github.com/monteslu/node-red-contrib-gpio).
+
+**wiring-pi module** (advanced)
+: this provides more complete access to the GPIO pins, and other devices, within
   Function nodes. This gives more control and access to other features not in
   the nodes but you have to program it yourself.
 
 
 ### rpi-gpio nodes
 
-These use a python **nrgpio** command as part of the core install that can be
-found in \<node-red-install-directory>/nodes/core/hardware
-
+These use a python `nrgpio` command as part of the core install.
 This provides a way of controlling the GPIO pins via nodes in the Node-RED palette.
 
 
-### First Flow - Blink - gpio
+#### First Flow - Blink - gpio
 
 To run a "blink" flow that toggles an LED on Pin 11 of the GPIO header, you will
 need to connect up an LED as described [here](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/).
@@ -194,9 +383,11 @@ okay, click in the workspace to place the new nodes.
 Click the deploy button and the flow should start running. The LED should start
 toggling on and off once a second.
 
-***
 
 ### wiring-pi module
+
+This section is for advanced users only.
+In general most users will not need to do this.
 
 This version of working with the Raspberry Pi uses a node.js wrapper to the
 WiringPi libraries previously installed, and so
@@ -211,7 +402,7 @@ to get Wiring Pi installed.
 
 #### Configuring Node-RED
 
-Firstly the npm module needs to be installed into the same directory as your
+Firstly the wiring-pi npm module needs to be installed into the same directory as your
 `settings.js` file.
 
     cd ~/.node-red
@@ -220,8 +411,8 @@ Firstly the npm module needs to be installed into the same directory as your
 This does not add any specific nodes to Node-RED. Instead the Wiring-Pi module can be made
 available for use in Function nodes.
 
-To do this, update `settings.js` to add the `wiring-pi` module to the Function
-global context:
+To do this, edit your `settings.js` file to add the `wiring-pi` module to the Function
+global context section:
 
     functionGlobalContext: {
         wpi: require('wiring-pi')

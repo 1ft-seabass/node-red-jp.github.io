@@ -5,15 +5,15 @@ title: インストール
 
 ### Node.jsのインストール
 
-Node-REDはNode.js <code>0.10.x</code> 以降をサポートしています。
+Node-REDはNode.js <code>0.10.x</code> 以降（LTS推奨）をサポートしています。
 
-<div class="doc-callout"><em>Note</em>:  Node.js <code>5.x</code> 及び NPM <code>3.x</code> は現在活発に開発されており、安定した環境を求める場合はお勧めできません。多くのサードパーティのNodeパッケージ、特にバイナリコンポーネントが含まれている場合はNode.js 5.xをサポートしていない可能性があります。わからない場合はパッケージの作成者に確認してください。</div>
+<div class="doc-callout"><em>Note</em>:  Node.js <code>7.x</code> は現在活発に開発されており、安定した環境を求める場合はお勧めできません。多くのサードパーティのNodeパッケージ、特にバイナリコンポーネントが含まれている場合はNode.js 6.xをサポートしていない可能性があります。わからない場合はパッケージの作成者に確認してください。</div>
 
 Node <code>4.x</code> の最新の長期サポート（LTS）バージョンは以下からダウンロードできます。:
 
-- Linux Binaries: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-linux-x86.tar.gz) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-linux-x64.tar.gz)
-- Max OS X Installer: [Universal](https://nodejs.org/dist/latest-v4.x/node-v4.5.0.pkg)
-- Windows Installer: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-x86.msi) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.5.0-x64.msi)
+- Linux Binaries: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.6.1-linux-x86.tar.gz) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.6.1-linux-x64.tar.gz)
+- Max OS X Installer: [Universal](https://nodejs.org/dist/latest-v4.x/node-v4.6.1.pkg)
+- Windows Installer: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.6.1-x86.msi) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.6.1-x64.msi)
 
 お使いのオペレーティングシステム用の [パッケージ版](https://nodejs.org/en/download/package-manager/) を使用するのが最も簡単です。
 
@@ -81,13 +81,6 @@ GitHubからソースリポジトリをクローンするには以下のコマ�
 
     grunt build
     node red
-
-#### シリアルポート
-
-Node.js v0.10.xを使用していてシリアルポートのNodeを使用する場合、またはNode.js v0.12.x場合は、手動でシリアルポートNodeの古いバージョンをインストールする必要があります。
-
-    cd $HOME/.node-red
-    npm install node-red-node-serialport@0.0.5
 
 #### 次のステップ
 

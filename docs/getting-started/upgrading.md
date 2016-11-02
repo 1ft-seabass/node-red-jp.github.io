@@ -5,7 +5,7 @@ title: アップグレード
 
 <div class="doc-callout"><em>Note</em>: Raspian JessieにプリインストールされているNode-REDをお使いの場合は<a href="/docs/hardware/raspberrypi#upgrading">アップグレード手順</a>を参照してください。</div>
 
-現在、我々はnpmバージョン2を利用することをお勧めしています。アップグレードする前に `npm -v` コマンドを実行してインストールされているnpmのバージョンを確認してください。
+現在、我々はnpmバージョン2以上を利用することをお勧めしています。アップグレードする前に `npm -v` コマンドを実行してインストールされているnpmのバージョンを確認してください。
 
     sudo npm i -g npm@2.x
     hash -r
@@ -15,16 +15,38 @@ title: アップグレード
     sudo npm cache clean
     sudo npm update -g --unsafe-perm node-red
 
+また、以下の方法でユーザディレクトリにインストールされている古いバージョンのNodeを確認することができます。
+
+    cd ~/.node-red
+    npm outdated
+
+すべてのNodeをアップデートするには以下を実行します。
+
+    npm update
+
+または、fooというNodeだけをアップデートするには以下を実行します。
+
+    npm update foo // fooというNodeだけをアップデートする
+
+アップデート後はNode-REDを再起動すると反映されます。
+
 ### Node.jsのアップグレード
 
-Node.jsを `v0.10.x` から `v4.3.x` にアップグレードする場合は次のようにNode-REDを再インストールすることをお勧めします。
+Node.jsを `v0.10.x` から `v4.6.x` にアップグレードする場合はNode-REDを停止後、次のようにNode-REDを再インストールすることをお勧めします。
 
     sudo npm cache clean
     sudo npm install -g --unsafe-perm node-red
 
+また、バイナリ依存関係を持つすべてのNodeを再ビルドする必要があります。もし、 `~/.node-red` ディレクトリにインストールしている場合は以下のようにします。
+
+    cd ~/.node-red
+    npm rebuild
+
+その後、Node-REDを再起動する必要があります。
+
 ----
 
-### Node-REDバージョン0.10.4以前からのアップグレード
+#### Node-REDバージョン0.10.4以前からのアップグレード
 
 バージョン0.10.4以前のNode-REDはデフォルトでインストールディレクトリにユーザデータを書き込んでいました。以降のバージョンではこの構造が変わりました。以下はユーザデータの移行方法です。
 
@@ -39,7 +61,7 @@ Node.jsを `v0.10.x` から `v4.3.x` にアップグレードする場合は次�
    - `.config.json`
    - `.sessions.json` - 存在する場合
    - `lib/` ディレクトリ全体
-   - `nodes/` ディレクトリ全体（手動でインストールされている任意の追加ノード）
+   - `nodes/` ディレクトリ全体（手動でインストールされている任意の追加Node）
 
 4. 移動先のディレクトリとファイルにNode-REDが書き込み権限を持っていることを確認します。
 
