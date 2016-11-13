@@ -5,7 +5,8 @@ title: Configuration nodes
 
 Some nodes need to share configuration. For example, the MQTT In and MQTT Out
 nodes share the configuration of the MQTT broker, allowing them to pool the
-connection.
+connection. Configuration nodes are scoped globally by default, this means
+the state will be shared between flows.
 
 
 ### Defining a config node
@@ -94,10 +95,10 @@ The node can then use this property to access the config node within the runtime
 module.exports = function(RED) {
     function MyNode(config) {
         RED.nodes.createNode(this,config);
-        
+
         // Retrieve the config node
         this.server = RED.nodes.getNode(config.server);
-        
+
         if (this.server) {
             // Do something with:
             //  this.server.host
@@ -109,4 +110,3 @@ module.exports = function(RED) {
     RED.nodes.registerType("my-node",MyNode);
 }
 {% endhighlight %}
-

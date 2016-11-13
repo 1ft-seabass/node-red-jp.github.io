@@ -192,12 +192,18 @@ ui
 functionGlobalContext
 : Function Nodeの中では他のライブラリを`require`できませんが`functionGlobalContext`であらかじめ`require`しておくことで`context.global`からライブラリにアクセスできるようになります。以下が設定例。
 
-      functionGlobalContext: { os:require('os') }
+      functionGlobalContext: { osModule:require('os') }
 
   上記のように設定してFunction Nodeで以下のようにしてDebug Nodeに吐くと`os`オブジェクトが格納されていることがわかります。ただしライブラリが`npm`でグローバルにインストールされているか、`settings.js`より下層にインストールされていなければいけません。
 
-      msg.payload = context.global.os;
-      return msg;
+      var myos = global.get('osModule');
+
+<div class="doc-callout"><em>Note</em>: Node-RED v0.13以前のドキュメントではグローバルコンテキストにアクセスする方法はサブプロパティを参照する方法でした。
+<pre>
+context.global.foo = "bar";
+var osModule = context.global.osModule;
+</pre>
+この方法はまだサポートされていますが、<code> global.get </code> / <code> global.set </code>でのアクセスが推奨されます。これは将来のリリースでコンテキストデータが永続化できるようになるためです。</div>
 
 debugMaxLength
 : Debug NodeでDebugに表示する文字数を指定します。Debugに表示する文字が`...`で途切れてしまう場合はここを増やします。デフォルト: 1000
