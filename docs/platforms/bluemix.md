@@ -3,70 +3,62 @@ layout: default
 title: Running on IBM Bluemix
 ---
 
-Node-RED is available on the IBM Bluemix platform as one of the [boilerplate applications](#boilerplate-application)
-in the catalog.
-
-We also provide a '[Deploy To Bluemix](#deploy-to-bluemix)' enabled repository.
+Node-REDは、IBM Bluemix上で、[ボイラーテンプレートプリケーション](#boilerplate-application)として提供されています。
+また、私たちは数クリックで'[Bluemixへデプロイする機能](#deploy-to-bluemix)'も提供しています。
 
 ---
 
-### Boilerplate application
+### ボイラーテンプレートアプリケーション
 
-1. Log in or sign-up for an account at [Bluemix.net](http://bluemix.net)
+1. [Bluemix.net](http://bluemix.net)にて、アカウントをサインアップし、ログイン
 
-2. Navigate to the catalog and [search for 'Node-RED'](https://new-console.ng.bluemix.net/catalog/starters?search=Node-RED)
+2. カタログへ移動し、['Node-RED'というキーワードで検索](https://new-console.ng.bluemix.net/catalog/starters?search=Node-RED)。
 
-3. This will present you with two options:
+3. ここで、以下の2つのボイラーテンプレートが表示されます:
 
-    1. **Node-RED Starter** - a vanilla Node-RED instance
+    1. **Node-RED Starter** - 通常のNode-RED
 
-    2. **Internet of Things Platform Starter** - this gives you everything you need
-       to started quickly using Node-RED with the Watson IoT Platform, including
-       some default flows to show how things work
+    2. **Internet of Things Platform Starter** - Watson IoT Platform向けNode-RED(Watson IoT Platformのデフォルトのフローなどが用意されている)
 
-   In both cases you will get:
+   両方のボイラーテンプレートは、以下の2つが含まれています:
 
-     - a Cloudant database instance to store your flow configuration    
-     - a collection of nodes that make it easy to access various Bluemix services, including
-       both the Watson IoT platform and the Watson Cognitive services
+     - フローの定義を格納するためのCloudantデータベース
+     - Watson IoT platformやWatson等のBluemix上のサービスにアクセスするためのノード
 
-4. Click the starter application you want to use, give it a name and click create.
+4. どちらかのボイラーテンプレートを選択し、アプリケーション名を入力後、アプリケーションを作成
 
-A couple of minutes later, you'll be able to access your instance of Node-RED at `https://<yourAppName>.mybluemix.net`
+数分後、`https://<yourAppName>.mybluemix.net`というURLから、Node-REDインスタンスへアクセスできます。
 
+#### Node-REDをカスタマイズ
 
-#### Customising your Node-RED application
+##### フローエディタにログイン認証を追加
 
-##### Securing the editor
+ユーザ名とパスワードを環境変数へ登録することで、 設定ファイルを編集することなく、フローエディタへのアクセスを制限できます:
 
-To quickly set a username/password to control access to the editor, without having to
-edit the settings file:
+1. Bluemixダッシュボードにて、アプリケーションの環境変数のページに移動
+2. 以下のユーザ定義変数を追加:
+    - `NODE_RED_USERNAME` - フローエディタのログインに用いるユーザ名
+    - `NODE_RED_PASSWORD` - フローエディタのログインに用いるパスワード
+3. 保存をクリック
 
-1. In the Bluemix dashboard, select the 'Environment Variables' page for your application
-2. Add the following user-defined variables:
-    - `NODE_RED_USERNAME` - the username to secure the editor with
-    - `NODE_RED_PASSWORD` - the password to secure the editor with
-3. Click Save.
+##### ノードの追加
 
-##### Adding nodes
+ノードを追加するためには、Node-REDアプリケーションの`package.json`ファイルを編集します。
+具体的には、`package.json`ファイルの`dependencies` セクションに必要なノードモジュールを追加します。
+追加するフォーマットは、`"node-red-node-package-name":"x.x.x"`です。
+フォーマット中のx.x.xには追加したいノードのバージョン番号を記載します。
 
-In order to add nodes you need to edit the application's `package.json` file and
-add the required node modules in the `dependencies` section. The format is:
-`"node-red-node-package-name":"x.x.x"` Where x.x.x is the desired version number.
+##### 静的なウェブコンテンツを変更
 
-##### Changing the static web content
+静的なウェブコンテンツは`public`ディレクトリ内に保存します。
 
-The page you are reading now is served as static content from the application.
-This can be replaced with whatever content you want in the `public` directory.
+もし、ルートパスの静的なウェブコンテンツを削除し、ルートパスをフローエディタに変更したい場合は、
+`bluemix-settings.js`ファイル内の`httpStatic`と`httpAdminRoot`エントリを削除します。
 
-If you want to remove the static web content and serve the flow editor from the
-root path, delete the `httpStatic` and `httpAdminRoot` entries in the `bluemix-settings.js` file.
+##### Node-REDを最新バージョンへ更新
 
-
-##### Upgrading the version of Node-RED
-
-The boilerplate is configured to grab the latest stable release of Node-RED whenever the
-application is restaged into Bluemix. You can trigger a restage using the [`cf` command-line tool](https://console.ng.bluemix.net/docs/cli/reference/cfcommands/index.html).
+ボイラーテンプレートは、常に最新の安定板Node-REDを取得するよう設定されています。
+そのため、[`cf` command-line tool](https://console.ng.bluemix.net/docs/cli/reference/cfcommands/index.html)コマンドを用いて、アプリケーションをrestageすると、最新バージョンへ更新されます。
 
 ---
 
