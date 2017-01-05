@@ -1,63 +1,119 @@
 ---
 layout: default
-title: BeagleBone Black
+title: Running on BeagleBone Boards
 ---
 
-The BeagleBoneBlack already has Node.js baked into it's OS, so some of these tips are optional.
+The latest 4GB images for BeagleBone boards already have Node-RED installed into it's OS so you can just start running with the `node-red` command. You can use the intructions below to upgrade to later versions if you wish.
+
+The 2GB console version suitable for flashing to older eMMC versions of the BBB will need to install as per below.
 
 <div class="doc-callout">
-<em>Note:</em> we are soon deprecating Node v0.8 support - these instructions only apply to the
-Debian versions of BeagleBoneBlack. <a href="http://beagleboard.org/latest-images">http://beagleboard.org/latest-images</a>
+These instructions only apply to the Debian versions of BeagleBoneBlack. <a href="http://beagleboard.org/latest-images">http://beagleboard.org/latest-images</a>
 </div>
 
+#### Before you start
 
-#### Upgrading Node.js (Optional)
-
-You need Node.js v0.10.x which should be installed by default on the BBB so this step is optional.
-To update Node.js on BBB - checkout the instructions halfway down this page [http://elinux.org/Beagleboard:BeagleBoneBlack_Debian](http://elinux.org/Beagleboard:BeagleBoneBlack_Debian)
-
-In particular the lines about adding an updated repo to /etc/apt/sources.list
-
-    sudo sh -c "echo 'deb [arch=armhf] http://repos.rcn-ee.net/debian wheezy main' >> /etc/apt/sources.list"
-    sudo sh -c "echo '#deb-src [arch=armhf] http://repos.rcn-ee.net/debian wheezy main' >> /etc/apt/sources.list"
-
-Then update the packages
+If you are using the 2GB eMMC version of Debian it has been stripped right down so you may need to install some
+utility functions first
 
     sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get install npm --reinstall
+    sudo apt-get install -y curl locales ntpdate avahi-utils python build-essential
 
-#### Installing Node-RED
+Make sure the local time is set correctly. The BeagleboneBlack does not have a
+battery backed real time clock so needs to be set on every boot in order for
+software certificates date checks to be valid.
+
+    ntpdate -b -s -u pool.ntp.org
+
+#### Updating node.js
+
+We recommend using node.js LTS 4.x.
+
+    sudo apt-get install curl
+    curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+    sudo apt-get install -y build-essential nodejs
+    hash -r
+
+### Installing Node-RED
 
 The easiest way to install Node-RED is to use node's package manager, npm:
 
-    sudo npm install -g --unsafe-perm  node-red
+    sudo npm i -g --unsafe-perm node-red
 
 _Note_: the reason for using the `--unsafe-perm` option is that when node-gyp tries
 to recompile any native libraries it tries to do so as a "nobody" user and often
 fails to get access to certain directories. This causes alarming warnings that look
 like errors... but only sometimes are errors. Allowing node-gyp to run as root using
-this flag avoids this - or rather shows up any real errors instead.
+this flag avoids this - or rather, shows up any real errors instead.
 
-For alternative install options, see the [main installation instructions](../getting-started/installation.html#install-node-red).
-
+For other install options, e.g. to run in development mode from GitHub, see the [main installation instructions](../getting-started/installation#install-node-red).
 
 #### BBB specific nodes
 
-There are some BBB specific nodes now available in our [node-red-nodes project on Github](https://github.com/node-red/node-red-nodes/tree/master/hardware/BBB).
+There are some BBB specific nodes that give you direct access to the I/O pins in the simplest possible manner.
+The easiest way to install them is direct from npm.
 
-These give you direct access to the I/O pins in the simplest possible manner. The easiest way to install them is direct from npm
+For Debian Jessie based builds with kernel 4.x run the following commands in the user
+directory of your Node-RED install. This is usually `~/.node-red`
 
-    cd ~/.node-red
-    npm install node-red-node-beaglebone
+    sudo npm install -g --unsafe-perm node-red-node-beaglebone
 
-#### Starting Node-RED
+For previous versions of Debian (eg Wheezy) - use the older version of this node.
+
+    sudo npm install -g --unsafe-perm node-red-node-beaglebone@0.0.8
+
+An alternative option is to use the gpio nodes contributed by @monteslu that
+are available [here](https://github.com/monteslu/node-red-contrib-gpio). These give more options for interfacing like i2c and software serial, as well as simple digital and analogue IO.
+
+### Starting Node-RED
 
 Due to the constrained memory available on the BBB, it is advisable to
-run Node-RED with the `node-red-pi` command. For details and other options such as auto-starting
-on boot, follow the [Running Node-RED](../getting-started/running.html) instructions.
+run Node-RED with the `node-red-pi` command. For details and other options such
+as auto-starting on boot, follow the [Running Node-RED](../getting-started/running)
+instructions.
 
-#### Using the Editor
+To access the GPIO pins it is currently necessary to run as root :
+
+    sudo node-red-pi
+
+There are ways to avoid this using udev rules and groups and so on - but that is
+beyond the scope of this readme. Google is your friend.
+
+#### Auto-starting
+
+The simplest way to auto-start Node-RED on boot is to use the built in systemd.
+To do this create a file `/lib/systemd/system/nodered.service` containing the following
+
+    # systemd service file to start Node-RED
+    [Unit]
+    Description=Node-RED graphical event wiring tool.
+    Wants=network.target
+    Documentation=http://nodered.org/docs/hardware/raspberrypi.html
+    [Service]
+    Type=simple
+    # Run as root user in order to have access to gpio pins
+    User=root
+    Group=root
+    Nice=5
+    Environment="NODE_OPTIONS=--max-old-space-size=128"
+    #Environment="NODE_RED_OPTIONS=-v"
+    ExecStart=/usr/bin/env node-red-pi $NODE_OPTIONS $NODE_RED_OPTIONS
+    KillSignal=SIGINT
+    Restart=on-failure
+    SyslogIdentifier=Node-RED
+    [Install]
+    WantedBy=multi-user.target
+
+Reload the systemd configuration, and enable the service
+
+    sudo systemctl daemon-reload
+    sudo systemctl enable nodered.service
+
+Systemd uses the `/var/log/system.log` for logging.  To filter the log use
+
+    sudo journalctl -f -u nodered -o cat
+
+### Using the Editor
 
 Once Node-RED is started, assuming you haven't changed the hostname, point a
 browser to [http://beaglebone.local:1880](http://beaglebone.local:1880).
@@ -76,27 +132,29 @@ can be manually set on or off using the Inject node buttons.
 
 #### Advanced functions
 
-For experts, the `bonescript` module can be made available for use in Function nodes.
+For experts, the `octalbonescript` module can be made available for use inside
+Function nodes. This is NOT necessary for simple use with the built in nodes.
 
-To do this, update `settings.js` to add the `bonescript` module to the
-Function global context - to do this :
+To do this, first install the `octalbonescript` library - see
+[the octalbonescript readme](https://github.com/theoctal/octalbonescript)
+for detailed install instructions depending on your kernel, but for Debian Jessie it will be
 
-When you run node-red it will print the location of `settings.js` like
+    cd ~/.node-red
+    npm i octalbonescript
 
-    [info] Settings file  : /usr/local/lib/node_modules/node-red/settings.js
+Then update `settings.js` to add the `octalbonescript` module to the
+Function global context - to find this run `node-red-pi`, and it will print the location of `settings.js` like
 
-Edit this `settings.js` file - you may need to be administrator or sudo to do this. And
-there we need to uncomment the bonescript library line.
+    [info] Settings file  : /root/.node-red/settings.js
+
+Edit this `settings.js` file. And there we need to uncomment the octalbonescript library line.
 
     functionGlobalContext: {
-        // os:require('os'),
-        bonescript:require('bonescript'),
-        // jfive:require("johnny-five"),
-        // j5board:require("johnny-five").Board({repl:false})
+        octalbonescript:require('octalbonescript')
     },
 
-The module is then available to any functions you write as `context.global.bonescript`.
+The module is then available to any functions you write as `context.global.octalbonescript`.
 
 An example flow that demonstrates this is below :
 
-    [{"id":"3c3a39ec.c3c5c6","type":"inject","name":"on","topic":"","payload":"1","repeat":"","once":false,"x":226,"y":498,"z":"345c8adc.cba376","wires":[["6d418357.92be7c"]]},{"id":"f9ade3.ff06522","type":"inject","name":"off","topic":"","payload":"0","repeat":"","once":false,"x":226,"y":538,"z":"345c8adc.cba376","wires":[["6d418357.92be7c"]]},{"id":"919022c7.6e6fe","type":"inject","name":"tick","topic":"","payload":"","repeat":"1","once":false,"x":226,"y":438,"z":"345c8adc.cba376","wires":[["7783db44.887c24"]]},{"id":"ec2495b6.13db68","type":"debug","name":"","active":true,"x":666,"y":478,"z":"345c8adc.cba376","wires":[]},{"id":"7783db44.887c24","type":"function","name":"Toggle USR3 LED on input","func":"\nvar pin = \"USR3\"\nvar b = context.global.bonescript;\ncontext.state = context.state || b.LOW;\n\nb.pinMode(pin, b.OUTPUT);\n\n(context.state == b.LOW) ? context.state = b.HIGH : context.state = b.LOW;\nb.digitalWrite(pin, context.state);\n\nreturn msg;","outputs":1,"x":446,"y":458,"z":"345c8adc.cba376","wires":[["ec2495b6.13db68"]]},{"id":"6d418357.92be7c","type":"function","name":"Set USR2 LED on input","func":"\nvar pin = \"USR2\";\nvar b = context.global.bonescript;\n\nb.pinMode(pin, b.OUTPUT);\n\nvar level = (msg.payload === \"1\")?1:0;\nb.digitalWrite(pin, level);\n\nreturn msg;","outputs":1,"x":446,"y":518,"z":"345c8adc.cba376","wires":[["ec2495b6.13db68"]]}]
+    [{"id":"e370f54b.baa368","type":"inject","z":"e524537e.2ec11","name":"on","topic":"","payload":"1","repeat":"","once":false,"x":150,"y":320,"wires":[["383a5612.0d587a"]]},{"id":"cba5ca3b.02b978","type":"inject","z":"e524537e.2ec11","name":"off","topic":"","payload":"0","repeat":"","once":false,"x":150,"y":360,"wires":[["383a5612.0d587a"]]},{"id":"b545aca3.75e4e","type":"inject","z":"e524537e.2ec11","name":"tick","topic":"","payload":"","repeat":"1","once":false,"x":150,"y":260,"wires":[["ebbe2d86.c74b2"]]},{"id":"49b03095.64b31","type":"debug","z":"e524537e.2ec11","name":"","active":true,"x":630,"y":260,"wires":[]},{"id":"ebbe2d86.c74b2","type":"function","z":"e524537e.2ec11","name":"Toggle USR3 LED on input","func":"\nvar pin = \"USR3\"\nvar b = context.global.octalbonescript;\ncontext.state = context.state || b.LOW;\n\nb.pinModeSync(pin, b.OUTPUT);\n\n(context.state == b.LOW) ? context.state = b.HIGH : context.state = b.LOW;\nb.digitalWrite(pin, context.state);\n\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":260,"wires":[["49b03095.64b31"]]},{"id":"383a5612.0d587a","type":"function","z":"e524537e.2ec11","name":"Set USR2 LED on input","func":"\nvar pin = \"USR2\";\nvar b = context.global.octalbonescript;\n\nb.pinModeSync(pin, b.OUTPUT);\n\nvar level = (msg.payload === \"1\")?1:0;\nb.digitalWrite(pin, level);\n\nreturn msg;","outputs":1,"noerr":0,"x":370,"y":320,"wires":[["49b03095.64b31"]]}]

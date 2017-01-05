@@ -143,6 +143,14 @@ ul.toc li.toc-expander {
 
 }
 
+code.node {
+    border-radius: 6px;
+    border: 1px solid #B68181;
+    background: #fff0f0;
+    color: #555;
+    white-space:nowrap;
+}
+
 @media handheld, only screen and (max-width: 755px) {
     ul.toc:not(.open) li.tocheader>span {
         display: none;
