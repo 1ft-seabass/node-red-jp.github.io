@@ -11,9 +11,9 @@ Node-REDはNode.js <code>0.10.x</code> 以降（LTS推奨）をサポートし�
 
 Node <code>4.x</code> の最新の長期サポート（LTS）バージョンは以下からダウンロードできます。:
 
-- Linux Binaries: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.1-linux-x86.tar.gz) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.1-linux-x64.tar.gz)
-- Max OS X Installer: [Universal](https://nodejs.org/dist/latest-v4.x/node-v4.7.1.pkg)
-- Windows Installer: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.1-x86.msi) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.1-x64.msi)
+- Linux Binaries: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.2-linux-x86.tar.gz) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.2-linux-x64.tar.gz)
+- Max OS X Installer: [Universal](https://nodejs.org/dist/latest-v4.x/node-v4.7.2.pkg)
+- Windows Installer: [32-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.2-x86.msi) or [64-bit](https://nodejs.org/dist/latest-v4.x/node-v4.7.2-x64.msi)
 
 お使いのオペレーティングシステム用の [パッケージ版](https://nodejs.org/en/download/package-manager/) を使用するのが最も簡単です。
 
