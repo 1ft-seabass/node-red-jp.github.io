@@ -5,9 +5,9 @@ title: インストール
 
 ### Node.jsのインストール
 
-Node-REDはNode.js <code>0.10.x</code> 以降（LTS推奨）をサポートしています。
+Node-REDはNode.js LTS <code>4.x</code>または<code>6.x</code>を使用することをお勧めします。Node.js <code>0.10.x</code>または<code>0.12.x</code>をサポートしなくなりました。
 
-<div class="doc-callout"><em>Note</em>:  Node.js <code>7.x</code> は現在活発に開発されており、安定した環境を求める場合はお勧めできません。多くのサードパーティのNodeパッケージ、特にバイナリコンポーネントが含まれている場合はNode.js 6.xをサポートしていない可能性があります。わからない場合はパッケージの作成者に確認してください。</div>
+<div class="doc-callout"><em>Note</em>:  Node.js <code>7.x</code> は現在活発に開発されており、安定した環境を求める場合はお勧めできません。多くのサードパーティのNodeパッケージ、特にバイナリコンポーネントが含まれている場合はNode.js 7.xをサポートしていない可能性があります。わからない場合はパッケージの作成者に確認してください。</div>
 
 Node <code>4.x</code> の最新の長期サポート（LTS）バージョンは以下からダウンロードできます。:
 
