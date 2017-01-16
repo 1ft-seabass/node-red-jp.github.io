@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会  : Storage API</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    <link href="/css/api.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li class="current"><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<div class="docs">
+  <div class="grid">
+    <div class="col-3-12">
+    <ul class="toc">
+    <li class="toc-expander">V</li>
+    <li><a href="/docs/">&larr; back</a></li>
+    <li class="tocheader"><span>API</span>
+        <ul>
+            <li ><a href="/docs/api/">概要</a>
+        </ul>
+    </li>
+
+    <li class="tocheader"><span>Admin HTTP API</span>
+        <ul>
+            <li ><a href="/docs/api/admin/">概要</a>
+            <li ><a href="/docs/api/admin/oauth">認証</a>
+            <li ><a href="/docs/api/admin/types">種類</a>
+            <li ><a href="/docs/api/admin/errors">エラー</a>
+            <li ><a href="/docs/api/admin/methods">メソッド</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Runtime API</span>
+        <ul>
+            <li ><a href="/docs/api/runtime/">概要</a>
+            <li ><a href="/docs/api/runtime/api">API</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Storage API</span>
+        <ul>
+            <li ><a href="/docs/api/storage/">概要</a>
+            <li class="active"><a href="/docs/api/storage/methods">メソッド</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Editor Widgets</span>
+        <ul>
+            <li ><a href="/docs/api/ui/">概要</a>
+            <li ><a href="/docs/api/ui/typedInput">TypedInput</a>
+            <li ><a href="/docs/api/ui/editableList">EditableList</a>
+        </ul>
+    </li>
+<!--
+    <li class="tocheader"><span>Editor API</span>
+        <ul>
+            <li ><a href="/docs/api/editor">Overview</a>
+        </ul>
+    </li>
+-->
+</ul>
+
+<script>
+$(function() {
+    $(".toc-expander").click(function() {
+        if ($("ul.toc").hasClass('open')) {
+            $("ul.toc").removeClass('open');
+        } else {
+            $("ul.toc").addClass('open');
+        }
+    })
+});
+//$(function() {
+//    $("li.tocheader ul").hide();
+//    $("li.tocheader a.active").parent().parent().show();
+//    $("li.tocheader>span").click(function(e) {
+//        $(this).next().toggle("fast");
+//    });
+//});
+</script>
+
+    </div>
+    <div class="col-9-12">
+      <div class="docs-content">
+        <h1 class="docs-title">Storage API</h1>
+        <p>A Storage plugin is a node.js module that exposes the following functions on its
+<code class="highlighter-rouge">module.exports</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="#storageinitsettings">Storage.init(settings)</a></td>
+      <td>initialise the storage system</td>
+    </tr>
+    <tr>
+      <td><a href="#storagegetflows">Storage.getFlows()</a></td>
+      <td>get the flow configuration</td>
+    </tr>
+    <tr>
+      <td><a href="#storagesaveflowsflows">Storage.saveFlows(flows)</a></td>
+      <td>save the flow configuration</td>
+    </tr>
+    <tr>
+      <td><a href="#storagegetcredentials">Storage.getCredentials()</a></td>
+      <td>get the flow credentials</td>
+    </tr>
+    <tr>
+      <td><a href="#storagesavecredentialscredentials">Storage.saveCredentials(credentials)</a></td>
+      <td>save the flow credentials</td>
+    </tr>
+    <tr>
+      <td><a href="#storagegetsettings">Storage.getSettings()</a></td>
+      <td>get the user settings</td>
+    </tr>
+    <tr>
+      <td><a href="#storagesavesettingssettings">Storage.saveSettings(settings)</a></td>
+      <td>save the user settings</td>
+    </tr>
+    <tr>
+      <td><a href="#storagegetsessions">Storage.getSessions()</a></td>
+      <td>get the user sessions</td>
+    </tr>
+    <tr>
+      <td><a href="#storagesavesessionssessions">Storage.saveSessions(sessions)</a></td>
+      <td>save the user sessions</td>
+    </tr>
+    <tr>
+      <td><a href="#storagegetlibraryentrytypename">Storage.getLibraryEntry(type,name)</a></td>
+      <td>get a type-specific library entry</td>
+    </tr>
+    <tr>
+      <td><a href="#storagesavelibraryentrytypenamemetabody">Storage.saveLibraryEntry(type,name,meta,body)</a></td>
+      <td>save a type-specific library entry</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="storageinitsettings">Storage.init(settings)</h3>
+
+<p>Initialise the storage system.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>settings</td>
+      <td>the runtime settings</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves when the storage system is initalised.</p>
+
+<h3 id="storagegetflows">Storage.getFlows()</h3>
+
+<p>Returns a promise that resolves with the runtime flow configuration.</p>
+
+<h3 id="storagesaveflowsflows">Storage.saveFlows(flows)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>flows</td>
+      <td>the flow configuration object, can be serialised as JSON.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves when the flow configuration has been saved.</p>
+
+<h3 id="storagegetcredentials">Storage.getCredentials()</h3>
+
+<p>Returns a promise that resolves with the runtime flow credentials.</p>
+
+<h3 id="storagesavecredentialscredentials">Storage.saveCredentials(credentials)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>credentials</td>
+      <td>the credentials object, can be serialised as JSON.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves when the flow credentials have been saved.</p>
+
+<h3 id="storagegetsettings">Storage.getSettings()</h3>
+
+<p>Returns a promise that resolves with the user settings.</p>
+
+<h3 id="storagesavesettingssettings">Storage.saveSettings(settings)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>settings</td>
+      <td>the settings object, can be serialised as JSON.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves when the settings have been saved.</p>
+
+<h3 id="storagegetsessions">Storage.getSessions()</h3>
+
+<p>Returns a promise that resolves with the sessions object.</p>
+
+<h3 id="storagesavesessionssessions">Storage.saveSessions(sessions)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sessions</td>
+      <td>the sessions object, can be serialised as JSON.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves when the sessions have been saved.</p>
+
+<h2 id="library-functions">Library Functions</h2>
+
+<p>Nodes that register a library type allow the user to save and retrieve content
+in a local library. The following functions of the storage module are used to
+access this content.</p>
+
+<p>Entries may have metadata associated with them, for example, a <code class="highlighter-rouge">function</code> entry
+includes metadata identifying how many outputs the function provides.</p>
+
+<h3 id="storagegetlibraryentrytypename">Storage.getLibraryEntry(type,name)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>the type of library entry, eg <code class="highlighter-rouge">flows</code>, <code class="highlighter-rouge">functions</code>, <code class="highlighter-rouge">templates</code></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>the pathname of the entry to return</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves with the result.</p>
+
+<p>If <code class="highlighter-rouge">name</code> represents to a single entry, the result is the content of the entry. 
+For example, the code of a function.</p>
+
+<p>If <code class="highlighter-rouge">name</code> represents to a logical directory, the result is a directory listing array.
+Each element of the array is either a string (representing subdirectories that can
+be browsed) or is an object with a <code class="highlighter-rouge">fn</code> property providing the entry’s filename,
+as well as any other metadata associated with the entry.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">[</span> <span class="s1">'directory1'</span><span class="p">,</span>
+  <span class="s1">'directory2'</span><span class="p">,</span>
+  <span class="p">{</span> <span class="na">fn</span><span class="p">:</span> <span class="s1">'File-1.js'</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">fn</span><span class="p">:</span> <span class="s1">'File-2.js'</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">fn</span><span class="p">:</span> <span class="s1">'File-3.js'</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="p">]</span></code></pre></figure>
+
+<h3 id="storagesavelibraryentrytypenamemetabody">Storage.saveLibraryEntry(type,name,meta,body)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>the type of library entry, eg <code class="highlighter-rouge">flows</code>, <code class="highlighter-rouge">functions</code>, <code class="highlighter-rouge">templates</code></td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>the pathname of the entry</td>
+    </tr>
+    <tr>
+      <td>meta</td>
+      <td>an object containing additional metadata to save with the entry</td>
+    </tr>
+    <tr>
+      <td>body</td>
+      <td>the body of the entry</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Returns a promise that resolves when the entry has been saved.</p>
+
+<h2 id="deprecated-library-functions">Deprecated Library Functions</h2>
+
+<p>Prior to version 0.10.7, the following functions were also used by storage modules.</p>
+
+<p>New implementations of this interface should <em>not</em> implement these functions.</p>
+
+<p>The runtime will use them if they are present for backwards compatibility, but
+will otherwise use <code class="highlighter-rouge">getLibraryEntry/saveLibraryEntry</code> with their <code class="highlighter-rouge">type</code> argument
+set to <code class="highlighter-rouge">'flows'</code>.</p>
+
+<h4 id="storagegetallflows">Storage.getAllFlows()</h4>
+
+<p>Returns a promise that resolves to an object containing a complete listing of
+all flows in the library.</p>
+
+<h4 id="storagegetflowname">Storage.getFlow(name)</h4>
+
+<p>Returns a promise that resolves to the content of a flow.</p>
+
+<h4 id="storagesaveflownameflow">Storage.saveFlow(name,flow)</h4>
+
+<p>Returns a promise that resolves when flow is saved to the library.</p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="content">
+            <a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a>
+            <a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a>
+            <a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a>
+            <a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+

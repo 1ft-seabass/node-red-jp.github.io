@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会 </title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li ><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<style>
+    .slack input {
+        border: 1px solid #999;
+        background: #fff;
+        color: #666;
+        padding: 8px 16px;
+        font-size: 20px;
+    }
+    .slack #e {
+        width: 370px;
+    }
+    .slack #go {
+        cursor: pointer;
+    }
+    .slack .content {
+        margin-top: 100px;
+        margin-bottom: 200px;
+    }
+    .slack .content div {
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .slack .content p {
+        margin-bottom: 0;
+        text-align: left;
+    }
+    .slackerr {
+        margin-top: 0;
+        font-size: 16px;
+        color: #f66;
+    }
+    .slack .content div.slackmsg p {
+        text-align: center;
+    }
+    .slack img {
+        width: 300px;
+    }
+</style>
+<div class="title slack">
+    <div class="grid">
+        <div class="col-1-1">
+            <div class="content">
+                <img src='../images/Slack_Mark_Web.png'/>
+                <h2>Join the Node-RED team on Slack</h2>
+                <div class="slackform">
+                    <p><input id="e" placeholder="Enter your email"> <input type="submit" id="go" value="Join"></p>
+                    <p class="slackerr"></p>
+                </div>
+                <div class='slackmsg hide'>
+                    <p>Check your email for an invitation</p>
+                </div>
+                <h2 style="margin-top: 30px">Already a member? <a href="https://node-red.slack.com">Click here</a> to join the conversation</h2>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#go').click(function() {
+        $('.slackerr').text();
+        $('#go').attr('disabled',true);
+        $.post('http://red.knolleary.net/slack-inviter',{email:$('#e').val()},function(data,status) {
+            $('#go').attr('disabled',false);
+            if (!data.ok) {
+                if (data.error === 'invalid_email') {
+                    $('.slackerr').text('Not a valid email address');
+                } else if (data.error === 'already_invited') {
+                    $('.slackerr').text('Email address already invited');
+                } else if (data.error === 'already_in_team') {
+                    $('.slackerr').text('Email address already in the team');
+                } else {
+                    $('.slackerr').text('Something unexpected happened: '+data.error);
+                }
+                console.log(data);
+            } else {
+                $('#e').val('')
+                $('.slackmsg').show();
+            }
+        });
+    })
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+

@@ -15,11 +15,11 @@ You can then start [using the editor](#using-the-editor).
 As of the November 2015 version of Raspbian Jessie, Node-RED comes preinstalled on
 the SD card image that can be downloaded from [RaspberryPi.org](https://www.raspberrypi.org/downloads/raspbian/).
 
-If you already have the minimal version of Jessie, or other Debian based install, that doesn't have Node-RED already installed,
-you can install or upgrade using the Node-RED upgrade script
+If you have the minimal version of Jessie, or other Debian based install, that doesn't have Node-RED
+already installed, you can install or upgrade using the Node-RED upgrade script
 
-    wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered -O update-nodejs-and-nodered
-    update-nodejs-and-nodered
+    bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+
 
 **Note:** If you have upgraded to **node.js 4.x** or more recent then you cannot use apt-get to upgrade the pre-installed version of Node-RED.
 
@@ -27,13 +27,15 @@ you can install or upgrade using the Node-RED upgrade script
 
 As of Node-RED version 0.14.x the upgrade script is pre-installed and will do a full upgrade to the latest nodejs LTS and latest release version of Node-RED.
 
-**Note** - it runs many commands as *sudo* and does delete existing nodejs and the core Node-RED directories.
+The script runs many commands as *sudo* and does delete existing nodejs and the core Node-RED directories.
 If you have installed any extra nodes or npm *globally* (ie anything NOT installed in the `~/.node-red` directory)
 then please ensure you back them up first - usually from `/usr/lib/node_modules`.
 
 To upgrade, run the following command as your normal user (typically `pi`):
 
     update-nodejs-and-nodered
+
+**Note** - If the serialport nodes do not appear when you restart, please re-run the update command.
 
 **Caveat emptor.** The script has only been tested on installs with a small variety
 of the possible extra nodes. The script also tries to rebuild any nodes with native
@@ -101,8 +103,7 @@ The pre-install uses the default node.js within Debian Jessie, which is version
 The simplest way to install Node.js and other dependencies is
 
     sudo apt-get install build-essential python-rpi.gpio
-    wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered -O update-nodejs-and-nodered
-    update-nodejs-and-nodered
+    bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
 
 **Note**: Debian/Raspbian Wheezy is now beyond "End of Life", and is no longer support, and so documentation is now aimed at Jessie as a minimum.
 

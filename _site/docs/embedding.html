@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会  : 既存アプリケーションへの組込み</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li class="current"><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<div class="docs">
+  <div class="grid">
+    <div class="col-3-12">
+    <ul class="toc">
+    <li class="toc-expander"><div>V</div></li>
+    <li class="tocheader"><span>ドキュメント</span>
+        <ul>
+            <li ><a href="/docs/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Getting Started</span>
+        <ul>
+            <li ><a href="/docs/getting-started/installation">インストール</a>
+            <li ><a href="/docs/getting-started/running">起動  </a>
+            <li ><a href="/docs/getting-started/adding-nodes">Nodeの追加</a>
+            <li ><a href="/docs/getting-started/upgrading">アップグレード</a>
+            <li ><a href="/docs/getting-started/first-flow">はじめてのFlow</a>
+            <li ><a href="/docs/getting-started/second-flow">Flow作成</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Node-REDの利用</span>
+        <ul>
+            <li ><a href="/docs/configuration">設定</a></li>
+            <li ><a href="/docs/security">認証</a></li>
+            <li ><a href="/docs/node-red-admin">Adminツール</a></li>
+            <li ><a href="/docs/writing-functions">Function Nodeの書き方</a></li>
+            <li ><a href="/docs/embedding">既存アプリケーションへの組込み</a></li>
+        </ul>
+    </li>
+    <li class="tocheader"><span>プラットフォーム</span>
+        <ul>
+        <li class="tocsubheader"><span>デバイス</span></li>
+            <li ><a href="/docs/hardware/raspberrypi">Raspberry Pi</a>
+            <li ><a href="/docs/hardware/beagleboneblack">BeagleBone Black</a>
+        <li class="tocsubheader"><span>クラウド</span></li>
+            <li ><a href="/docs/platforms/bluemix">IBM Bluemix</a>
+            <li ><a href="/docs/platforms/aws">Amazon Web Services</a>
+            <li ><a href="/docs/platforms/azure">Microsoft Azure</a>
+        <li class="tocsubheader"><span>その他</span></li>
+            <li ><a href="/docs/hardware/arduino">Arduino</a>
+            <li ><a href="/docs/platforms/docker">Docker</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>API</span>
+        <ul>
+            <li><a href="/docs/api/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Nodeの作成</span>
+        <ul>
+            <li ><a href="/docs/creating-nodes/">概要</a></li>
+            <li ><a href="/docs/creating-nodes/first-node">Node作成</a></li>
+            <li ><a href="/docs/creating-nodes/node-js">JavaScriptファイル</a>
+            <li ><a href="/docs/creating-nodes/node-html">HTMLファイル</a>
+            <li ><a href="/docs/creating-nodes/context">コンテキスト</a></li>
+            <li ><a href="/docs/creating-nodes/properties">プロパティ</a></li>
+            <li ><a href="/docs/creating-nodes/credentials">クレデンシャル</a></li>
+            <li ><a href="/docs/creating-nodes/appearance">UI</a></li>
+            <li ><a href="/docs/creating-nodes/status">ステータス</a></li>
+            <li ><a href="/docs/creating-nodes/config-nodes">設定</a></li>
+            <li ><a href="/docs/creating-nodes/packaging">パッケージング</a></li>
+            <li ><a href="/docs/creating-nodes/i18n">国際化</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+$(function() {
+    $(".toc-expander").click(function() {
+        if ($("ul.toc").hasClass('open')) {
+            $("ul.toc").removeClass('open');
+        } else {
+            $("ul.toc").addClass('open');
+        }
+    })
+});
+//$(function() {
+//    $("li.tocheader ul").hide();
+//    $("li.tocheader a.active").parent().parent().show();
+//    $("li.tocheader>span").click(function(e) {
+//        $(this).next().toggle("fast");
+//    });
+//});
+</script>
+
+    </div>
+    <div class="col-9-12">
+      <div class="docs-content">
+        <h1 class="docs-title">既存アプリケーションへの組込み</h1>
+        <p>既存のアプリケーションにNode-REDを組込むことが可能です。ダッシュボードアプリケーションに表示するデータのフローを作成するエディタとしてNode-REDを使用するようなシナリオが考えられます。</p>
+
+<p>組込むにはNode-REDを組込みたいアプリケーションの <code class="highlighter-rouge">package.json</code> の <code class="highlighter-rouge">dependencies</code> に <code class="highlighter-rouge">node-red</code> を追加します。</p>
+
+<p>以下の例はNode-REDをExpressアプリケーションへ組込むミニマムな構成です。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"express"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">RED</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"node-red"</span><span class="p">);</span>
+
+<span class="c1">// Expressアプリケーションの生成</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// 静的コンテンツのルートを追加</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">"/"</span><span class="p">,</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="s2">"public"</span><span class="p">));</span>
+
+<span class="c1">// サーバの生成</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+
+<span class="c1">// 設定オブジェクトの生成 - 他のオプションについてはデフォルトの 'settings.js' ファイルを参照してください</span>
+<span class="kd">var</span> <span class="nx">settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">httpAdminRoot</span><span class="p">:</span><span class="s2">"/red"</span><span class="p">,</span>
+    <span class="na">httpNodeRoot</span><span class="p">:</span> <span class="s2">"/api"</span><span class="p">,</span>
+    <span class="na">userDir</span><span class="p">:</span><span class="s2">"/home/nol/.nodered/"</span><span class="p">,</span>
+    <span class="na">functionGlobalContext</span><span class="p">:</span> <span class="p">{</span> <span class="p">}</span>    <span class="c1">// グローバルコンテキストを有効化</span>
+<span class="p">};</span>
+
+<span class="c1">// サーバと設定とランタイムの初期化</span>
+<span class="nx">RED</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">server</span><span class="p">,</span><span class="nx">settings</span><span class="p">);</span>
+
+<span class="c1">// エディタUIのルートを '/red' に指定</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">settings</span><span class="p">.</span><span class="nx">httpAdminRoot</span><span class="p">,</span><span class="nx">RED</span><span class="p">.</span><span class="nx">httpAdmin</span><span class="p">);</span>
+
+<span class="c1">// HTTP node UIのルートを '/api' に指定</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">settings</span><span class="p">.</span><span class="nx">httpNodeRoot</span><span class="p">,</span><span class="nx">RED</span><span class="p">.</span><span class="nx">httpNode</span><span class="p">);</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8000</span><span class="p">);</span>
+
+<span class="c1">// ランタイム起動</span>
+<span class="nx">RED</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span></code></pre></figure>
+
+<p>ちなみに <code class="highlighter-rouge">settings.js</code> で設定していた内容は <code class="highlighter-rouge">RED.init</code> で渡さなければいけません。したがって上記のようにベタに書くか <code class="highlighter-rouge">setting.js</code> を <code class="highlighter-rouge">module.exports</code> して <code class="highlighter-rouge">require</code> します。</p>
+
+<p>更に以下の設定は既存アプリケーションで決められるべきなので無効化されます。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">uiHost</code></li>
+  <li><code class="highlighter-rouge">uiPort</code></li>
+  <li><code class="highlighter-rouge">httpAdminAuth</code></li>
+  <li><code class="highlighter-rouge">httpNodeAuth</code></li>
+  <li><code class="highlighter-rouge">httpStatic</code></li>
+  <li><code class="highlighter-rouge">httpStaticAuth</code></li>
+  <li><code class="highlighter-rouge">https</code></li>
+</ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="content">
+            <a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a>
+            <a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a>
+            <a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a>
+            <a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+

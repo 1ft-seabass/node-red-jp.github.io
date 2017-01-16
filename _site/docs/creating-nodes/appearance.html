@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会  : Node appearance</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li class="current"><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<div class="docs">
+  <div class="grid">
+    <div class="col-3-12">
+    <ul class="toc">
+    <li class="toc-expander"><div>V</div></li>
+    <li class="tocheader"><span>ドキュメント</span>
+        <ul>
+            <li ><a href="/docs/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Getting Started</span>
+        <ul>
+            <li ><a href="/docs/getting-started/installation">インストール</a>
+            <li ><a href="/docs/getting-started/running">起動  </a>
+            <li ><a href="/docs/getting-started/adding-nodes">Nodeの追加</a>
+            <li ><a href="/docs/getting-started/upgrading">アップグレード</a>
+            <li ><a href="/docs/getting-started/first-flow">はじめてのFlow</a>
+            <li ><a href="/docs/getting-started/second-flow">Flow作成</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Node-REDの利用</span>
+        <ul>
+            <li ><a href="/docs/configuration">設定</a></li>
+            <li ><a href="/docs/security">認証</a></li>
+            <li ><a href="/docs/node-red-admin">Adminツール</a></li>
+            <li ><a href="/docs/writing-functions">Function Nodeの書き方</a></li>
+            <li ><a href="/docs/embedding">既存アプリケーションへの組込み</a></li>
+        </ul>
+    </li>
+    <li class="tocheader"><span>プラットフォーム</span>
+        <ul>
+        <li class="tocsubheader"><span>デバイス</span></li>
+            <li ><a href="/docs/hardware/raspberrypi">Raspberry Pi</a>
+            <li ><a href="/docs/hardware/beagleboneblack">BeagleBone Black</a>
+        <li class="tocsubheader"><span>クラウド</span></li>
+            <li ><a href="/docs/platforms/bluemix">IBM Bluemix</a>
+            <li ><a href="/docs/platforms/aws">Amazon Web Services</a>
+            <li ><a href="/docs/platforms/azure">Microsoft Azure</a>
+        <li class="tocsubheader"><span>その他</span></li>
+            <li ><a href="/docs/hardware/arduino">Arduino</a>
+            <li ><a href="/docs/platforms/docker">Docker</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>API</span>
+        <ul>
+            <li><a href="/docs/api/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Nodeの作成</span>
+        <ul>
+            <li ><a href="/docs/creating-nodes/">概要</a></li>
+            <li ><a href="/docs/creating-nodes/first-node">Node作成</a></li>
+            <li ><a href="/docs/creating-nodes/node-js">JavaScriptファイル</a>
+            <li ><a href="/docs/creating-nodes/node-html">HTMLファイル</a>
+            <li ><a href="/docs/creating-nodes/context">コンテキスト</a></li>
+            <li ><a href="/docs/creating-nodes/properties">プロパティ</a></li>
+            <li ><a href="/docs/creating-nodes/credentials">クレデンシャル</a></li>
+            <li ><a href="/docs/creating-nodes/appearance">UI</a></li>
+            <li ><a href="/docs/creating-nodes/status">ステータス</a></li>
+            <li ><a href="/docs/creating-nodes/config-nodes">設定</a></li>
+            <li ><a href="/docs/creating-nodes/packaging">パッケージング</a></li>
+            <li ><a href="/docs/creating-nodes/i18n">国際化</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+$(function() {
+    $(".toc-expander").click(function() {
+        if ($("ul.toc").hasClass('open')) {
+            $("ul.toc").removeClass('open');
+        } else {
+            $("ul.toc").addClass('open');
+        }
+    })
+});
+//$(function() {
+//    $("li.tocheader ul").hide();
+//    $("li.tocheader a.active").parent().parent().show();
+//    $("li.tocheader>span").click(function(e) {
+//        $(this).next().toggle("fast");
+//    });
+//});
+</script>
+
+    </div>
+    <div class="col-9-12">
+      <div class="docs-content">
+        <h1 class="docs-title">Node appearance</h1>
+        <p>There are three aspects of a node’s appearance that can be customised; the icon,
+background colour and its label.</p>
+
+<h3 id="icon">Icon</h3>
+
+<p>The node’s icon is specified by the <code class="highlighter-rouge">icon</code> property in its definition.</p>
+
+<p>The value of the property can be either a string or a function.</p>
+
+<p>If the value is a string, that is used as the icon.</p>
+
+<p>If the value is a function, it will get evaluated when the node is first loaded, or after it has been edited. The function is expected to return the value to use as the icon.
+The function will be called both for nodes in the workspace, where <code class="highlighter-rouge">this</code> references a node instance, as well as
+for the node’s entry in the palette. In this latter case, <code class="highlighter-rouge">this</code> will not refer to a particular node instance and
+the function <em>must</em> return a valid value.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>            ...
+            icon: "file.png",
+            ...
+</code></pre>
+</div>
+
+<p>There are some stock icons available for use, or the node can provide its own.</p>
+
+<h4 id="stock-icons">Stock icons</h4>
+
+<style>
+.nr-icon-list {
+    background: #666;
+}
+.nr-icon-list li {
+    width: 31%;
+    display: inline-block;
+    color: #fff;
+    vertical-align: middle;
+    margin: 10px 5px;
+}
+.nr-icon-list li>img  {
+    vertical-align: middle;
+    max-width: 20px;
+    margin-right: 20px;
+}
+</style>
+
+<ul class="nr-icon-list">
+<li><img src="images/alert.png" /> alert.png</li>
+<li><img src="images/arrow-in.png" /> arrow-in.png</li>
+<li><img src="images/bridge-dash.png" /> bridge-dash.png</li>
+<li><img src="images/bridge.png" /> bridge.png</li>
+<li><img src="images/db.png" /> db.png</li>
+<li><img src="images/debug.png" /> debug.png</li>
+<li><img src="images/envelope.png" /> envelope.png</li>
+<li><img src="images/feed.png" /> feed.png</li>
+<li><img src="images/file.png" /> file.png</li>
+<li><img src="images/function.png" /> function.png</li>
+<li><img src="images/hash.png" /> hash.png</li>
+<li><img src="images/inject.png" /> inject.png</li>
+<li><img src="images/light.png" /> light.png</li>
+<li><img src="images/serial.png" /> serial.png</li>
+<li><img src="images/template.png" /> template.png</li>
+<li><img src="images/white-globe.png" /> white-globe.png</li>
+</ul>
+
+<h4 id="custom-icon">Custom icon</h4>
+
+<p>A node can provide its own icon in a directory called <code class="highlighter-rouge">icons</code> alongside its <code class="highlighter-rouge">.js</code>
+and <code class="highlighter-rouge">.html</code> files. These directories get added to the search path when the editor
+looks for a given icon filename. Because of this, the icon filename must be unique.</p>
+
+<p>The icon should be white on a transparent background, 20 x 30 in size.</p>
+
+<h3 id="background-colour">Background Colour</h3>
+
+<p>The node background colour is one of the main ways to quickly distinguish different
+node types. It is specified by the <code class="highlighter-rouge">color</code> property in the node definition.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="nl">color</span><span class="p">:</span> <span class="s2">"#a6bbcf"</span><span class="p">,</span>
+<span class="p">...</span></code></pre></figure>
+
+<p>We have used a muted palette of colours. New nodes should try to find a colour that
+fits with this palette.</p>
+
+<p>Here are some of the commonly used colours:</p>
+
+<style>
+.nr-color-list {
+}
+.nr-color-list li {
+text-align: center;
+    border: 1px solid #333;
+    width: 31%;
+    display: inline-block;
+    color: #333;
+    vertical-align: middle;
+    padding: 10px 5px;
+    margin-bottom: 5px;
+}
+</style>
+
+<ul class="nr-color-list">
+<li style="background: #3FADB5">#3FADB5</li>
+<li style="background: #87A980">#87A980</li>
+<li style="background: #A6BBCF">#A6BBCF</li>
+<li style="background: #AAAA66">#AAAA66</li>
+<li style="background: #C0C0C0">#C0C0C0</li>
+<li style="background: #C0DEED">#C0DEED</li>
+<li style="background: #C7E9C0">#C7E9C0</li>
+<li style="background: #D7D7A0">#D7D7A0</li>
+<li style="background: #D8BFD8">#D8BFD8</li>
+<li style="background: #DAC4B4">#DAC4B4</li>
+<li style="background: #DEB887">#DEB887</li>
+<li style="background: #DEBD5C">#DEBD5C</li>
+<li style="background: #E2D96E">#E2D96E</li>
+<li style="background: #E6E0F8">#E6E0F8</li>
+<li style="background: #E7E7AE">#E7E7AE</li>
+<li style="background: #E9967A">#E9967A</li>
+<li style="background: #F3B567">#F3B567</li>
+<li style="background: #FDD0A2">#FDD0A2</li>
+<li style="background: #FDF0C2">#FDF0C2</li>
+<li style="background: #FFAAAA">#FFAAAA</li>
+<li style="background: #FFCC66">#FFCC66</li>
+<li style="background: #FFF0F0">#FFF0F0</li>
+<li style="background: #FFFFFF">#FFFFFF</li>
+</ul>
+
+<h3 id="label">Label</h3>
+
+<p>There are two label properties of a node; <code class="highlighter-rouge">label</code> and <code class="highlighter-rouge">paletteLabel</code>.</p>
+
+<h4 id="node-label">Node label</h4>
+
+<p>The <code class="highlighter-rouge">label</code> of a node in the workspace can either be a static piece of text, or
+it can be set dynamically on a per-node basis according to the nodes properties.</p>
+
+<p>The value of the property can be either a string or a function.</p>
+
+<p>If the value is a string, that is used as the label.</p>
+
+<p>If the value is a function, it will get evaluated when the node is first loaded,
+or after it has been edited. The function is expected to return the value to use
+as the label.</p>
+
+<p>As mentioned in a previous section, there is a convention for nodes to have a
+<code class="highlighter-rouge">name</code> property to help distinguish between them. The following example shows
+how the <code class="highlighter-rouge">label</code> can be set to pick up the value of this property or default to
+something sensible.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="nl">label</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="o">||</span><span class="s2">"lower-case"</span><span class="p">;</span>
+<span class="p">},</span>
+<span class="p">...</span></code></pre></figure>
+
+<h4 id="palette-label">Palette label</h4>
+
+<p>By default, the node’s type is used as its label within the palette. The
+<code class="highlighter-rouge">paletteLabel</code> property can be used to override this.</p>
+
+<p>As with <code class="highlighter-rouge">label</code>, this property can be either a string or a function. If it is a
+function, it is evaluated once when the node is added to the palette.</p>
+
+<h4 id="label-style">Label style</h4>
+<p>The css style of the label can also be set dynamically, using the <code class="highlighter-rouge">labelStyle</code>
+property. Currently, this property must identify the css class to apply. If
+not specified, it will use the default <code class="highlighter-rouge">node_label</code> class. The only other
+predefined class is <code class="highlighter-rouge">node_label_italic</code>.</p>
+
+<div style="text-align: center">
+    <img title="node label style" src="images/node_label_style.png" />
+</div>
+
+<p>The following example shows how <code class="highlighter-rouge">labelStyle</code> can be set to <code class="highlighter-rouge">node_label_italic</code>
+if the <code class="highlighter-rouge">name</code> property has been set:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="nl">labelStyle</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">?</span><span class="s2">"node_label_italic"</span><span class="p">:</span><span class="s2">""</span><span class="p">;</span>
+<span class="p">},</span>
+<span class="p">...</span></code></pre></figure>
+
+<h3 id="alignment">Alignment</h3>
+
+<p>By default, the icon and label are left-aligned in the node. For nodes that sit
+at the end of a flow, the convention is to right-align the content. This is done
+by setting the <code class="highlighter-rouge">align</code> property in the node definition to <code class="highlighter-rouge">right</code>:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="nl">align</span><span class="p">:</span> <span class="s1">'right'</span><span class="p">,</span>
+<span class="p">...</span></code></pre></figure>
+
+<div style="text-align: center">
+    <img title="node label alignment" src="images/node_alignment.png" />
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="content">
+            <a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a>
+            <a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a>
+            <a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a>
+            <a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+

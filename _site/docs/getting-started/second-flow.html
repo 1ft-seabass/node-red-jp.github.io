@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会  : Flow作成</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li class="current"><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<div class="docs">
+  <div class="grid">
+    <div class="col-3-12">
+    <ul class="toc">
+    <li class="toc-expander"><div>V</div></li>
+    <li class="tocheader"><span>ドキュメント</span>
+        <ul>
+            <li ><a href="/docs/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Getting Started</span>
+        <ul>
+            <li ><a href="/docs/getting-started/installation">インストール</a>
+            <li ><a href="/docs/getting-started/running">起動  </a>
+            <li ><a href="/docs/getting-started/adding-nodes">Nodeの追加</a>
+            <li ><a href="/docs/getting-started/upgrading">アップグレード</a>
+            <li ><a href="/docs/getting-started/first-flow">はじめてのFlow</a>
+            <li ><a href="/docs/getting-started/second-flow">Flow作成</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Node-REDの利用</span>
+        <ul>
+            <li ><a href="/docs/configuration">設定</a></li>
+            <li ><a href="/docs/security">認証</a></li>
+            <li ><a href="/docs/node-red-admin">Adminツール</a></li>
+            <li ><a href="/docs/writing-functions">Function Nodeの書き方</a></li>
+            <li ><a href="/docs/embedding">既存アプリケーションへの組込み</a></li>
+        </ul>
+    </li>
+    <li class="tocheader"><span>プラットフォーム</span>
+        <ul>
+        <li class="tocsubheader"><span>デバイス</span></li>
+            <li ><a href="/docs/hardware/raspberrypi">Raspberry Pi</a>
+            <li ><a href="/docs/hardware/beagleboneblack">BeagleBone Black</a>
+        <li class="tocsubheader"><span>クラウド</span></li>
+            <li ><a href="/docs/platforms/bluemix">IBM Bluemix</a>
+            <li ><a href="/docs/platforms/aws">Amazon Web Services</a>
+            <li ><a href="/docs/platforms/azure">Microsoft Azure</a>
+        <li class="tocsubheader"><span>その他</span></li>
+            <li ><a href="/docs/hardware/arduino">Arduino</a>
+            <li ><a href="/docs/platforms/docker">Docker</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>API</span>
+        <ul>
+            <li><a href="/docs/api/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Nodeの作成</span>
+        <ul>
+            <li ><a href="/docs/creating-nodes/">概要</a></li>
+            <li ><a href="/docs/creating-nodes/first-node">Node作成</a></li>
+            <li ><a href="/docs/creating-nodes/node-js">JavaScriptファイル</a>
+            <li ><a href="/docs/creating-nodes/node-html">HTMLファイル</a>
+            <li ><a href="/docs/creating-nodes/context">コンテキスト</a></li>
+            <li ><a href="/docs/creating-nodes/properties">プロパティ</a></li>
+            <li ><a href="/docs/creating-nodes/credentials">クレデンシャル</a></li>
+            <li ><a href="/docs/creating-nodes/appearance">UI</a></li>
+            <li ><a href="/docs/creating-nodes/status">ステータス</a></li>
+            <li ><a href="/docs/creating-nodes/config-nodes">設定</a></li>
+            <li ><a href="/docs/creating-nodes/packaging">パッケージング</a></li>
+            <li ><a href="/docs/creating-nodes/i18n">国際化</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+$(function() {
+    $(".toc-expander").click(function() {
+        if ($("ul.toc").hasClass('open')) {
+            $("ul.toc").removeClass('open');
+        } else {
+            $("ul.toc").addClass('open');
+        }
+    })
+});
+//$(function() {
+//    $("li.tocheader ul").hide();
+//    $("li.tocheader a.active").parent().parent().show();
+//    $("li.tocheader>span").click(function(e) {
+//        $(this).next().toggle("fast");
+//    });
+//});
+</script>
+
+    </div>
+    <div class="col-9-12">
+      <div class="docs-content">
+        <h1 class="docs-title">Flow作成</h1>
+        <p>今回はもう少し有益なFlowを作成するために外部ソースからデータを取り込むFlowを作成します。</p>
+
+<ul>
+  <li>外部Webサイトへアクセスします</li>
+  <li>いくつかの情報を取得します</li>
+  <li>情報を読み込んで有用な状態に変換します</li>
+  <li>取得した情報のJSONオブジェクトとモノのon/offを表すBoolean値の2種類を出力します</li>
+</ul>
+
+<h4 id="inject-node">1. Inject nodeの追加</h4>
+
+<p><a href="first-flow.html">以前の例</a>ではボタンクリックでFlowが開始されるような設定を行いました。この例では一定間隔で自動的にFlowが開始されるように設定します。</p>
+
+<p>パレットからワークスペース上にInject nodeをドラッグします。</p>
+
+<p>配置したInject nodeをダブルクリックすると設定ダイアログが開きます。<code class="highlighter-rouge">every 5 minutes on every day</code> をセットして定期実行を設定します。</p>
+
+<p>OKボタンをクリックして設定ダイアログを閉じます。</p>
+
+<h4 id="httprequest-node">2. HttpRequest nodeの追加</h4>
+
+<p>HttpRequest nodeを使ってWebページの内容を取得することができます。</p>
+
+<p>Nodeを配置後に設定ダイアログの <code class="highlighter-rouge">URL</code> 項目に以下をセットします。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://realtimeweb-prod.nationalgrid.com/SystemData.aspx
+</code></pre>
+</div>
+
+<p>Nodeの <code class="highlighter-rouge">Name</code> 項目には解りやすい任意の名前をセットすることができます。</p>
+
+<h4 id="function-node">3. Function nodeの追加</h4>
+
+<p>Function nodeを配置して以下のコードをセットします。</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// HTTP出力文字列からイギリスの電力需要/周波数/時間をテキスト抽出解析</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">~</span><span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'&lt;span'</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">dem</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">'Demand:'</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">"MW"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">fre</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">'Frequency:'</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">"Hz"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+
+    <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">demand</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">dem</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">"&lt;"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">fre</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">"&lt;"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+
+    <span class="nx">msg2</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">msg2</span><span class="p">.</span><span class="nx">payload</span> <span class="o">=</span> <span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">)</span> <span class="p">?</span> <span class="kc">true</span> <span class="p">:</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="nx">msg</span><span class="p">,</span><span class="nx">msg2</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="kc">null</span><span class="p">;</span></code></pre></figure>
+
+<p>Function nodeの出力数を<b>2</b>にします。</p>
+
+<h4 id="debug-node">4. Debug nodeの追加</h4>
+
+<p>Debug nodeを2つ追加します。</p>
+
+<h4 id="node">5. すべてのNodeをワイヤーで接続</h4>
+
+<ul>
+  <li>ワイヤーでInject nodeのOutputポートとHttpRequest nodeのInputポートを接続します</li>
+  <li>ワイヤーでHttpRequest nodeのOutputポートとFunction nodeのInputポートを接続します</li>
+  <li>ワイヤーでFunction nodeの2つのOutputポートと各Debug nodeのInputポートを接続します</li>
+</ul>
+
+<h4 id="section">6. デプロイ</h4>
+
+<p>この時点ではNodeやFlowはエディタ上にしか存在しないのでサーバーにデプロイする必要があります。</p>
+
+<p>Deployボタンをクリックするとサーバにデプロイできます。</p>
+
+<p>サイドバーのDebugタブを選択してInjectボタンをクリックします。次のような内容のエントリが表示されます。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(Object) { "demand": 34819, "frequency": 50.04 }
+</code></pre>
+</div>
+
+<p>さらに次のような別の内容のエントリも出力されます。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>(boolean) true
+</code></pre>
+</div>
+
+<h4 id="section-1">7. まとめ</h4>
+
+<p>これでイギリスの総電力消費量をWeb経由で取得し、電力需要と周波数をJavaScriptオブジェクトに変換しました。</p>
+
+<p>このオブジェクトはFunction nodeの1つ目のOutputから出力されます。</p>
+
+<p>この周波数は全体的な負荷指標です。周波数が50Hz未満の場合、ナショナルグリッド社全体に余分な負荷があるかもしれません。これはFunction nodeの2つ目のOutputから出力されたメッセージが示しています。Payloadが <code class="highlighter-rouge">true</code> の場合、グリッドの容量があります。</p>
+
+<hr />
+
+<h4 id="section-2">ソース</h4>
+
+<p>この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは <code class="highlighter-rouge">Ctrl</code> キーを押しながら <code class="highlighter-rouge">i</code> キー、またはドロップダウンメニューから選択可能）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[{"id":"11b032a3.ee4fcd","type":"inject","name":"Tick","topic":"","payload":"","repeat":"","crontab":"*/5 * * * *","once":false,"x":161,"y":828,"z":"6480e14.f9b7f2","wires":[["a2b3542e.5d4ca8"]]},{"id":"a2b3542e.5d4ca8","type":"http request","name":"UK Power","method":"GET","url":"http://realtimeweb-prod.nationalgrid.com/SystemData.aspx","x":301,"y":828,"z":"6480e14.f9b7f2","wires":[["2631e2da.d9ce1e"]]},{"id":"2631e2da.d9ce1e","type":"function","name":"UK Power Demand","func":"// does a simple text extract parse of the http output to provide an\n// object containing the uk power demand, frequency and time\n\nif (~msg.payload.indexOf('&lt;span')) {\n    var dem = msg.payload.split('Demand:')[1].split(\"MW\")[0];\n    var fre = msg.payload.split('Frequency:')[1].split(\"Hz\")[0];\n\n    msg.payload = {};\n    msg.payload.demand = parseInt(dem.split(\"&gt;\")[1].split(\"&lt;\")[0]);\n    msg.payload.frequency = parseFloat(fre.split(\"&gt;\")[1].split(\"&lt;\")[0]);\n    \n    msg2 = {};\n    msg2.payload = (msg.payload.frequency &gt;= 50) ? true : false;\n\n    return [msg,msg2];\n}\n\nreturn null;","outputs":"2","valid":true,"x":478,"y":828,"z":"6480e14.f9b7f2","wires":[["8e56f4d3.71a908"],["cd84371b.327bc8"]]},{"id":"8e56f4d3.71a908","type":"debug","name":"","active":true,"complete":false,"x":678,"y":798,"z":"6480e14.f9b7f2","wires":[]},{"id":"cd84371b.327bc8","type":"debug","name":"","active":true,"complete":false,"x":679,"y":869,"z":"6480e14.f9b7f2","wires":[]}]
+</code></pre>
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="content">
+            <a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a>
+            <a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a>
+            <a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a>
+            <a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+

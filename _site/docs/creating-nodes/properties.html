@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会  : Node properties</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li class="current"><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<div class="docs">
+  <div class="grid">
+    <div class="col-3-12">
+    <ul class="toc">
+    <li class="toc-expander"><div>V</div></li>
+    <li class="tocheader"><span>ドキュメント</span>
+        <ul>
+            <li ><a href="/docs/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Getting Started</span>
+        <ul>
+            <li ><a href="/docs/getting-started/installation">インストール</a>
+            <li ><a href="/docs/getting-started/running">起動  </a>
+            <li ><a href="/docs/getting-started/adding-nodes">Nodeの追加</a>
+            <li ><a href="/docs/getting-started/upgrading">アップグレード</a>
+            <li ><a href="/docs/getting-started/first-flow">はじめてのFlow</a>
+            <li ><a href="/docs/getting-started/second-flow">Flow作成</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Node-REDの利用</span>
+        <ul>
+            <li ><a href="/docs/configuration">設定</a></li>
+            <li ><a href="/docs/security">認証</a></li>
+            <li ><a href="/docs/node-red-admin">Adminツール</a></li>
+            <li ><a href="/docs/writing-functions">Function Nodeの書き方</a></li>
+            <li ><a href="/docs/embedding">既存アプリケーションへの組込み</a></li>
+        </ul>
+    </li>
+    <li class="tocheader"><span>プラットフォーム</span>
+        <ul>
+        <li class="tocsubheader"><span>デバイス</span></li>
+            <li ><a href="/docs/hardware/raspberrypi">Raspberry Pi</a>
+            <li ><a href="/docs/hardware/beagleboneblack">BeagleBone Black</a>
+        <li class="tocsubheader"><span>クラウド</span></li>
+            <li ><a href="/docs/platforms/bluemix">IBM Bluemix</a>
+            <li ><a href="/docs/platforms/aws">Amazon Web Services</a>
+            <li ><a href="/docs/platforms/azure">Microsoft Azure</a>
+        <li class="tocsubheader"><span>その他</span></li>
+            <li ><a href="/docs/hardware/arduino">Arduino</a>
+            <li ><a href="/docs/platforms/docker">Docker</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>API</span>
+        <ul>
+            <li><a href="/docs/api/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Nodeの作成</span>
+        <ul>
+            <li ><a href="/docs/creating-nodes/">概要</a></li>
+            <li ><a href="/docs/creating-nodes/first-node">Node作成</a></li>
+            <li ><a href="/docs/creating-nodes/node-js">JavaScriptファイル</a>
+            <li ><a href="/docs/creating-nodes/node-html">HTMLファイル</a>
+            <li ><a href="/docs/creating-nodes/context">コンテキスト</a></li>
+            <li ><a href="/docs/creating-nodes/properties">プロパティ</a></li>
+            <li ><a href="/docs/creating-nodes/credentials">クレデンシャル</a></li>
+            <li ><a href="/docs/creating-nodes/appearance">UI</a></li>
+            <li ><a href="/docs/creating-nodes/status">ステータス</a></li>
+            <li ><a href="/docs/creating-nodes/config-nodes">設定</a></li>
+            <li ><a href="/docs/creating-nodes/packaging">パッケージング</a></li>
+            <li ><a href="/docs/creating-nodes/i18n">国際化</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+$(function() {
+    $(".toc-expander").click(function() {
+        if ($("ul.toc").hasClass('open')) {
+            $("ul.toc").removeClass('open');
+        } else {
+            $("ul.toc").addClass('open');
+        }
+    })
+});
+//$(function() {
+//    $("li.tocheader ul").hide();
+//    $("li.tocheader a.active").parent().parent().show();
+//    $("li.tocheader>span").click(function(e) {
+//        $(this).next().toggle("fast");
+//    });
+//});
+</script>
+
+    </div>
+    <div class="col-9-12">
+      <div class="docs-content">
+        <h1 class="docs-title">Node properties</h1>
+        <p>A node’s properties are defined by the <code class="highlighter-rouge">defaults</code> object in its html definition.
+These are the properties that get passed to the node constructor function when
+an instance of the node is created in the runtime.</p>
+
+<p>In the example from the <a href="first-node.html">creating you first node section</a>, the
+node had a single property called <code class="highlighter-rouge">name</code>. In this section, we’ll add a new
+property called <code class="highlighter-rouge">prefix</code> to the node:</p>
+
+<ol>
+  <li>
+    <p>Add a new entry to the <code class="highlighter-rouge">defaults</code> object:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> defaults: {
+     name: {value:""},
+     prefix: {value:""}
+ },
+</code></pre>
+    </div>
+
+    <p>The entry includes the default <code class="highlighter-rouge">value</code> to be used when a new node of this type
+is dragged onto the workspace.</p>
+  </li>
+  <li>
+    <p>Add an entry to the edit template for the node</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> &lt;div class="form-row"&gt;
+     &lt;label for="node-input-prefix"&gt;&lt;i class="icon-tag"&gt;&lt;/i&gt; Prefix&lt;/label&gt;
+     &lt;input type="text" id="node-input-prefix"&gt;
+ &lt;/div&gt;
+</code></pre>
+    </div>
+
+    <p>The template should contain an <code class="highlighter-rouge">&lt;input&gt;</code> element with an <code class="highlighter-rouge">id</code> set to 
+ <code class="highlighter-rouge">node-input-&lt;propertyname&gt;</code>.</p>
+  </li>
+  <li>
+    <p>Use the property in the node</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> function LowerCaseNode(config) {
+     RED.nodes.createNode(this,config);
+     this.prefix = config.prefix;
+     var node = this;
+     this.on('input', function(msg) {
+         msg.payload = node.prefix + msg.payload.toLowerCase();
+         node.send(msg);
+     });
+ }
+</code></pre>
+    </div>
+  </li>
+</ol>
+
+<h3 id="property-definitions">Property definitions</h3>
+
+<p>The entries in the <code class="highlighter-rouge">defaults</code> array can have the following attributes:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">value</code> : (any type) the default value the property takes</li>
+  <li><code class="highlighter-rouge">required</code> : (boolean) <em>optional</em> whether the property is required. If set to
+true, the property will be invalid if its value is null or an empty string.</li>
+  <li><code class="highlighter-rouge">validate</code> : (function) <em>optional</em> a function that can be used to validate the
+value of the property.</li>
+  <li><code class="highlighter-rouge">type</code> : (string) <em>optional</em> if this property is a pointer to a
+<a href="config-nodes.html">configuration node</a>,  this identifies the type of the node.</li>
+</ul>
+
+<h3 id="reserved-property-names">Reserved property names</h3>
+
+<p>There are some reserved names for properties that must not be used. These are:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">type</code>, <code class="highlighter-rouge">x</code>, <code class="highlighter-rouge">y</code>, <code class="highlighter-rouge">z</code>, <code class="highlighter-rouge">wires</code>, <code class="highlighter-rouge">outputs</code></p>
+</blockquote>
+
+<p>If a node wants to allow the number of outputs it provides to be configurable
+then <code class="highlighter-rouge">outputs</code> may be included in the <code class="highlighter-rouge">defaults</code> array. The Function node is
+an example for how this works.</p>
+
+<h3 id="property-validation">Property validation</h3>
+
+<p>The editor attempts to validate all properties to warn the user if invalid values
+have been given.</p>
+
+<p>The <code class="highlighter-rouge">required</code> attribute can be used to indicate a property must be non-null and
+non-blank.</p>
+
+<p>If more specific validation is required, the <code class="highlighter-rouge">validate</code> attribute can be used to 
+provide a function that will check the value is valid. The function is passed the
+value and should return either true or false. It is called within the context of
+the node which means <code class="highlighter-rouge">this</code> can be used to access other properties of the node.
+This allows the validation to depend on other property values.</p>
+
+<p>There is a group of common validation functions provided.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">RED.validators.number()</code> - check the value is a number</li>
+  <li><code class="highlighter-rouge">RED.validators.regex(re)</code> - check the value matches the provided regular
+expression</li>
+</ul>
+
+<p>The following example shows how each of these validators can be applied.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">defaults</span><span class="err">:</span> <span class="p">{</span>
+   <span class="nl">minimumLength</span><span class="p">:</span> <span class="p">{</span> <span class="nl">value</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">validate</span><span class="err">:</span><span class="nx">RED</span><span class="p">.</span><span class="nx">validators</span><span class="p">.</span><span class="nx">number</span><span class="p">()</span> <span class="p">},</span>
+   <span class="nx">lowerCaseOnly</span><span class="err">:</span> <span class="p">{</span><span class="nl">value</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span> <span class="nx">validate</span><span class="err">:</span><span class="nx">RED</span><span class="p">.</span><span class="nx">validators</span><span class="p">.</span><span class="nx">regex</span><span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">a-z</span><span class="se">]</span><span class="sr">+/</span><span class="p">)</span> <span class="p">},</span>
+   <span class="nx">custom</span><span class="err">:</span> <span class="p">{</span> <span class="nl">value</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span> <span class="nx">validate</span><span class="err">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">v</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">minimumLength</span> <span class="p">}</span> <span class="p">}</span>
+<span class="p">},</span></code></pre></figure>
+
+<p>Note how the <code class="highlighter-rouge">custom</code> property is only valid if its length is greater than the
+current value of the <code class="highlighter-rouge">minimumLength</code> property.</p>
+
+<h3 id="property-edit-dialog">Property edit dialog</h3>
+
+<p>When the edit dialog is opened, the editor populates the dialog with the edit
+template for the node.</p>
+
+<p>For each of the properties in the <code class="highlighter-rouge">defaults</code> array, it looks for an <code class="highlighter-rouge">&lt;input&gt;</code>
+element with an <code class="highlighter-rouge">id</code> set to <code class="highlighter-rouge">node-input-&lt;propertyname&gt;</code>. This input is then
+automatically populated with the current value of the property. When the edit
+dialog is okayed, the property takes whatever value is in the input.</p>
+
+<p>The <code class="highlighter-rouge">&lt;input&gt;</code> type can be either <code class="highlighter-rouge">text</code> for string/number properties, or 
+<code class="highlighter-rouge">checkbox</code> for boolean properties. Alternatively, a <code class="highlighter-rouge">&lt;select&gt;</code> element can be
+used if there is a restricted set of choices.</p>
+
+<h4 id="custom-edit-behaviour">Custom edit behaviour</h4>
+
+<p>The default behaviour works in many cases, but sometimes it is necessary to
+define some node-specific behaviour. For example, if a property cannot be
+properly edited as a simple <code class="highlighter-rouge">&lt;input&gt;</code> or <code class="highlighter-rouge">&lt;select&gt;</code>, or if the edit dialog
+content itself needs to have certain behaviours based on what options are
+selected.</p>
+
+<p>A node definition can include two functions to customise the edit behaviour.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">oneditprepare</code> is called immediately before the dialog is displayed.</li>
+  <li><code class="highlighter-rouge">oneditsave</code> is called when the edit dialog is okayed.</li>
+  <li><code class="highlighter-rouge">oneditcancel</code> is called when the edit dialog is cancelled.</li>
+  <li><code class="highlighter-rouge">oneditdelete</code> is called when the delete button in a configuration node’s edit
+dialog is pressed.</li>
+</ul>
+
+<p>For example, when the Inject node is configured to repeat, it stores the
+configuration as a cron-like string: <code class="highlighter-rouge">1,2 * * * *</code>. The node defines an
+<code class="highlighter-rouge">oneditprepare</code> function that can parse that string and present a more
+user-friendly UI. It also has an <code class="highlighter-rouge">oneditsave</code> function that compiles the options
+choosen by the user back into the corresponding cron string.</p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="content">
+            <a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a>
+            <a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a>
+            <a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a>
+            <a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja"><head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Node-RED日本ユーザ会  : Running on BeagleBone Boards</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <script src="/jquery/js/jquery-1.9.1.js"></script>
+	<link href="/css/simplegrid.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/css/front.css" rel="stylesheet" media="screen">
+	<link href="/css/docs.css" rel="stylesheet" media="screen">
+	<link href="/css/blog.css" rel="stylesheet" media="screen">
+	<link href="/css/syntax.css" rel="stylesheet" media="screen">
+    
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <div class="brand"><a href="/"><img class="logo" src="/node-red.png" /> Node-RED User Group Japan</a></div>
+        <ul class="navigation">
+            <li ><a href="/">ホーム</a></li>
+            <li><a href="https://blog.nodered.org/" target="_blank">ブログ</a></li>
+            <li class="current"><a href="/docs/">ドキュメント</a></li>
+            <li><a href="https://flows.nodered.org/" target="_blank">flows</a></li>
+            <li><a href="https://github.com/node-red/node-red" target="_blank">github</a></li>
+        </ul>
+        <a href="#" class="menu"><i class="icon-reorder icon-2x"></i></a>
+    </div>
+</div>
+
+<div class="docs">
+  <div class="grid">
+    <div class="col-3-12">
+    <ul class="toc">
+    <li class="toc-expander"><div>V</div></li>
+    <li class="tocheader"><span>ドキュメント</span>
+        <ul>
+            <li ><a href="/docs/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Getting Started</span>
+        <ul>
+            <li ><a href="/docs/getting-started/installation">インストール</a>
+            <li ><a href="/docs/getting-started/running">起動  </a>
+            <li ><a href="/docs/getting-started/adding-nodes">Nodeの追加</a>
+            <li ><a href="/docs/getting-started/upgrading">アップグレード</a>
+            <li ><a href="/docs/getting-started/first-flow">はじめてのFlow</a>
+            <li ><a href="/docs/getting-started/second-flow">Flow作成</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Node-REDの利用</span>
+        <ul>
+            <li ><a href="/docs/configuration">設定</a></li>
+            <li ><a href="/docs/security">認証</a></li>
+            <li ><a href="/docs/node-red-admin">Adminツール</a></li>
+            <li ><a href="/docs/writing-functions">Function Nodeの書き方</a></li>
+            <li ><a href="/docs/embedding">既存アプリケーションへの組込み</a></li>
+        </ul>
+    </li>
+    <li class="tocheader"><span>プラットフォーム</span>
+        <ul>
+        <li class="tocsubheader"><span>デバイス</span></li>
+            <li ><a href="/docs/hardware/raspberrypi">Raspberry Pi</a>
+            <li ><a href="/docs/hardware/beagleboneblack">BeagleBone Black</a>
+        <li class="tocsubheader"><span>クラウド</span></li>
+            <li ><a href="/docs/platforms/bluemix">IBM Bluemix</a>
+            <li ><a href="/docs/platforms/aws">Amazon Web Services</a>
+            <li ><a href="/docs/platforms/azure">Microsoft Azure</a>
+        <li class="tocsubheader"><span>その他</span></li>
+            <li ><a href="/docs/hardware/arduino">Arduino</a>
+            <li ><a href="/docs/platforms/docker">Docker</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>API</span>
+        <ul>
+            <li><a href="/docs/api/">概要</a>
+        </ul>
+    </li>
+    <li class="tocheader"><span>Nodeの作成</span>
+        <ul>
+            <li ><a href="/docs/creating-nodes/">概要</a></li>
+            <li ><a href="/docs/creating-nodes/first-node">Node作成</a></li>
+            <li ><a href="/docs/creating-nodes/node-js">JavaScriptファイル</a>
+            <li ><a href="/docs/creating-nodes/node-html">HTMLファイル</a>
+            <li ><a href="/docs/creating-nodes/context">コンテキスト</a></li>
+            <li ><a href="/docs/creating-nodes/properties">プロパティ</a></li>
+            <li ><a href="/docs/creating-nodes/credentials">クレデンシャル</a></li>
+            <li ><a href="/docs/creating-nodes/appearance">UI</a></li>
+            <li ><a href="/docs/creating-nodes/status">ステータス</a></li>
+            <li ><a href="/docs/creating-nodes/config-nodes">設定</a></li>
+            <li ><a href="/docs/creating-nodes/packaging">パッケージング</a></li>
+            <li ><a href="/docs/creating-nodes/i18n">国際化</a></li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+$(function() {
+    $(".toc-expander").click(function() {
+        if ($("ul.toc").hasClass('open')) {
+            $("ul.toc").removeClass('open');
+        } else {
+            $("ul.toc").addClass('open');
+        }
+    })
+});
+//$(function() {
+//    $("li.tocheader ul").hide();
+//    $("li.tocheader a.active").parent().parent().show();
+//    $("li.tocheader>span").click(function(e) {
+//        $(this).next().toggle("fast");
+//    });
+//});
+</script>
+
+    </div>
+    <div class="col-9-12">
+      <div class="docs-content">
+        <h1 class="docs-title">Running on BeagleBone Boards</h1>
+        <p>The latest 4GB images for BeagleBone boards already have Node-RED installed into it’s OS so you can just start running with the <code class="highlighter-rouge">node-red</code> command. You can use the intructions below to upgrade to later versions if you wish.</p>
+
+<p>The 2GB console version suitable for flashing to older eMMC versions of the BBB will need to install as per below.</p>
+
+<div class="doc-callout">
+These instructions only apply to the Debian versions of BeagleBoneBlack. <a href="http://beagleboard.org/latest-images">http://beagleboard.org/latest-images</a>
+</div>
+
+<h4 id="before-you-start">Before you start</h4>
+
+<p>If you are using the 2GB eMMC version of Debian it has been stripped right down so you may need to install some
+utility functions first</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get update
+sudo apt-get install -y curl locales ntpdate avahi-utils python build-essential
+</code></pre>
+</div>
+
+<p>Make sure the local time is set correctly. The BeagleboneBlack does not have a
+battery backed real time clock so needs to be set on every boot in order for
+software certificates date checks to be valid.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ntpdate -b -s -u pool.ntp.org
+</code></pre>
+</div>
+
+<h4 id="updating-nodejs">Updating node.js</h4>
+
+<p>We recommend using node.js LTS 4.x.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install curl
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y build-essential nodejs
+hash -r
+</code></pre>
+</div>
+
+<h3 id="installing-node-red">Installing Node-RED</h3>
+
+<p>The easiest way to install Node-RED is to use node’s package manager, npm:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo npm i -g --unsafe-perm node-red
+</code></pre>
+</div>
+
+<p><em>Note</em>: the reason for using the <code class="highlighter-rouge">--unsafe-perm</code> option is that when node-gyp tries
+to recompile any native libraries it tries to do so as a “nobody” user and often
+fails to get access to certain directories. This causes alarming warnings that look
+like errors… but only sometimes are errors. Allowing node-gyp to run as root using
+this flag avoids this - or rather, shows up any real errors instead.</p>
+
+<p>For other install options, e.g. to run in development mode from GitHub, see the <a href="../getting-started/installation#install-node-red">main installation instructions</a>.</p>
+
+<h4 id="bbb-specific-nodes">BBB specific nodes</h4>
+
+<p>There are some BBB specific nodes that give you direct access to the I/O pins in the simplest possible manner.
+The easiest way to install them is direct from npm.</p>
+
+<p>For Debian Jessie based builds with kernel 4.x run the following commands in the user
+directory of your Node-RED install. This is usually <code class="highlighter-rouge">~/.node-red</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo npm install -g --unsafe-perm node-red-node-beaglebone
+</code></pre>
+</div>
+
+<p>For previous versions of Debian (eg Wheezy) - use the older version of this node.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo npm install -g --unsafe-perm node-red-node-beaglebone@0.0.8
+</code></pre>
+</div>
+
+<p>An alternative option is to use the gpio nodes contributed by @monteslu that
+are available <a href="https://github.com/monteslu/node-red-contrib-gpio">here</a>. These give more options for interfacing like i2c and software serial, as well as simple digital and analogue IO.</p>
+
+<h3 id="starting-node-red">Starting Node-RED</h3>
+
+<p>Due to the constrained memory available on the BBB, it is advisable to
+run Node-RED with the <code class="highlighter-rouge">node-red-pi</code> command. For details and other options such
+as auto-starting on boot, follow the <a href="../getting-started/running">Running Node-RED</a>
+instructions.</p>
+
+<p>To access the GPIO pins it is currently necessary to run as root :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo node-red-pi
+</code></pre>
+</div>
+
+<p>There are ways to avoid this using udev rules and groups and so on - but that is
+beyond the scope of this readme. Google is your friend.</p>
+
+<h4 id="auto-starting">Auto-starting</h4>
+
+<p>The simplest way to auto-start Node-RED on boot is to use the built in systemd.
+To do this create a file <code class="highlighter-rouge">/lib/systemd/system/nodered.service</code> containing the following</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># systemd service file to start Node-RED
+[Unit]
+Description=Node-RED graphical event wiring tool.
+Wants=network.target
+Documentation=http://nodered.org/docs/hardware/raspberrypi.html
+[Service]
+Type=simple
+# Run as root user in order to have access to gpio pins
+User=root
+Group=root
+Nice=5
+Environment="NODE_OPTIONS=--max-old-space-size=128"
+#Environment="NODE_RED_OPTIONS=-v"
+ExecStart=/usr/bin/env node-red-pi $NODE_OPTIONS $NODE_RED_OPTIONS
+KillSignal=SIGINT
+Restart=on-failure
+SyslogIdentifier=Node-RED
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</div>
+
+<p>Reload the systemd configuration, and enable the service</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo systemctl daemon-reload
+sudo systemctl enable nodered.service
+</code></pre>
+</div>
+
+<p>Systemd uses the <code class="highlighter-rouge">/var/log/system.log</code> for logging.  To filter the log use</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo journalctl -f -u nodered -o cat
+</code></pre>
+</div>
+
+<h3 id="using-the-editor">Using the Editor</h3>
+
+<p>Once Node-RED is started, assuming you haven’t changed the hostname, point a
+browser to <a href="http://beaglebone.local:1880">http://beaglebone.local:1880</a>.</p>
+
+<h4 id="first-flow---hello-world">First Flow - Hello World</h4>
+
+<p>To run a “hello world” flow that toggles the USR2 and USR3 LEDs, copy the following flow
+and paste it into the Import Nodes dialog (<em>Import From - Clipboard</em> in the
+dropdown menu, or Ctrl-I). After clicking okay, click in the workspace to place
+the new nodes.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[{"id":"184087e6.e7bf78","type":"inject","name":"on","topic":"","payload":"1","repeat":"","once":false,"x":370,"y":188,"z":"345c8adc.cba376","wires":[["919e132f.6e61f"]]},{"id":"25e4d6c.fda1b2a","type":"inject","name":"off","topic":"","payload":"0","repeat":"","once":false,"x":370,"y":228,"z":"345c8adc.cba376","wires":[["919e132f.6e61f"]]},{"id":"6be2c4b9.941d3c","type":"bbb-discrete-out","pin":"USR2","inverting":false,"toggle":false,"defaultState":"0","name":"","x":613,"y":136,"z":"345c8adc.cba376","wires":[[]]},{"id":"919e132f.6e61f","type":"bbb-discrete-out","pin":"USR3","inverting":false,"toggle":false,"defaultState":"0","name":"","x":619,"y":193,"z":"345c8adc.cba376","wires":[[]]},{"id":"1cf2bd40.e30d43","type":"inject","name":"on","topic":"","payload":"1","repeat":"","once":false,"x":368,"y":102,"z":"345c8adc.cba376","wires":[["6be2c4b9.941d3c"]]},{"id":"3e4caa12.c1b356","type":"inject","name":"off","topic":"","payload":"0","repeat":"","once":false,"x":368,"y":142,"z":"345c8adc.cba376","wires":[["6be2c4b9.941d3c"]]}]
+</code></pre>
+</div>
+
+<p>Click the deploy button and the flow should start running. The USR2 and USR3 LEDs
+can be manually set on or off using the Inject node buttons.</p>
+
+<h4 id="advanced-functions">Advanced functions</h4>
+
+<p>For experts, the <code class="highlighter-rouge">octalbonescript</code> module can be made available for use inside
+Function nodes. This is NOT necessary for simple use with the built in nodes.</p>
+
+<p>To do this, first install the <code class="highlighter-rouge">octalbonescript</code> library - see
+<a href="https://github.com/theoctal/octalbonescript">the octalbonescript readme</a>
+for detailed install instructions depending on your kernel, but for Debian Jessie it will be</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd ~/.node-red
+npm i octalbonescript
+</code></pre>
+</div>
+
+<p>Then update <code class="highlighter-rouge">settings.js</code> to add the <code class="highlighter-rouge">octalbonescript</code> module to the
+Function global context - to find this run <code class="highlighter-rouge">node-red-pi</code>, and it will print the location of <code class="highlighter-rouge">settings.js</code> like</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[info] Settings file  : /root/.node-red/settings.js
+</code></pre>
+</div>
+
+<p>Edit this <code class="highlighter-rouge">settings.js</code> file. And there we need to uncomment the octalbonescript library line.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>functionGlobalContext: {
+    octalbonescript:require('octalbonescript')
+},
+</code></pre>
+</div>
+
+<p>The module is then available to any functions you write as <code class="highlighter-rouge">context.global.octalbonescript</code>.</p>
+
+<p>An example flow that demonstrates this is below :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[{"id":"e370f54b.baa368","type":"inject","z":"e524537e.2ec11","name":"on","topic":"","payload":"1","repeat":"","once":false,"x":150,"y":320,"wires":[["383a5612.0d587a"]]},{"id":"cba5ca3b.02b978","type":"inject","z":"e524537e.2ec11","name":"off","topic":"","payload":"0","repeat":"","once":false,"x":150,"y":360,"wires":[["383a5612.0d587a"]]},{"id":"b545aca3.75e4e","type":"inject","z":"e524537e.2ec11","name":"tick","topic":"","payload":"","repeat":"1","once":false,"x":150,"y":260,"wires":[["ebbe2d86.c74b2"]]},{"id":"49b03095.64b31","type":"debug","z":"e524537e.2ec11","name":"","active":true,"x":630,"y":260,"wires":[]},{"id":"ebbe2d86.c74b2","type":"function","z":"e524537e.2ec11","name":"Toggle USR3 LED on input","func":"\nvar pin = \"USR3\"\nvar b = context.global.octalbonescript;\ncontext.state = context.state || b.LOW;\n\nb.pinModeSync(pin, b.OUTPUT);\n\n(context.state == b.LOW) ? context.state = b.HIGH : context.state = b.LOW;\nb.digitalWrite(pin, context.state);\n\nreturn msg;","outputs":1,"noerr":0,"x":380,"y":260,"wires":[["49b03095.64b31"]]},{"id":"383a5612.0d587a","type":"function","z":"e524537e.2ec11","name":"Set USR2 LED on input","func":"\nvar pin = \"USR2\";\nvar b = context.global.octalbonescript;\n\nb.pinModeSync(pin, b.OUTPUT);\n\nvar level = (msg.payload === \"1\")?1:0;\nb.digitalWrite(pin, level);\n\nreturn msg;","outputs":1,"noerr":0,"x":370,"y":320,"wires":[["49b03095.64b31"]]}]
+</code></pre>
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+    <div class="grid">
+        <div class="content">
+            <a class="link-icon" href="http://github.com/node-red/node-red"><i class="icon-github icon-2x"></i></a>
+            <a class="link-icon" href="http://twitter.com/nodered"><i class="icon-twitter icon-2x"></i></a>
+            <a class="link-icon" href="https://groups.google.com/forum/#!forum/node-red"><i class="icon-envelope icon-2x"></i></a>
+            <a class="link-icon" href="http://blog.nodered.org/rss"><i class="icon-rss icon-2x"></i></a>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et">Node-RED is a creation of IBM Emerging Technology</a></div>
+            <div class="ets-link"><a href="http://ibm.com/blogs/et"><img class="ets-globe" src="/images/ets-globe.png" /> </a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43773533-1', 'auto');
+  ga('send', 'pageview');
+
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
+
