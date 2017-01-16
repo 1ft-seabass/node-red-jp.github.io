@@ -3,38 +3,45 @@ layout: default
 title: Nodeの作成
 ---
 
-パレットに新しいNodeを追加することでNode-REDを拡張することができます。Node作成方法について以下のセクションを参照ください。
+パレットに新しいNodeを追加することでNode-REDを拡張することができます。
 
- - [Node作成](first-node.html)
+*このガイドはまだ記載途中です - フィードバックは[メーリングリスト](https://groups.google.com/forum/#!forum/node-red)までおねがいします。*
+
+以下のセクションについては、だいたい完成しています:
+
+ - [はじめてのNode作成](first-node.html)
  - [JavaScriptファイル](node-js.html)
  - [HTMLファイル](node-html.html)
- - [コンテキスト](context.html)
- - [プロパティ](properties.html)
- - [クレデンシャル](credentials.html)
- - [UI](appearance.html)
- - [ステータス](status.html)
+ - [Nodeコンテキスト](context.html)
+ - [Nodeプロパティ](properties.html)
+ - [Nodeの見た目](appearance.html)
+ - [Nodeステータス](status.html)
  - [設定](config-nodes.html)
  - [パッケージング](packaging.html)
- - [国際化](i18n.html)
+ 
+これからすべきこと(To Do):
+1. ライブラリ
+2. カスタムHTTPエンドポイント
 
-### ガイドライン
+### 全体のガイダンス
 
 新しいNodeを作成する際に従うべき幾つかの一般的な原則があります。これらは標準Nodeのアプローチに従って一貫したユーザー体験を提供するのに役立ちます。
 
-- **Nodeの目的は明確に定義されるべきです**
+すべきこと:
 
-   APIのすべての可能なオプションを公開したNodeは、潜在的に、各Nodeのグループは、単一の目的を果たすことはあまり有用です。
-   A node that exposes every possible option of an API is potentially less useful that a group of nodes that each serve a single purpose.
+- **目的が明確に定義されていること**
 
-- **Nodeはどんな機能に関わらず使いやすく作りましょう**
+   APIに含まれるすべての項目を設定できるようにしたNodeは、単一目的のために分割した複数のNodeよりも使いやすくないことが多いです。
+
+- **元の機能に関係なく簡単に使えること**
 
    複雑さを隠蔽して専門用語やドメイン固有の知識の使用を避けます。
 
-- **多様なメッセージ型が渡されても正常に処理するようにしましょう**
+- **多様なメッセージ型が渡されても正常に処理できること**
 
    メッセージは文字列、数値、Boolean、Buffer、オブジェクト、配列、nullなどの様々な型で渡される可能性があります。いずれの型であっても正しく処理される必要があります。
 
-- **Nodeの送信には一貫性を持つべきです**
+- **送信される内容に一貫性を持つこと**
 
    Nodeがメッセージにどんなプロパティを付与するか一貫性を持ち且つ予測可能であり、それらをドキュメント化する必要があります。
 
