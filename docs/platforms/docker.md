@@ -4,25 +4,25 @@ title: Running under Docker
 ---
 
 
-There are many ways you could choose to run Node-RED under Docker. This guide
-describe some of the ways you can do it.
+Docker配下でNode-REDを実行する方法はたくさんあります。
+このガイドではあなたがそれを行う方法を紹介しています。
 
-It assumes you have some basic familiarity with Docker and the
-[Docker Command Line](https://docs.docker.com/reference/commandline/cli/).
+ここではDockerと[Docker Command Line](https://docs.docker.com/reference/commandline/cli/)についての基礎的な知識があることを前提にしています。
 
 
 ### Container versions
 
-We publish three tagged versions of the container to [DockerHub](https://hub.docker.com/r/nodered/node-red-docker/):
+私たちは３つのタグバージョンでコンテナを
+[DockerHub](https://hub.docker.com/r/nodered/node-red-docker/)で公開しています
 
 - `latest` - uses [official Node.JS v4 base image](https://hub.docker.com/_/node/).
 - `slim` - uses [Alpine Linux base image](https://hub.docker.com/r/mhart/alpine-node/).
 - `rpi` - uses [RPi-compatible base image](https://hub.docker.com/r/hypriot/rpi-node/).
 
-Using Alpine Linux reduces the built image size (~100MB vs ~700MB) but removes
-standard dependencies that are required for native module compilation. If you
-want to add modules with native dependencies, use the standard image or extend
-the slim image with the missing packages.
+Alpine Linuxを使用すると、ビルドされたイメージのサイズが縮小されます（約100MBから700MB）
+ネイティブモジュールのコンパイルに必要な標準の依存関係が削除されます。
+もしネイティブの依存関係を持つモジュールを追加する、標準イメージを使用する、または拡張する場合は、
+標準のイメージもしくはslimイメージに不足したパッケージを追加して使用してください。
 
 
 ### Quick start
