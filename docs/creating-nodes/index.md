@@ -9,15 +9,15 @@ Node-REDを拡張する主な方法は、パレットに新しいNodeを追加�
 
 以下のセクションについては、だいたい完成しています:
 
- - [はじめてのNode作成](first-node.html)
- - [JavaScriptファイル](node-js.html)
- - [HTMLファイル](node-html.html)
- - [Nodeコンテキスト](context.html)
- - [Nodeプロパティ](properties.html)
- - [Nodeの見た目](appearance.html)
- - [Nodeステータス](status.html)
- - [設定を設定](config-nodes.html)
- - [パッケージング](packaging.html)
+ - [はじめてのNode作成](first-node)
+ - [JavaScriptファイル](node-js)
+ - [HTMLファイル](node-html)
+ - [Nodeコンテキスト](context)
+ - [Nodeプロパティ](properties)
+ - [Nodeの見た目](appearance)
+ - [Nodeステータス](status)
+ - [設定を設定](config-nodes)
+ - [パッケージング](packaging)
  
 これからすべきこと(To Do):
 
