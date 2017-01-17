@@ -10,7 +10,7 @@ Docker配下でNode-REDを実行する方法はたくさんあります。
 ここではDockerと[Docker Command Line](https://docs.docker.com/reference/commandline/cli/)についての基礎的な知識があることを前提にしています。
 
 
-### Container versions
+### コンテナのバージョン
 
 私たちは３つのタグバージョンでコンテナを
 [DockerHub](https://hub.docker.com/r/nodered/node-red-docker/)で公開しています
@@ -25,29 +25,30 @@ Alpine Linuxを使用すると、ビルドされたイメージのサイズが�
 標準のイメージもしくはslimイメージに不足したパッケージを追加して使用してください。
 
 
-### Quick start
+### クイックスタート
 
 To run the `latest` container:
 
     docker run -it -p 1880:1880 --name mynodered nodered/node-red-docker
 
-This command will download the `nodered/node-red-docker` container from DockerHub
-and run an instance of it with the name of `mynodered` and with port 1880 exposed.
-In the terminal window you will see Node-RED start. Once started you can then
-browse to `http://{host-ip}:1880` to access the editor.
+このコマンドはDockerHubから`nodered/node-red-docker`コンテナをダウンロードします。
+`mynodered`という名前でインスタンス名の登録と 1880ポートを開放します。
+端末にNode-RED startが表示されます。
+起動したらブラウザで`http://{host-ip}:1880`へアクセスするとエディタが開きます。
 
-Hit `Ctrl-p` `Ctrl-q` to detach from the container. This leaves it running in the
-background.
 
-To reattach to the container:
+`Ctrl-p` `Ctrl-q`を入力するとコンテナから離れます。
+これによりバックグラウンドで実行されます。
+
+コンテナへの再接続方法:
 
     docker attach mynodered
 
-To stop the container:
+コンテナの停止方法:
 
     docker stop mynodered
 
-To start the container:
+コンテナの起動方法:
 
     docker start mynodered
 
@@ -64,25 +65,25 @@ environment parameter:
 </div>
 
 
-### Customising
+### カスタマイズ方法
 
 The container uses the directory `/data` as the user configuration directory. To
 add additional nodes you can open shell into the container and run the appropriate
 `npm install` commands:
 
-    # Open a shell in the container
+    # コンテナのシェルを開きます。
     docker exec -it mynodered /bin/bash
 
-    # Once inside the container, npm install the nodes in /data
+    # コンテナに一旦入り、ノード上の/dataディレクトリでnpm installをします。
     cd /data
     npm install node-red-node-smooth
     exit
 
-    # Restart the container to load the new nodes
+    # 新しいノードを読み込む為コンテナを再起動します。
     docker stop mynodered
     docker start mynodered
 
-### Storing data outside of the container
+### コンテナの外部にデータを保管する方法
 
 It is possible to mount the `/data` path on an external volume:
 
@@ -106,7 +107,7 @@ modules, it is recommended to install using a local shell or update the
 package.json and re-build.</p></div>
 
 
-### Building the container from source
+### ソースからコンテナをビルドする方法
 
 The Dockerfiles for these containers are maintained [here](https://github.com/node-red/node-red-docker), each under its own branch.
 
@@ -119,7 +120,7 @@ To build your own version:
     docker build -f <version>/Dockerfile -t mynodered:<tag> .
 
 
-### Building a custom image
+### カスタムイメージのビルド方法
 
 Creating a new Docker image, using the public Node-RED images as the base image,
 allows you to install extra nodes during the build process.
@@ -135,7 +136,7 @@ allows you to install extra nodes during the build process.
 
 That will create a Node-RED image that includes the `wordpos` nodes.
 
-### Updating
+### アップデート
 
 Updating the base container image is as simple as
 
@@ -143,7 +144,7 @@ Updating the base container image is as simple as
     docker stop mynodered
     docker start mynodered
 
-### Linking Containers
+### コンテナのリンク
 
 You can link containers "internally" within the Docker runtime by using the
 `--link` option.
