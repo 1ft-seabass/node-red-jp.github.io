@@ -3,7 +3,7 @@ layout: default
 title: Nodeの作成
 ---
 
-パレットに新しいNodeを追加することでNode-REDを拡張することができます。
+Node-REDを拡張する主な方法は、パレットに新しいNodeを追加することです。
 
 *このガイドはまだ記載途中です - フィードバックは[メーリングリスト](https://groups.google.com/forum/#!forum/node-red)までおねがいします。*
 
@@ -16,7 +16,7 @@ title: Nodeの作成
  - [Nodeプロパティ](properties.html)
  - [Nodeの見た目](appearance.html)
  - [Nodeステータス](status.html)
- - [設定](config-nodes.html)
+ - [設定を設定](config-nodes.html)
  - [パッケージング](packaging.html)
  
 これからすべきこと(To Do):
