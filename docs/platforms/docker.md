@@ -5,7 +5,7 @@ title: Running under Docker
 
 
 Docker配下でNode-REDを実行する方法はたくさんあります。
-このガイドではあなたがそれを行う方法を紹介しています。
+このガイドではあなたができるいくつかの方法を紹介しています。
 
 ここではDockerと[Docker Command Line](https://docs.docker.com/reference/commandline/cli/)についての基礎的な知識があることを前提にしています。
 
@@ -81,14 +81,13 @@ Alpine Linuxを使用すると、ビルドされたイメージのサイズが�
 
 ### コンテナの外部にデータを保管する方法
 
-It is possible to mount the `/data` path on an external volume:
+`/data`を外部ボリュームにマウントすることが可能です:
 
     docker run -it -p 1880:1880 -v ~/node-red-data:/data --name mynodered nodered/node-red-docker
 
-This command mounts the host's `~/node-red-data` directory as the user configuration directory inside the container.
+このコマンドはホストの`~/node-red-data`ディレクトリをコンテナのユーザ設定ディレクトリとしてマウントします。
 
-Adding extra nodes to the container can then be accomplished by running `npm install`
-on the host machine:
+コンテナに拡張ノードを追加するには、`npm install`コマンドをホスト上で実行します。
 
     cd ~/node-red-data
     npm install node-red-node-smooth
@@ -96,37 +95,32 @@ on the host machine:
     docker start mynodered
 
 <div class="doc-callout">
-<p><em>Note</em>: Modules with a native dependencies will be compiled on the host
-machine's architecture. These modules will not work inside the Node-RED
-container unless the architecture matches the container's base image. For native
-modules, it is recommended to install using a local shell or update the
-package.json and re-build.</p></div>
+<p><em>Note</em>: ネイティブの依存関係を持つモジュールはホストマシンのアーキテクチャ上でコンパイルされます。これらのモジュールはアーキテクチャがコンテナのベースイメージと一致しない限りNode-REDコンテナ内では機能しません。ネイティブモジュールの場合は、ローカルシェルを使用してインストールするか、package.jsonを更新して再ビルドすることをお勧めします。</p></div>
 
 
 ### ソースからコンテナをビルドする方法
 
-The Dockerfiles for these containers are maintained [here](https://github.com/node-red/node-red-docker), each under its own branch.
+コンテナをメンテナンスするためのDockerfilesは[ここの](https://github.com/node-red/node-red-docker), branchの下にあります。
 
-To build your own version:
+独自のバージョンをビルドするには:
 
     git clone https://github.com/node-red/node-red-docker.git
     cd node-red-docker
 
-    # Build it with the desired tag
+    # タグを付けてビルドする
     docker build -f <version>/Dockerfile -t mynodered:<tag> .
 
 
 ### カスタムイメージのビルド方法
 
-Creating a new Docker image, using the public Node-RED images as the base image,
-allows you to install extra nodes during the build process.
+パブリックなNode-REDイメージをベースイメージとして新しいDockerイメージを作成すると、ビルドプロセス中に余拡張ノードをインストールできます。
 
-1. Create a file called `Dockerfile` with the content:
+1. 内容を含む`Dockerfile`を作成します:
 
         FROM nodered/node-red-docker
         RUN npm install node-red-node-wordpos
 
-2. Run the following command to build the image:
+2. 次のコマンドを実行してイメージをビルドします:
 
         docker build -t mynodered:<tag> .
 
@@ -134,7 +128,7 @@ That will create a Node-RED image that includes the `wordpos` nodes.
 
 ### アップデート
 
-Updating the base container image is as simple as
+ベースコンテナのアップデートは次のようにシンプルです。
 
     docker pull nodered/node-red-docker
     docker stop mynodered
@@ -142,16 +136,12 @@ Updating the base container image is as simple as
 
 ### コンテナのリンク
 
-You can link containers "internally" within the Docker runtime by using the
-`--link` option.
+`--link`オプションを使用してDockerランタイム上のコンテナ間を内部的にリンクすることができます。
 
-For example, if you have a container that provides an MQTT broker container called `mybroker`, you can run the Node-RED container with the `link` parameter to join the
-two:
+例えば、`mybroker`という名前のMQTTブローカコンテナを提供するコンテナがある場合は、Node-REDコンテナを`link`パラメータで実行して２つを接続する事ができます:
 
     docker run -it -p 1880:1880 --name mynodered --link mybroker:broker nodered/node-red-docker
 
-This will make `broker` a known hostname within the Node-RED container that can be
-used to access the service within a flow, without having to expose it outside
-of the Docker host.
+これにより`broker`はNode-REDコンテナ内の既知のホスト名となり、フロー内のサービスにアクセスするために使用できます。Dockerホストの外部に公開する必要はありません。
 
     [{"id":"190c0df7.e6f3f2","type":"mqtt-broker","broker":"broker","port":"1883","clientid":""},{"id":"37963300.c869cc","type":"mqtt in","name":"","topic":"test","broker":"190c0df7.e6f3f2","x":226,"y":244,"z":"f34f9922.0cb068","wires":[["802d92f9.7fd27"]]},{"id":"edad4162.1252c","type":"mqtt out","name":"","topic":"test","qos":"","retain":"","broker":"190c0df7.e6f3f2","x":453,"y":135,"z":"f34f9922.0cb068","wires":[]},{"id":"13d1cf31.ec2e31","type":"inject","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"x":226,"y":157,"z":"f34f9922.0cb068","wires":[["edad4162.1252c"]]},{"id":"802d92f9.7fd27","type":"debug","name":"","active":true,"console":"false","complete":"false","x":441,"y":261,"z":"f34f9922.0cb068","wires":[]}]
