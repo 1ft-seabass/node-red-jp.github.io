@@ -27,7 +27,7 @@ Alpine Linuxを使用すると、ビルドされたイメージのサイズが�
 
 ### クイックスタート
 
-To run the `latest` container:
+`最新版`コンテナの実行:
 
     docker run -it -p 1880:1880 --name mynodered nodered/node-red-docker
 
@@ -54,12 +54,10 @@ To run the `latest` container:
 
 
 <div class="doc-callout">
-<p><em>Note</em>: your flows will be stored in the file called <code>flows.json</code>
-within the container. This can be customised by setting the <code>FLOWS</code>
-environment parameter:
+<p><em>Note</em>: あなたのフローはコンテナ上の<code>flows.json</code>に保存されます。これは<code>FLOWS</code>環境変数によって変更が可能です:
 </p>
 <pre>docker run -it -p 1880:1880 -e FLOWS=my_flows.json nodered/node-red-docker</pre>
-<p>Node.js runtime arguments can be passed to the container using an environment parameter (<code>NODE_OPTIONS</code>). For example, to fix the heap size used by the Node.js garbage collector you would use the following command:
+<p>Node.jsランタイム引数は、環境パラメータ（NODE_OPTIONS）を使用してコンテナに渡すことができます。 たとえば、Node.jsガベージコレクタで使用されるヒープサイズを修正するには、次のコマンドを使用します:
 </p>
 <pre>docker run -it -p 1880:1880 -e NODE_OPTIONS="--max_old_space_size=128" nodered/node-red-docker</pre>
 </div>
@@ -67,9 +65,7 @@ environment parameter:
 
 ### カスタマイズ方法
 
-The container uses the directory `/data` as the user configuration directory. To
-add additional nodes you can open shell into the container and run the appropriate
-`npm install` commands:
+コンテナは、ディレクトリ`/data`をユーザ設定ディレクトリとして使用します。 ノードを追加するには、シェルをコンテナに開き、適切な`npm install`コマンドを実行します:
 
     # コンテナのシェルを開きます。
     docker exec -it mynodered /bin/bash
