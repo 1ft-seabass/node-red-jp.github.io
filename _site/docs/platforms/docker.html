@@ -123,15 +123,15 @@ $(function() {
     <div class="col-9-12">
       <div class="docs-content">
         <h1 class="docs-title">Running under Docker</h1>
-        <p>There are many ways you could choose to run Node-RED under Docker. This guide
-describe some of the ways you can do it.</p>
+        <p>Docker配下でNode-REDを実行する方法はたくさんあります。
+このガイドではあなたができるいくつかの方法を紹介しています。</p>
 
-<p>It assumes you have some basic familiarity with Docker and the
-<a href="https://docs.docker.com/reference/commandline/cli/">Docker Command Line</a>.</p>
+<p>ここではDockerと<a href="https://docs.docker.com/reference/commandline/cli/">Docker Command Line</a>についての基礎的な知識があることを前提にしています。</p>
 
-<h3 id="container-versions">Container versions</h3>
+<h3 id="section">コンテナのバージョン</h3>
 
-<p>We publish three tagged versions of the container to <a href="https://hub.docker.com/r/nodered/node-red-docker/">DockerHub</a>:</p>
+<p>私たちは３つのタグバージョンでコンテナを
+<a href="https://hub.docker.com/r/nodered/node-red-docker/">DockerHub</a>で公開しています</p>
 
 <ul>
   <li><code class="highlighter-rouge">latest</code> - uses <a href="https://hub.docker.com/_/node/">official Node.JS v4 base image</a>.</li>
@@ -139,88 +139,83 @@ describe some of the ways you can do it.</p>
   <li><code class="highlighter-rouge">rpi</code> - uses <a href="https://hub.docker.com/r/hypriot/rpi-node/">RPi-compatible base image</a>.</li>
 </ul>
 
-<p>Using Alpine Linux reduces the built image size (~100MB vs ~700MB) but removes
-standard dependencies that are required for native module compilation. If you
-want to add modules with native dependencies, use the standard image or extend
-the slim image with the missing packages.</p>
+<p>Alpine Linuxを使用すると、ビルドされたイメージのサイズが縮小されます（約100MBから700MB）
+ネイティブモジュールのコンパイルに必要な標準の依存関係が削除されます。
+もしネイティブの依存関係を持つモジュールを追加する、標準イメージを使用する、または拡張する場合は、
+標準のイメージもしくはslimイメージに不足したパッケージを追加して使用してください。</p>
 
-<h3 id="quick-start">Quick start</h3>
+<h3 id="section-1">クイックスタート</h3>
 
-<p>To run the <code class="highlighter-rouge">latest</code> container:</p>
+<p><code class="highlighter-rouge">最新版</code>コンテナの実行:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker run -it -p 1880:1880 --name mynodered nodered/node-red-docker
 </code></pre>
 </div>
 
-<p>This command will download the <code class="highlighter-rouge">nodered/node-red-docker</code> container from DockerHub
-and run an instance of it with the name of <code class="highlighter-rouge">mynodered</code> and with port 1880 exposed.
-In the terminal window you will see Node-RED start. Once started you can then
-browse to <code class="highlighter-rouge">http://{host-ip}:1880</code> to access the editor.</p>
+<p>このコマンドはDockerHubから<code class="highlighter-rouge">nodered/node-red-docker</code>コンテナをダウンロードします。
+<code class="highlighter-rouge">mynodered</code>という名前でインスタンス名の登録と 1880ポートを開放します。
+端末にNode-RED startが表示されます。
+起動したらブラウザで<code class="highlighter-rouge">http://{host-ip}:1880</code>へアクセスするとエディタが開きます。</p>
 
-<p>Hit <code class="highlighter-rouge">Ctrl-p</code> <code class="highlighter-rouge">Ctrl-q</code> to detach from the container. This leaves it running in the
-background.</p>
+<p><code class="highlighter-rouge">Ctrl-p</code> <code class="highlighter-rouge">Ctrl-q</code>を入力するとコンテナから離れます。
+これによりバックグラウンドで実行されます。</p>
 
-<p>To reattach to the container:</p>
+<p>コンテナへの再接続方法:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker attach mynodered
 </code></pre>
 </div>
 
-<p>To stop the container:</p>
+<p>コンテナの停止方法:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker stop mynodered
 </code></pre>
 </div>
 
-<p>To start the container:</p>
+<p>コンテナの起動方法:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker start mynodered
 </code></pre>
 </div>
 
 <div class="doc-callout">
-<p><em>Note</em>: your flows will be stored in the file called <code>flows.json</code>
-within the container. This can be customised by setting the <code>FLOWS</code>
-environment parameter:
+<p><em>Note</em>: あなたのフローはコンテナ上の<code>flows.json</code>に保存されます。これは<code>FLOWS</code>環境変数によって変更が可能です:
 </p>
 <pre>docker run -it -p 1880:1880 -e FLOWS=my_flows.json nodered/node-red-docker</pre>
-<p>Node.js runtime arguments can be passed to the container using an environment parameter (<code>NODE_OPTIONS</code>). For example, to fix the heap size used by the Node.js garbage collector you would use the following command:
+<p>Node.jsランタイム引数は、環境パラメータ（NODE_OPTIONS）を使用してコンテナに渡すことができます。 たとえば、Node.jsガベージコレクタで使用されるヒープサイズを修正するには、次のコマンドを使用します:
 </p>
 <pre>docker run -it -p 1880:1880 -e NODE_OPTIONS="--max_old_space_size=128" nodered/node-red-docker</pre>
 </div>
 
-<h3 id="customising">Customising</h3>
+<h3 id="section-2">カスタマイズ方法</h3>
 
-<p>The container uses the directory <code class="highlighter-rouge">/data</code> as the user configuration directory. To
-add additional nodes you can open shell into the container and run the appropriate
-<code class="highlighter-rouge">npm install</code> commands:</p>
+<p>コンテナは、ディレクトリ<code class="highlighter-rouge">/data</code>をユーザ設定ディレクトリとして使用します。 ノードを追加するには、シェルをコンテナに開き、適切な<code class="highlighter-rouge">npm install</code>コマンドを実行します:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># Open a shell in the container
+<div class="highlighter-rouge"><pre class="highlight"><code># コンテナのシェルを開きます。
 docker exec -it mynodered /bin/bash
 
-# Once inside the container, npm install the nodes in /data
+# コンテナに一旦入り、ノード上の/dataディレクトリでnpm installをします。
 cd /data
 npm install node-red-node-smooth
 exit
 
-# Restart the container to load the new nodes
+# 新しいノードを読み込む為コンテナを再起動します。
 docker stop mynodered
 docker start mynodered
 </code></pre>
 </div>
 
-<h3 id="storing-data-outside-of-the-container">Storing data outside of the container</h3>
+<h3 id="section-3">コンテナの外部にデータを保管する方法</h3>
 
-<p>It is possible to mount the <code class="highlighter-rouge">/data</code> path on an external volume:</p>
+<p><code class="highlighter-rouge">/data</code>を外部ボリュームにマウントすることが可能です:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker run -it -p 1880:1880 -v ~/node-red-data:/data --name mynodered nodered/node-red-docker
 </code></pre>
 </div>
 
-<p>This command mounts the host’s <code class="highlighter-rouge">~/node-red-data</code> directory as the user configuration directory inside the container.</p>
+<p>このコマンドはホストの<code class="highlighter-rouge">~/node-red-data</code>ディレクトリをコンテナのユーザ設定ディレクトリとしてマウントします。</p>
 
-<p>Adding extra nodes to the container can then be accomplished by running <code class="highlighter-rouge">npm install</code>
-on the host machine:</p>
+<p>コンテナに拡張ノードを追加するには、<code class="highlighter-rouge">npm install</code>コマンドをホスト上で実行します。</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>cd ~/node-red-data
 npm install node-red-node-smooth
@@ -230,34 +225,29 @@ docker start mynodered
 </div>
 
 <div class="doc-callout">
-<p><em>Note</em>: Modules with a native dependencies will be compiled on the host
-machine's architecture. These modules will not work inside the Node-RED
-container unless the architecture matches the container's base image. For native
-modules, it is recommended to install using a local shell or update the
-package.json and re-build.</p></div>
+<p><em>Note</em>: ネイティブの依存関係を持つモジュールはホストマシンのアーキテクチャ上でコンパイルされます。これらのモジュールはアーキテクチャがコンテナのベースイメージと一致しない限りNode-REDコンテナ内では機能しません。ネイティブモジュールの場合は、ローカルシェルを使用してインストールするか、package.jsonを更新して再ビルドすることをお勧めします。</p></div>
 
-<h3 id="building-the-container-from-source">Building the container from source</h3>
+<h3 id="section-4">ソースからコンテナをビルドする方法</h3>
 
-<p>The Dockerfiles for these containers are maintained <a href="https://github.com/node-red/node-red-docker">here</a>, each under its own branch.</p>
+<p>コンテナをメンテナンスするためのDockerfilesは<a href="https://github.com/node-red/node-red-docker">ここの</a>, branchの下にあります。</p>
 
-<p>To build your own version:</p>
+<p>独自のバージョンをビルドするには:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/node-red/node-red-docker.git
 cd node-red-docker
 
-# Build it with the desired tag
+# タグを付けてビルドする
 docker build -f &lt;version&gt;/Dockerfile -t mynodered:&lt;tag&gt; .
 </code></pre>
 </div>
 
-<h3 id="building-a-custom-image">Building a custom image</h3>
+<h3 id="section-5">カスタムイメージのビルド方法</h3>
 
-<p>Creating a new Docker image, using the public Node-RED images as the base image,
-allows you to install extra nodes during the build process.</p>
+<p>パブリックなNode-REDイメージをベースイメージとして新しいDockerイメージを作成すると、ビルドプロセス中に余拡張ノードをインストールできます。</p>
 
 <ol>
   <li>
-    <p>Create a file called <code class="highlighter-rouge">Dockerfile</code> with the content:</p>
+    <p>内容を含む<code class="highlighter-rouge">Dockerfile</code>を作成します:</p>
 
     <div class="highlighter-rouge"><pre class="highlight"><code> FROM nodered/node-red-docker
  RUN npm install node-red-node-wordpos
@@ -265,7 +255,7 @@ allows you to install extra nodes during the build process.</p>
     </div>
   </li>
   <li>
-    <p>Run the following command to build the image:</p>
+    <p>次のコマンドを実行してイメージをビルドします:</p>
 
     <div class="highlighter-rouge"><pre class="highlight"><code> docker build -t mynodered:&lt;tag&gt; .
 </code></pre>
@@ -275,9 +265,9 @@ allows you to install extra nodes during the build process.</p>
 
 <p>That will create a Node-RED image that includes the <code class="highlighter-rouge">wordpos</code> nodes.</p>
 
-<h3 id="updating">Updating</h3>
+<h3 id="section-6">アップデート</h3>
 
-<p>Updating the base container image is as simple as</p>
+<p>ベースコンテナのアップデートは次のようにシンプルです。</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker pull nodered/node-red-docker
 docker stop mynodered
@@ -285,21 +275,17 @@ docker start mynodered
 </code></pre>
 </div>
 
-<h3 id="linking-containers">Linking Containers</h3>
+<h3 id="section-7">コンテナのリンク</h3>
 
-<p>You can link containers “internally” within the Docker runtime by using the
-<code class="highlighter-rouge">--link</code> option.</p>
+<p><code class="highlighter-rouge">--link</code>オプションを使用してDockerランタイム上のコンテナ間を内部的にリンクすることができます。</p>
 
-<p>For example, if you have a container that provides an MQTT broker container called <code class="highlighter-rouge">mybroker</code>, you can run the Node-RED container with the <code class="highlighter-rouge">link</code> parameter to join the
-two:</p>
+<p>例えば、<code class="highlighter-rouge">mybroker</code>という名前のMQTTブローカコンテナを提供するコンテナがある場合は、Node-REDコンテナを<code class="highlighter-rouge">link</code>パラメータで実行して２つを接続する事ができます:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>docker run -it -p 1880:1880 --name mynodered --link mybroker:broker nodered/node-red-docker
 </code></pre>
 </div>
 
-<p>This will make <code class="highlighter-rouge">broker</code> a known hostname within the Node-RED container that can be
-used to access the service within a flow, without having to expose it outside
-of the Docker host.</p>
+<p>これにより<code class="highlighter-rouge">broker</code>はNode-REDコンテナ内の既知のホスト名となり、フロー内のサービスにアクセスするために使用できます。Dockerホストの外部に公開する必要はありません。</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>[{"id":"190c0df7.e6f3f2","type":"mqtt-broker","broker":"broker","port":"1883","clientid":""},{"id":"37963300.c869cc","type":"mqtt in","name":"","topic":"test","broker":"190c0df7.e6f3f2","x":226,"y":244,"z":"f34f9922.0cb068","wires":[["802d92f9.7fd27"]]},{"id":"edad4162.1252c","type":"mqtt out","name":"","topic":"test","qos":"","retain":"","broker":"190c0df7.e6f3f2","x":453,"y":135,"z":"f34f9922.0cb068","wires":[]},{"id":"13d1cf31.ec2e31","type":"inject","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"x":226,"y":157,"z":"f34f9922.0cb068","wires":[["edad4162.1252c"]]},{"id":"802d92f9.7fd27","type":"debug","name":"","active":true,"console":"false","complete":"false","x":441,"y":261,"z":"f34f9922.0cb068","wires":[]}]
 </code></pre>

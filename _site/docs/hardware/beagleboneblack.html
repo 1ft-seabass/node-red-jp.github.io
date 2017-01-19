@@ -123,13 +123,27 @@ $(function() {
     <div class="col-9-12">
       <div class="docs-content">
         <h1 class="docs-title">Running on BeagleBone Boards</h1>
-        <p>The latest 4GB images for BeagleBone boards already have Node-RED installed into it’s OS so you can just start running with the <code class="highlighter-rouge">node-red</code> command. You can use the intructions below to upgrade to later versions if you wish.</p>
+        <p>The latest 4GB images for BeagleBone boards already have Node-RED pre-installed so you can just start running with the <code class="highlighter-rouge">node-red</code> command.</p>
 
 <p>The 2GB console version suitable for flashing to older eMMC versions of the BBB will need to install as per below.</p>
 
 <div class="doc-callout">
 These instructions only apply to the Debian versions of BeagleBoneBlack. <a href="http://beagleboard.org/latest-images">http://beagleboard.org/latest-images</a>
 </div>
+
+<h4 id="upgrading-4gb-images">Upgrading 4GB images</h4>
+
+<p>As they already have node.js 4.x installed - the easiest way to upgrade is to over-install the latest version:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo npm cache clean
+sudo npm install -g --unsafe-perm node-red
+</code></pre>
+</div>
+
+<p>Then stop and restart Node-RED.</p>
+
+<p><strong>Note</strong>: Do NOT use the Raspberry Pi / Debian upgrade script (<code class="highlighter-rouge">update-nodejs-and-nodered</code>) as it will re-install both node.js and Node-RED
+in different locations and will conflict with the existing systemd configuration files.</p>
 
 <h4 id="before-you-start">Before you start</h4>
 
@@ -151,10 +165,10 @@ software certificates date checks to be valid.</p>
 
 <h4 id="updating-nodejs">Updating node.js</h4>
 
-<p>We recommend using node.js LTS 4.x.</p>
+<p>We recommend using node.js LTS 4.x or 6.x</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install curl
-curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y build-essential nodejs
 hash -r
 </code></pre>
