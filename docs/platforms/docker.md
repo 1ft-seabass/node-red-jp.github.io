@@ -124,11 +124,11 @@ Alpine Linuxを使用すると、ビルドされたイメージのサイズが�
 
         docker build -t mynodered:<tag> .
 
-That will create a Node-RED image that includes the `wordpos` nodes.
+これで`wordpos`ノードを含むNode-REDイメージを作成します。
 
 ### アップデート
 
-ベースコンテナのアップデートは次のようにシンプルです。
+ベースコンテナのアップデートは次のようにシンプルにできます。
 
     docker pull nodered/node-red-docker
     docker stop mynodered
