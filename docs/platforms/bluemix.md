@@ -62,43 +62,30 @@ Node-REDは、IBM Bluemix上で、[ボイラーテンプレートプリケーシ
 
 ---
 
-### Deploy To Bluemix
+### Bluemixへデプロイ
 
-The [Deploy To Bluemix enabled repository](https://github.com/node-red/node-red-bluemix-starter)
-lets you create your own customised Node-RED application that can then
-be deployed to Bluemix with a couple clicks.
+[Bluemixデプロイ向けリポジトリ](https://github.com/node-red/node-red-bluemix-starter)を用いると、カスタマイズしたNode-REDアプリケーションを作成し、数クリックでBluemixへデプロイできます。
 
-You can try it out now by clicking here:
+以下をクリックすることで、すぐにデプロイを試すことができます:
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/node-red/node-red-bluemix-starter.git)
+[![Bluemixへデプロイ](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/node-red/node-red-bluemix-starter.git)
 
-When you click the button, you are taken to Bluemix where you get a pick a name
-for your application at which point the platform takes over, grabs the code from
-this repository and deploys it.
+このボタンをクリックすると、Bluemixへ移動し、引き継き先のアプリケーション名を入力できます。その後、リポジトリからコードを取得し、デプロイされます。
 
-It will automatically create an instance of the Cloudant service, call it
-`sample-node-red-cloudantNoSQLDB` and bind it to you application. This is where your
-Node-RED instance will store its data. If you deploy multiple instances of
-Node-RED from this repository, they will share the one Cloudant instance.
+この手順では、自動的に `sample-node-red-cloudantNoSQLDB` という名前のCloudantサービスのインスタンスが作成され、アプリケーションとバインドされます。Node-REDインスタンスは、Cloudantサービスへデータを保存します。もし、このリポジトリから複数のNode-REDインスタンスをデプロイする場合、複数のNode-REDインスタンス間で1つのCloudantインスタンスを共有することもできます。
 
-It includes a set of default flows that are automatically deployed the first time
-Node-RED runs.
+この手順では、Node-REDを初めて起動した際に、デフォルトのフローが自動的にデプロイされます。
 
-#### Customising your Node-RED repository
+#### Node-REDリポジトリをカスタマイズ
 
-The repository is there to be cloned, modified and re-used to allow anyone to create
-their own Node-RED based application that can be quickly deployed to Bluemix.
+Node-REDリポジトリは、すぐにBluemixへデプロイ可能な、あなた自身のNode-REDベースのアプリケーションを誰でも作成できるよう、複製、修正、再利用ができます。
 
-The default flows are stored in the `defaults` directory in the file called `flow.json`.
+デフォルトのフローは、 `defaults` ディレクトリ内の `flow.json` ファイルに保存します。
 
-The web content you get when you go to the application's URL is stored under the
-`public` directory.
+アプリケーションのURLへアクセスした時に参照できる静的ウェブコンテンツは、`public` ディレクトリ以下に保存します。
 
-Additional nodes can be added to the `package.json` file and all other Node-RED
-configuration settings can be set in `bluemix-settings.js`.
+追加ノードがある場合は、 `package.json` ファイルに追加します。その他の全てのNode-REDの設定は、`bluemix-settings.js` へ設定します。
 
-If you do clone the repository, make sure you update the `README.md` file to point
-the `Deploy to Bluemix` button at your repository.
+もし、リポジトリをCloneした場合は、`Bluemixへデプロイ` ボタンの参照先があなたがCloneしたリポジトリとなるよう `README.md` ファイルを更新してください。
 
-If you want to change the name of the Cloudant instance that gets created, the memory
-allocated to the application or other deploy-time options, have a look in `manifest.yml`.
+もし、作成するCloudantインスタンス名、アプリケーションに割り当てるメモリ量、デプロイ時の他のオプションを変更したい場合は、`manifest.yml` を参照し、変更してください。
