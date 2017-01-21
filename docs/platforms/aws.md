@@ -3,60 +3,55 @@ layout: default
 title: Running on Amazon Web Services
 ---
 
-This guide takes you through the steps to get Node-RED running on an AWS EC2
-instance.
+このガイドではAWS EC2インスタンスでNode-REDを実行する手順を紹介します。
 
-#### Create the base EC2 image
+#### ベースのEC2イメージを作成する
 
-1. Log in to the [AWS EC2 console](https://console.aws.amazon.com/ec2)
+1. [AWS EC2 console](https://console.aws.amazon.com/ec2)にログインします。
 
-2. Click 'Launch Instance'
+2. 'インスタンスの作成'をクリックします。
 
-3. In the list of Quick Start AMIs, select **Ubuntu Server**
+3. クイックスタートリストから **Ubuntu Server** を選びます。
 
-4. Select the Instance Type - `t2.micro` is a good starting point
+4. インスタンスタイプを選びます。`t2.micro`が始めるにはちょうど良いでしょう。
 
-5. On the 'Configure Security Group' tab, add a new 'Custom TCP Rule' for port 1880
+5. 'セキュリティグループの設定' タブの'ルールの追加'をクリックし、'カスタムTCPルール' ポート 1880を指定、送信元 'カスタム' 0.0.0.0/0を指定します。
 
-6. On the final 'Review' step, click the 'Launch' button
+6. '確認' タブの'作成' ボタンをクリックします。
 
-7. The console will prompt you to configure a set of SSH keys. Select 'Create a new key pair' and click 'Download key pair'. Your browser will save the `.pem` file - keep that safe. Finally, click 'Launch'.
+7. SSHキーの設定を求めるメッセージが表示されます。'新しいキーペアの作成' とキーペア名を指定し、'キーペアのダウンロード'をクリックします。 ブラウザに`.pem`ファイルが保存されます。ファイルを安全な場所に保管し、最後に'インスタンスの作成'をクリックします。
 
-After a couple of minutes your EC2 instance will be running. In the console
-you can find your instance's IP address.
+数分後、EC2インスタンスが起動します。
+コンソールからインスタンスのIPアドレスを見つけてください。
 
-#### Setup Node-RED
+#### Node-REDのセットアップ
 
-The next task is to log into the instance then install node.js and Node-RED.
+次はインスタンスにログインし、node.js と Node-REDをインストールします。
 
-Follow the AWS guide for [connecting to your instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstances.html).
+AWSガイド[Linuxインスタンスへの接続](http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/AccessingInstances.html) に従って接続します。
 
-Once logged in you need to install node.js and Node-RED
+ログインしたら、node.js と Node-REDをインストールする必要があります
 
        curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
        sudo apt-get install -y nodejs build-essential
        sudo npm install -g node-red
 
 
-At this point you can test your instance by running `node-red`. *Note*: you may
-get some errors regarding the Serial node - that's to be expected and can be
-ignored.
+この時点で、`node-red`インスタンスをテストすることができます。*Note*: シリアルノードに関するいくつかのエラーが発生する可能性があります。これは予期されるもので、無視することができます。
 
-Once started, you can access the editor at `http://<your-instance-ip>:1880/`.
+起動したら、`http://<your-instance-ip>:1880/`のエディタにアクセスできます。
 
-To get Node-RED to start automatically whenever your instance is restarted, you
-can use pm2:
+インスタンスが再起動されるたびにNode-REDが自動的に起動するようにするにはpm2を使用できます:
 
        sudo npm install -g pm2
        pm2 start `which node-red` -- -v
        pm2 save
        pm2 startup
 
-*Note:* this final command will prompt you to run a further command - make sure you do as it says.
+*Note:* この最後のコマンドはさらにコマンドを実行するように促します。（訳注：この注意書きが不安ですが、そもそもこのNode必要かな？と取られてました。）
 
-#### Next steps
+#### 次のステップ
 
-This guide barely scratches the surface of how you may choose to configure your
-instance to run in EC2. Node-RED is 'just' a node.js application that exposes an
-HTTP server - on that principle, there are many online guides you can use to
-learn what else is possible.
+このガイドでは、EC2で実行するようにインスタンスを構成する方法についてはほとんど触れていません。
+Node-REDは、HTTPサーバを公開する単なるnode.jsアプリケーションです。
+-他に何が可能化を学ぶために使用できる多くのオンラインガイドがあります。
