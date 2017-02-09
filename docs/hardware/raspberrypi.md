@@ -96,6 +96,7 @@ Node.jsやその他の依存関係をインストールする最も簡単な方�
     sudo apt-get install build-essential python-rpi.gpio
     bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
 
+**Note:** Debian/Raspbian Wheezyは現在「End of Life」を迎えており、もはやサポートされていません。このドキュメントは最低限Jessieを対象にしています。
 
 その他のインストールオプションについては、 [main installation instructions](../getting-started/installation#install-node-red) を参照してください。
 
@@ -163,6 +164,7 @@ Node-REDは、 `node-red-start`と` node-red-stop`コマンドを使用して起
 
     sudo systemctl disable nodered.service
 
+Systemdはロギングに `/var/log/system.log` を使います。 ログをフィルタリングするには、以下をコマンドを使用します。
 
     sudo journalctl -f -u nodered -o cat
 
