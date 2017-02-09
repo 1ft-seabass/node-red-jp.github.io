@@ -171,9 +171,6 @@ Systemdはロギングに `/var/log/system.log` を使います。 ログをフ�
 
 #### Changing the systemd environment - using a proxy
 
-If you need to use a proxy for http requests - you need to set the *HTTP_PROXY* environment variable.
-When using *systemd* this must be done within the service configuration. To edit this use sudo to edit the file `/lib/systemd/system/nodered.service` and add another `Environment=` line, for example:
-
 http要求にプロキシーを使用する必要がある場合は、*HTTP_PROXY* 環境変数を設定する必要があります。
 *systemd* を使用する場合、これはサービス構成内で行う必要があります。 sudoを使って `/lib/systemd/system/nodered.service` ファイルを編集し、別の `Environment =` の行を追加してください。例えば下記の通り。
 
@@ -210,10 +207,6 @@ PiのIPアドレスを見つけるには、以下のコマンドを使用しま�
 追加のノードをインストールする際は、自分のユーザディレクトリにいることを確認してください。デフォルトでは `〜/.node-red` です。
 
      cd ~/.node-red
-
-There are some extra hardware specific nodes (e.g. for the Pibrella, PiFace and
-LEDBorg plug on modules, Neopixel leds, temperature sensors, etc) available via the **[flows library](http://flows.nodered.org/)**.
-For example the Pibrella node can be installed as follows
 
 **[flows library](http://flows.nodered.org/)** 経由で入手可能な、ハードウェア固有のいくつかのノードがあります。（モジュール、Neopixel LED、温度センサーなどのPibrella、PiFace、LEDBorgプラグなど）
 たとえば、Pibrellaノードは次のようにインストールできます。
@@ -277,8 +270,6 @@ Node-REDをインストールしたら、次の [説明](http://wiringpi.com/dow
 
 #### Configuring Node-RED
 
-Firstly the wiring-pi npm module needs to be installed into the same directory as your
-`settings.js` file.
 まず、 `settings.js` ファイルと同じディレクトリに、wiring-pi npmモジュールをインストールする必要があります。
 
     cd ~/.node-red
@@ -295,9 +286,6 @@ Firstly the wiring-pi npm module needs to be installed into the same directory a
 このモジュールは、 `context.global.wpi` として書くことができます。
 
 #### Blink - Wiring-Pi
-
-To run a "blink" flow that uses the WiringPi pin 0 - Pin 11 on the GPIO header,
-you will need to connect up an LED as described [here](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/).
 
 GPIOヘッダのWiringPiピン0〜11ピンを使用する「blink」フローを実行するには、[ここ](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/) に記載されているようにLEDを接続する必要があります。
 
