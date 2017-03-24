@@ -191,8 +191,8 @@ functionGlobalContext: {
 
 "require"が必要な外部モジュールは全てnpmでユーザディレクトリに手動インストールしなければなりません。
 
-    cd ~/.node-red
-    npm i name_of_3rd_party_module_to_be_required
+        cd ~/.node-red
+        npm i name_of_3rd_party_module_to_be_required
 
 <div class="doc-callout"><em>注意</em>: 
 Node-RED v0.13より前のバージョンでは、グローバルコンテクストを使う方法は、以下のように<code>context</code>のサブプロパティとしてアクセスするとドキュメントに記述されていました:
