@@ -1,13 +1,14 @@
 ---
-layout: default
+layout: docs
+toc: creating-nodes-toc.html
 title: Node properties
 ---
 
 A node's properties are defined by the `defaults` object in its html definition.
 These are the properties that get passed to the node constructor function when
-an instance of the node is created in the runtime. 
+an instance of the node is created in the runtime.
 
-In the example from the [creating you first node section](first-node.html), the
+In the example from the [creating you first node section](first-node), the
 node had a single property called `name`. In this section, we'll add a new
 property called `prefix` to the node:
 
@@ -17,10 +18,10 @@ property called `prefix` to the node:
             name: {value:""},
             prefix: {value:""}
         },
-   
+
    The entry includes the default `value` to be used when a new node of this type
    is dragged onto the workspace.
-   
+
 2. Add an entry to the edit template for the node
 
         <div class="form-row">
@@ -28,9 +29,9 @@ property called `prefix` to the node:
             <input type="text" id="node-input-prefix">
         </div>
 
-    The template should contain an `<input>` element with an `id` set to 
+    The template should contain an `<input>` element with an `id` set to
     `node-input-<propertyname>`.
-    
+
 3. Use the property in the node
 
         function LowerCaseNode(config) {
@@ -53,7 +54,7 @@ The entries in the `defaults` array can have the following attributes:
 - `validate` : (function) *optional* a function that can be used to validate the
   value of the property.
 - `type` : (string) *optional* if this property is a pointer to a
-  [configuration node](config-nodes.html),  this identifies the type of the node.
+  [configuration node](config-nodes),  this identifies the type of the node.
 
 ### Reserved property names
 
@@ -65,7 +66,7 @@ There are some reserved names for properties that must not be used. These are:
 If a node wants to allow the number of outputs it provides to be configurable
 then `outputs` may be included in the `defaults` array. The Function node is
 an example for how this works.
-  
+
 ### Property validation
 
 The editor attempts to validate all properties to warn the user if invalid values
@@ -74,7 +75,7 @@ have been given.
 The `required` attribute can be used to indicate a property must be non-null and
 non-blank.
 
-If more specific validation is required, the `validate` attribute can be used to 
+If more specific validation is required, the `validate` attribute can be used to
 provide a function that will check the value is valid. The function is passed the
 value and should return either true or false. It is called within the context of
 the node which means `this` can be used to access other properties of the node.
@@ -109,8 +110,8 @@ For each of the properties in the `defaults` array, it looks for an `<input>`
 element with an `id` set to `node-input-<propertyname>`. This input is then
 automatically populated with the current value of the property. When the edit
 dialog is okayed, the property takes whatever value is in the input.
-    
-The `<input>` type can be either `text` for string/number properties, or 
+
+The `<input>` type can be either `text` for string/number properties, or
 `checkbox` for boolean properties. Alternatively, a `<select>` element can be
 used if there is a restricted set of choices.
 
@@ -129,10 +130,10 @@ A node definition can include two functions to customise the edit behaviour.
  - `oneditcancel` is called when the edit dialog is cancelled.
  - `oneditdelete` is called when the delete button in a configuration node's edit
    dialog is pressed.
- 
+ - `oneditresize` is called when the edit dialog is resized.
+
 For example, when the Inject node is configured to repeat, it stores the
 configuration as a cron-like string: `1,2 * * * *`. The node defines an
 `oneditprepare` function that can parse that string and present a more
 user-friendly UI. It also has an `oneditsave` function that compiles the options
 choosen by the user back into the corresponding cron string.
-

@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: docs
+toc: creating-nodes-toc.html
 title: HTML File
 ---
 
@@ -27,11 +28,13 @@ function.
 
 This function takes two arguments; the type of the node and its definition:
 
-    <script type="text/javascript">
-        RED.nodes.registerType('node-type',{
-            // node definition
-        });
-    </script>
+~~~~html
+<script type="text/javascript">
+    RED.nodes.registerType('node-type',{
+        // node definition
+    });
+</script>
+~~~~
 
 #### Node type
 
@@ -59,6 +62,8 @@ editor. It is an object with the following properties:
 - `paletteLabel`: (string\|function) the [label](appearance#label) to use in the palette.
 - `label`: (string\|function) the [label](appearance#label) to use in the workspace.
 - `labelStyle`: (string\|function) the [style](appearance#label-style) to apply to the label.
+- `inputLabels`: (string\|function) optional [label](appearance#port-labels) to add on hover to the input port of a node.
+- `outputLabels`: (string\|function) optional [labels](appearance#port-labels) to add on hover to the output ports of a node.
 - `icon`: (string) the [icon](appearance#icon) to use.
 - `align`: (string) the [alignment](appearance#alignment) of the icon and label.
 - `oneditprepare`: (function) called when the edit dialog is being built. See [custom edit behaviour](properties#custom-edit-behaviour).
@@ -110,9 +115,17 @@ messages.
 The content of the first `<p>` tag is used as the tooltip when hovering over
 nodes in the palette.
 
-    <script type="text/x-red" data-help-name="node-type">
-       <p>Some useful help text to introduce the node.</p>
-       <p>Outputs an object called <code>msg</code> containing <code>msg.topic</code> and
-       <code>msg.payload</code>.</p>
-       <p><code>msg.payload</code> is a <i>String</i>.</p>
-    </script>
+~~~~html
+<script type="text/x-red" data-help-name="node-type">
+   <p>Some useful help text to introduce the node.</p>
+   <h3>Outputs</h3>
+       <dl class="message-properties">
+       <dt>payload
+           <span class="property-type">string | buffer</span>
+       </dt>
+   <h3>Details</h3>
+   <p>Some more information about the node.</p>
+</script>
+~~~~
+
+A complete style guide for node help is [available here](help-style-guide).
