@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: docs
+toc: creating-nodes-toc.html
 title: Configuration nodes
 ---
 
@@ -7,7 +8,6 @@ Some nodes need to share configuration. For example, the MQTT In and MQTT Out
 nodes share the configuration of the MQTT broker, allowing them to pool the
 connection. Configuration nodes are scoped globally by default, this means
 the state will be shared between flows.
-
 
 ### Defining a config node
 
@@ -64,7 +64,7 @@ has no actual runtime behaviour.
 A common use of config nodes is to represent a shared connection to a remote
 system. In that instance, the config node may also be responsible for creating
 the connection and making it available to the nodes that use the config node. In
-such cases, the config node should also handle the [`close` event](node-js.html#closing-the-node)
+such cases, the config node should also handle the [`close` event](node-js#closing-the-node)
 to disconnect when the node is stopped.
 
 ### Using a config node
