@@ -4,29 +4,24 @@ toc: creating-nodes-toc.html
 title: Creating your first node
 ---
 
-Nodes get created when a flow is deployed, they may send and receive some messages
-whilst the flow is running and they get deleted when the next flow is deployed.
+フローがデプロイされた時にノードは有効となり、フローが動作している間ノードはメッセージを送受します。そして、次のフローがデプロイされた時に、ノードは無効になります。
 
-They consist of a pair of files; a JavaScript file that defines what the
-node does, and an html file that defines the node's properties, edit dialog and
-help text.
+ノードは2つのファイルから構成されています。1つ目のファイルは、ノードの処理を定義したJavaScriptファイルです。2つ目のファイルは、ノードプロパティ、編集画面、ヘルプを定義したhtmlファイルです。
 
-When packaged as an npm module, a `package.json` file is used to pull it all together.
+npmモジュールとしてパッケージ化する時は、これらのファイルをまとめて取得するために `package.json` ファイルを用います。
 
- - [Creating a simple node](#creating-a-simple-node)
+ - [簡単なノードを開発](#簡単なノードを開発)
    - [package.json](#package-json)
    - [lower-case.js](#lower-casejs)
    - [lower-case.html](#lower-casehtml)
- - [Testing your node in Node-RED](#testing-your-node-in-node-red)
+ - [Node-REDでノードの動作確認](#Node-REDでノードの動作確認)
 
 
-### Creating a simple node
+### 簡単なノードを開発
 
-This example will show how to create a node that converts message payloads to
-all lower-case characters.
+この例では、受け取ったメッセージの文字列を全て小文字に変換するノードをどの様に開発するかについて、説明します。
 
-Create a directory where you will develop your code. Within that directory,
-create the following files:
+まず開発用のディレクトリを作成してください。そのディレクトリの中で以下の名前のファイルを作成してください。
 
  - `package.json`
  - `lower-case.js`
@@ -34,14 +29,11 @@ create the following files:
 
 <h4 id="package-json"><i class="fa fa-file-o"></i> package.json</h4>
 
-This is a standard file used by node.js modules to describe their contents.
+この `package.json` ファイルは、Node.jsモジュールの内容を記述するために標準的に使われるファイルです。
 
-To generate a standard `package.json` file you can use the command `npm init`.
-This will ask a series of questions to help create the initial content for the
-file, using sensible defaults where it can. When prompted, give it the name
-`node-red-contrib-example-lower-case`.
+`package.json` ファイルを作成するには、 `npm init` コマンドを用います。このコマンドは、モジュールの内容の作成を手助けする質問が表示されます。モジュール名を聞かれた際は、 `node-red-contrib-example-lower-case` を指定してください。
 
-Once generated, you must added a `node-red` section:
+`package.json` ファイルを作成した後は、以下の様に `node-red` セクションを追加します。
 
 ```json
 {
@@ -55,13 +47,11 @@ Once generated, you must added a `node-red` section:
 }
 ```
 
-This tells the runtime what node files the module contains.
+このセクションにより、どのノードファイルにプログラムが書かれているかを指定します。
 
-For more information about how to package your node, including requirements on
-naming and other properties that should be set before publishing your node, refer
-to the [packaging guide](packaging).
+ノードの命名規則やノードを公開する前に設定すべき他の項目など、バッケージ化の詳しい情報については、 [パッケージングガイド](packaging) を参照してください.
 
-**Note**: Please do ***not*** publish this example node to npm!
+**注意**: このノードはサンプルのため、npmへ公開 ***しない*** ようにしてください。
 
 <h4 id="lower-casejs"><i class="fa fa-file-o"></i> lower-case.js</h4>
 
@@ -79,29 +69,19 @@ module.exports = function(RED) {
 }
 {% endhighlight %}
 
-The node is wrapped as a node module. The module exports a function that gets called
-when the runtime loads the node on start-up. The function is called with a single
-argument, `RED`, that provides the module access to the Node-RED runtime api.
+ノードはモジュールとしてラップされます。Node-REDランタイムは起動時にノードを読み込み、モジュールが関数をエクスポートします。関数は引数 `RED` を指定して呼び出されます。この引数 `RED` は、モジュールがNode-REDのランタイムAPIをアクセスできるようにする機能を提供しています。
 
-The node itself is defined by a function, `LowerCaseNode` that gets called whenever
-a new instance of the node is created. It is passed an object containing the
-node-specific properties set in the flow editor.
+ノード自身は、 `LowerCaseNode` という関数として定義されています。この関数は、新しいノードのインスタンスが作成される時に呼び出されます。この関数には、フローエディタで登録されたノード固有のプロパティを含むオブジェクトが渡されます。
 
-The function calls the `RED.nodes.createNode` function to initialise the features
-shared by all nodes. After that, the node-specific code lives.
+この関数は、全てのノードで共有する機能を初期化するため、さらに `RED.nodes.createNode` 関数を呼び出します。その後、ノード固有のコードが有効になります。
 
-In this instance, the node registers a listener to the `input` event which gets
-called whenever a message arrives at the node. Within this listener, it changes
-the payload to lower case, then calls the `send` function to pass the message
-on in the flow.
+このインスタンスでは、ノードは `input` イベントのリスナーを登録しています。このリスナーは、ノードにメッセージが届いた時に呼び出されます。このリスナーの中では、ペイロードの文字列を小文字に変換しています。その後、フローへメッセージを渡すため、 `send` 関数を呼び出しています。
 
-Finally, the `LowerCaseNode` function is registered with the runtime using the
-name for the node, `lower-case`.
+最後に、`lower-case` というノード名を指定して `LowerCaseNode` 関数をランタイムへ登録しています。
 
-If the node has any external module dependencies, they must be included in the `dependencies`
-section of its `package.json` file.
+もしノードが外部モジュールと依存関係がある場合は、 `package.json` ファイルの `dependencies` セクションに依存するモジュールを記述してください。
 
-For more information about the runtime part of the node, see [here](node-js).
+ノードのランタイム部分についての詳しい情報は、[ここ](node-js)を参照してください。
 
 <h4 id="lower-casehtml"><i class="fa fa-file-o"></i> lower-case.html</h4>
 
@@ -135,19 +115,17 @@ For more information about the runtime part of the node, see [here](node-js).
 </script>
 {% endhighlight %}    
 
-A node's HTML file provides the following things:
+ノードのHTMLファイルは、以下の内容を含んでいます。
 
- - the main node definition that is registered with the editor
- - the edit template
- - the help text
+ - エディタに登録するノードの説明
+ - ノードの編集テンプレート
+ - ヘルプ
 
-In this example, the node has a single editable property, `name`. Whilst not
-required, there is a widely used convention to this property to help distinguish
-between multiple instances of a node in a single flow.
+この例では、ノードは編集可能なプロパティとして `name` を持っています。フロー内に複数存在するノードのインスタンスを区別するのを助けるため、このプロパティは広く使われています。
 
-For more information about the editor part of the node, see [here](node-html).
+ノードのエディタ部分の詳しい情報については、[ここ](node-html)を参照してください。
 
-### Testing your node in Node-RED
+### Node-REDでノードの動作確認
 
 Once you have created a basic node module as described above, you can install
 it into your Node-RED runtime.
