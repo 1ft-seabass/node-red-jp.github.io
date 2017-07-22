@@ -4,29 +4,25 @@ toc: creating-nodes-toc.html
 title: HTML File
 ---
 
-The node `.html` file defines the how the node appears with the editor. It
-contains three distinct part, each wrapped in its own `<script>` tag:
+`.html`ファイルは、エディタでのノード表示方法を定義します。
+３つの種類があり、それぞれ独自の`<script>`タグで囲まれています:
 
-1. the main node definition that is registered with the editor. This defines
-   things such as the palette category, the editable properties (`defaults`) and
-   what icon to use. It is within a regular javascript script tag
+1. エディタに登録されるメインノード定義。
+   ここには定義するパレットカテゴリ、編集可能なプロパティ('defaults')、
+   どのアイコンを使用するか。
+   javascriptスクリプトタグ内に記述します。
 
-2. the edit template that defines the content of the edit dialog for the node.
-   It is defined in a script of type `text/x-red` with `data-template-name` set
-   to the [type of the node](#node-type).
+2. ノードの編集ダイアログの内容を定義するテンプレート。
+    これは `text-x-red`型のスクリプトで` data-template-name`がセットされて定義されています
+    [ノードの種類]（＃node-type）に設定します。
 
-3. the help text that gets displayed in the Info sidebar tab. It is defined in a
-   script of type `text/x-red` with `data-help-name` set to the
-   [type of the node](#node-type).
+3. サイドバータブに表示されるヘルプテキスト。 これは `data-help-name`が[ノードの種類]（＃node-type）に設定された` text / x-red`型のスクリプトで定義されます。
 
+### ノードの定義
 
+ノードは`RED.nodes.registerType`を使用して登録しなければなりません。
 
-### Defining a node
-
-A node must be registered with the editor using the `RED.nodes.registerType`
-function.
-
-This function takes two arguments; the type of the node and its definition:
+この関数はノードタイプと、その定義の2つの引数が必要です:
 
 ~~~~html
 <script type="text/javascript">
@@ -36,47 +32,45 @@ This function takes two arguments; the type of the node and its definition:
 </script>
 ~~~~
 
-#### Node type
+#### ノードタイプ
 
-The node type is used throughout the editor to identify the node. It must
-match the value used by the call to `RED.nodes.registerType` in the corresponding
-`.js` file.
+ノードタイプはノードを識別するためエディタ全体で使用します。
+対応する`.js`ファイルの`RED.nodes.registerType`への呼び出しで使用される値と一致しなければなりません。
 
-The type is also used as the label for the node in the palette. If the type ends
-with " in" or " out" this is stripped off label. For example, the "mqtt in" and
-"mqtt out" nodes are both labelled as "mqtt", with the display of the input and
-output ports providing the "in" or "out" context.
+このタイプは、パレット内のノードのラベルとしても使用されます。
+タイプが"in"または"out"で終わる場合、これはラベルから外されます。
+例えば、"mqtt in"ノードと"mqtt out"ノードの両方が"mqtt"とラベル付けされ、入力ポートと出力ポートの表示が"in"または"out"コンテキストを提供します。
 
-#### Node definition
+#### ノード定義
 
-The node definition contains all of the information about the node needed by the
-editor. It is an object with the following properties:
+ノード定義には、エディタに必要なノードに関するすべての情報が含まれています。
+これは次のプロパティを持つオブジェクトです:
 
+- `category`: (string) ノードが表示されるパレットカテゴリ
+- `defaults`: (object) ノードの[プロパティの編集](properties)
+- `credentials`: (object) ノードの[認証プロパティ](credentials)
+- `inputs`: (number) ノードがいくつの入力を有するか `0` または `1`のどちらか.
+- `outputs`: (number) ノードがいくつの出力を有するか `0`またはそれ以上にすることができる
+- `color`: (string) 使用する[背景色](appearance#background-colour)
+- `paletteLabel`: (string\|function) パレットで使用する[ラベル](appearance#label)
+- `label`: (string\|function) ワークスペースで使用する[ラベル](appearance#label)
+- `labelStyle`: (string\|function) ラベルに適用する [スタイル](appearance#label-style)
+- `inputLabels`: (string\|function) ホバー上にノードの入力ポートに追加するオプションの [ラベル](appearance#port-labels)
+- `outputLabels`: (string\|function) ホバー上にノードの出力ポートに追加するオプションの [ラベル](appearance#port-labels)
+- `icon`: (string) 使用する[アイコン](appearance#icon)
+- `align`: (string) アイコンとラベルの[位置合わせ](appearance#alignment)
+- `oneditprepare`: (function) 編集ダイアログが作成されている時に呼び出されます。 [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
+- `oneditsave`: (function) 編集ダイアログがOKの時に呼び出されます。 [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
+- `oneditcancel`: (function) 編集ダイアログがキャンセルの時に呼び出されます。[カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
+- `oneditdelete`: (function) 設定ノードの編集ダイアログの削除ボタンが押された時に呼び出されます。 [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
+- `oneditresize`: (function) 編集ダイアログがリサイズされた時に呼び出されます [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
+- `onpaletteadd`: (function) ノードタイプがパレットに追加された時に呼び出されます。
+- `onpaletteremove`: (function) ノードタイプがパレットから削除されたときに呼び出されます。
 
-- `category`: (string) the palette category the node appears in
-- `defaults`: (object) the [editable properties](properties) for the node.
-- `credentials`: (object) the [credential properties](credentials) for the node.
-- `inputs`: (number) how many inputs the node has, either `0` or `1`.
-- `outputs`: (number) how many outputs the node has. Can be `0` or more.
-- `color`: (string) the [background colour](appearance#background-colour) to use.
-- `paletteLabel`: (string\|function) the [label](appearance#label) to use in the palette.
-- `label`: (string\|function) the [label](appearance#label) to use in the workspace.
-- `labelStyle`: (string\|function) the [style](appearance#label-style) to apply to the label.
-- `inputLabels`: (string\|function) optional [label](appearance#port-labels) to add on hover to the input port of a node.
-- `outputLabels`: (string\|function) optional [labels](appearance#port-labels) to add on hover to the output ports of a node.
-- `icon`: (string) the [icon](appearance#icon) to use.
-- `align`: (string) the [alignment](appearance#alignment) of the icon and label.
-- `oneditprepare`: (function) called when the edit dialog is being built. See [custom edit behaviour](properties#custom-edit-behaviour).
-- `oneditsave`: (function) called when the edit dialog is okayed. See [custom edit behaviour](properties#custom-edit-behaviour).
-- `oneditcancel`: (function) called when the edit dialog is cancelled. See [custom edit behaviour](properties#custom-edit-behaviour).
-- `oneditdelete`: (function) called when the delete button in a configuration node's edit dialog is pressed. See [custom edit behaviour](properties#custom-edit-behaviour).
-- `oneditresize`: (function) called when the edit dialog is resized. See [custom edit behaviour](properties#custom-edit-behaviour).
-- `onpaletteadd`: (function) called when the node type is added to the palette.
-- `onpaletteremove`: (function) called when the node type is removed from the palette.
+### ダイアログの編集
 
-### Edit dialog
+ノードの編集テンプレートは編集ダイアログの内容を記述します。
 
-The edit template for a node describes the content of its edit dialog.
 
     <script type="text/x-red" data-template-name="node-type">
         <div class="form-row">
@@ -86,34 +80,26 @@ The edit template for a node describes the content of its edit dialog.
         <div class="form-tips"><b>Tip:</b> This is here to help.</div>
     </script>
 
+いくつかの簡単な慣習があります:
 
-There are some simple conventions to follow:
+ - ダイアログの各行をレイアウトするには、`form-row`クラスの`<div>`を使用する必要があります。
+ - 典型的な行では、アイコンを含む`<label>`と、プロパティ名の後ろに`<input>`が続きます。
+    アイコンは、[Font Awesome](http://fortawesome.github.io/Font-Awesome/icons/)から入手可能なクラスから取得したクラスを持つ`<i>`要素を使用して作成されます。
 
- - a `<div>` with class `form-row` should be used to layout each row of the
-   dialog.
- - a typical row will have a `<label>` that contains an icon and the name of the
-   property followed by an `<input>`. The icon is created using an `<i>` element
-   with a class taken from those available from [Font Awesome](http://fortawesome.github.io/Font-Awesome/icons/).
+    Note: これまでは[Bootstrap](http://getbootstrap.com/2.3.2/base-css#icons)が提供していたアイコンを使用していました。
+    Font AwesomeよりもNode-REDでの使用は推奨されなくなりました。
+ - もしインタラクティブ性が必要な場合は`oneditprepare`を使用して、ダイアログ要素に任意のイベントハンドラをアタッチすることができます。
 
-   Note: we previously used the icons provided by [Bootstrap](http://getbootstrap.com/2.3.2/base-css#icons).
-   Their use is now deprecated within Node-RED in preference to Font Awesome.
- - if more interactivity is required, `oneditprepare` can be used to attach
-   any event handlers on the dialog elements.
+編集テンプレートの使用方法の詳細については、[こちら](properties#property-edit-dialog)をご覧ください。
 
 
-More information on how the edit template is used is available
-[here](properties#property-edit-dialog).
+### ヘルプテキスト
 
+ノードが選択されると、ヘルプテキストが情報タブに表示されます。
+選択されたノードが何をするか意味と説明を表示する必要があります。
+ここには送信時と、受信時に、どのプロパティを設定できるか明確にする必要があります。
 
-### Help text
-
-When a node is selected, its help text is displayed in the info tab. This should
-provide a meaningful description of what the node does. It should identify what
-properties it sets on outgoing messages and what properties can be set on incoming
-messages.
-
-The content of the first `<p>` tag is used as the tooltip when hovering over
-nodes in the palette.
+最初の `<p>`タグの内容は、パレット内のノードをホバリングするときにツールチップとして使用されます。
 
 ~~~~html
 <script type="text/x-red" data-help-name="node-type">
@@ -128,4 +114,4 @@ nodes in the palette.
 </script>
 ~~~~
 
-A complete style guide for node help is [available here](help-style-guide).
+ノードヘルプの完全なスタイルガイドが[ここにあります](help-style-guide)。
