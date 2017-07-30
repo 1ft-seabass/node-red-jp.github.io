@@ -59,11 +59,11 @@ title: HTML File
 - `outputLabels`: (string\|function) ホバー上にノードの出力ポートに追加するオプションの [ラベル](appearance#port-labels)
 - `icon`: (string) 使用する[アイコン](appearance#icon)
 - `align`: (string) アイコンとラベルの[位置合わせ](appearance#alignment)
-- `oneditprepare`: (function) 編集ダイアログが作成されている時に呼び出されます。 [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
-- `oneditsave`: (function) 編集ダイアログがOKの時に呼び出されます。 [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
-- `oneditcancel`: (function) 編集ダイアログがキャンセルの時に呼び出されます。[カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
-- `oneditdelete`: (function) 設定ノードの編集ダイアログの削除ボタンが押された時に呼び出されます。 [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
-- `oneditresize`: (function) 編集ダイアログがリサイズされた時に呼び出されます [カスタム編集の動作](properties#custom-edit-behaviour)を参照してください。
+- `oneditprepare`: (function) 編集ダイアログが作成されている時に呼び出されます。 [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
+- `oneditsave`: (function) 編集ダイアログがOKの時に呼び出されます。 [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
+- `oneditcancel`: (function) 編集ダイアログがキャンセルの時に呼び出されます。[カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
+- `oneditdelete`: (function) 設定ノードの編集ダイアログの削除ボタンが押された時に呼び出されます。 [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
+- `oneditresize`: (function) 編集ダイアログがリサイズされた時に呼び出されます [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
 - `onpaletteadd`: (function) ノードタイプがパレットに追加された時に呼び出されます。
 - `onpaletteremove`: (function) ノードタイプがパレットから削除されたときに呼び出されます。
 
@@ -90,7 +90,7 @@ title: HTML File
     Font AwesomeよりもNode-REDでの使用は推奨されなくなりました。
  - もしインタラクティブ性が必要な場合は`oneditprepare`を使用して、ダイアログ要素に任意のイベントハンドラをアタッチすることができます。
 
-編集テンプレートの使用方法の詳細については、[こちら](properties#property-edit-dialog)をご覧ください。
+編集テンプレートの使用方法の詳細については、[こちら](properties#プロパティ編集ダイアログ)をご覧ください。
 
 
 ### ヘルプテキスト
