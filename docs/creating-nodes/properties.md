@@ -4,35 +4,30 @@ toc: creating-nodes-toc.html
 title: Node properties
 ---
 
-A node's properties are defined by the `defaults` object in its html definition.
-These are the properties that get passed to the node constructor function when
-an instance of the node is created in the runtime.
+ノードのプロパティは、html定義の`defaults`オブジェクトによって定義されます。
+これらは、ノードのインスタンスがランタイムで作成された時にノードコンストラクタ関数に渡されるプロパティです。
 
-In the example from the [creating you first node section](first-node), the
-node had a single property called `name`. In this section, we'll add a new
-property called `prefix` to the node:
+[はじめてのノード開発](first-node)の例では、ノードには`name`という単一のプロパティがありました。このセクションでは、新しいノードに`prefix`という名前のプロパティを追加します:
 
-1. Add a new entry to the `defaults` object:
+1. `defaults`オブジェクトに新しいエントリを追加します:
 
         defaults: {
             name: {value:""},
             prefix: {value:""}
         },
 
-   The entry includes the default `value` to be used when a new node of this type
-   is dragged onto the workspace.
+   エントリには、このタイプの新しいノードがワークスペースにドラッグされたときに使用されるデフォルトの`value`が含まれます。
 
-2. Add an entry to the edit template for the node
+2. ノードの編集テンプレートにエントリを追加する
 
         <div class="form-row">
             <label for="node-input-prefix"><i class="icon-tag"></i> Prefix</label>
             <input type="text" id="node-input-prefix">
         </div>
 
-    The template should contain an `<input>` element with an `id` set to
-    `node-input-<propertyname>`.
+    テンプレートには、`id`が`node-input-<propertyname>`に設定された`<input>`要素が含まれていなければなりません。
 
-3. Use the property in the node
+3. ノード内のプロパティを使用する
 
         function LowerCaseNode(config) {
             RED.nodes.createNode(this,config);
@@ -44,51 +39,42 @@ property called `prefix` to the node:
             });
         }
 
-### Property definitions
+### プロパティ定義
 
-The entries in the `defaults` array can have the following attributes:
+`defaults`の配列は以下の属性を持つことができます:
 
-- `value` : (any type) the default value the property takes
-- `required` : (boolean) *optional* whether the property is required. If set to
-  true, the property will be invalid if its value is null or an empty string.
-- `validate` : (function) *optional* a function that can be used to validate the
-  value of the property.
-- `type` : (string) *optional* if this property is a pointer to a
-  [configuration node](config-nodes),  this identifies the type of the node.
+- `value` : (任意の型) プロパティが持つデフォルト値
+- `required` : (boolean) *オプション* プロパティが必須かどうか。trueにすると、値がnullまたは空文字列の場合、プロパティが無効になります。
+- `validate` : (function) *オプション* プロパティの値を検証するために使用できる関数。
+- `type` : (string) *オプション* このプロパティが構成ノードへのポインターである場合、これはノードのタイプを識別します。
 
-### Reserved property names
+### 予約済みのプロパティ名
 
-There are some reserved names for properties that must not be used. These are:
+使用してはいけないプロパティの予約名がいくつかあります:
 
 > `type`, `x`, `y`, `z`, `wires`, `outputs`
 
 
-If a node wants to allow the number of outputs it provides to be configurable
-then `outputs` may be included in the `defaults` array. The Function node is
-an example for how this works.
+ノードが提供する出力の数を設定可能にしたい場合、`outputs`を`defaults`配列に含めることができます。Functionノードは、これがどのように機能するかの例です。
 
-### Property validation
+### プロパティ検証
 
-The editor attempts to validate all properties to warn the user if invalid values
-have been given.
+エディターは、無効な値が与えられた場合にユーザに警告するために、すべてのプロパティを検証しようとします。
 
-The `required` attribute can be used to indicate a property must be non-null and
-non-blank.
+`required`属性は、プロパティが非nullで非blankでなければならないことを示すために使用でいます。
 
-If more specific validation is required, the `validate` attribute can be used to
-provide a function that will check the value is valid. The function is passed the
-value and should return either true or false. It is called within the context of
-the node which means `this` can be used to access other properties of the node.
-This allows the validation to depend on other property values.
+より具体的な検証が必要な場合、`validate`属性を使用して、値が有効であることを確認する関数を提供することができます。
+関数には値が渡され、trueまたはfalseが返されます。
+これは、ノードのコンテキスト内で呼び出され、ノードの他のプロパティにアクセスするために、`this`を使用できることを意味します。
+これにより、検証は他のプロパティ値に依存することができます。
 
-There is a group of common validation functions provided.
+共通の検証関数が用意されています。
 
- - `RED.validators.number()` - check the value is a number
- - `RED.validators.regex(re)` - check the value matches the provided regular
-   expression
+ - `RED.validators.number()` - 値が数字であることを確認する
+ - `RED.validators.regex(re)` - 指定された正規表現に一致する値をチェックする
 
 
-The following example shows how each of these validators can be applied.
+次の例では、これらのバリデータのそれぞれを適用することができる方法を示しています。
 
 {% highlight javascript %}
 defaults: {
@@ -98,42 +84,32 @@ defaults: {
 },
 {% endhighlight %}
 
-Note how the `custom` property is only valid if its length is greater than the
-current value of the `minimumLength` property.
+`custom`プロパティは、その長さが`minimumLength`プロパティの値よりも大きい場合に有効です。
 
-### Property edit dialog
 
-When the edit dialog is opened, the editor populates the dialog with the edit
-template for the node.
+### プロパティ編集ダイアログ
 
-For each of the properties in the `defaults` array, it looks for an `<input>`
-element with an `id` set to `node-input-<propertyname>`. This input is then
-automatically populated with the current value of the property. When the edit
-dialog is okayed, the property takes whatever value is in the input.
+編集ダイアログが開かれると、エディタはノードの編集テンプレートをダイアログに入力します。
 
-The `<input>` type can be either `text` for string/number properties, or
-`checkbox` for boolean properties. Alternatively, a `<select>` element can be
-used if there is a restricted set of choices.
+`defaults`配列の各プロパティについて、`id`が`node-input-<propertyname>`に設定された`<input>`要素を探します。
+この入力には、プロパティの現在の値が自動的に入力されます。
+編集ダイアログが正常になると、プロパティは入力にある値を取ります。
 
-#### Custom edit behaviour
+`<input>`型は、文字列/数値プロパティの`text`か、booleanプロパティの`checkbox`です。あるいは、選択肢が限られている場合は、`<select>`要素を使用することができます。
 
-The default behaviour works in many cases, but sometimes it is necessary to
-define some node-specific behaviour. For example, if a property cannot be
-properly edited as a simple `<input>` or `<select>`, or if the edit dialog
-content itself needs to have certain behaviours based on what options are
-selected.
+#### カスタム編集の動作
 
-A node definition can include two functions to customise the edit behaviour.
+デフォルトの動作は多くの場合動作しますが、場合によってはいくつかのノード固有の動作を定義します。
+たとえば、プロパティを簡単な`<input>`や`<select>`として適切に編集できない場合や、編集ダイアログのコンテンツ自体に、選択されているオプションに基づいて特定の動作を持っている必要があります。
 
- - `oneditprepare` is called immediately before the dialog is displayed.
- - `oneditsave` is called when the edit dialog is okayed.
- - `oneditcancel` is called when the edit dialog is cancelled.
- - `oneditdelete` is called when the delete button in a configuration node's edit
-   dialog is pressed.
- - `oneditresize` is called when the edit dialog is resized.
+ノード定義には、編集動作をカスタマイズする2つの関数を含めることができます。
 
-For example, when the Inject node is configured to repeat, it stores the
-configuration as a cron-like string: `1,2 * * * *`. The node defines an
-`oneditprepare` function that can parse that string and present a more
-user-friendly UI. It also has an `oneditsave` function that compiles the options
-choosen by the user back into the corresponding cron string.
+ - `oneditprepare`は編集ダイアログが表示される直前に呼び出されます。
+ - `oneditsave`は編集ダイアログがOKの時に呼び出されます。
+ - `oneditcancel`は編集ダイアログがキャンセルの時に呼び出されます。
+ - `oneditdelete`は設定ノードの編集ダイアログの削除ボタンが押された時に呼び出されます。
+ - `oneditresize`は編集ダイアログがリサイズされた時に呼び出されます。
+
+例えば、注入ノードが繰り返すように構成されている場合、それはcronのような文字列として設定します: `1,2 * * * *`
+ノードは、その文字列を解析してよりユーザフレンドリなUIを提示できる`oneditprepare`関数を定義します。
+また、ユーザが選択したオプションを対応するcron文字列にコンパイルする`oneditsave`関数もあります。
