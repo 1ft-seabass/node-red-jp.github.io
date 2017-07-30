@@ -1,21 +1,19 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Configuration nodes
+title: 設定
 ---
 
-Some nodes need to share configuration. For example, the MQTT In and MQTT Out
-nodes share the configuration of the MQTT broker, allowing them to pool the
-connection. Configuration nodes are scoped globally by default, this means
-the state will be shared between flows.
+いくつかのノードは構成を共有する必要があります。
+たとえばMQTT InおよびMQTT Outノードは、MQTTブローカーの構成を共有し、接続をプールすることができます。
+コンフィグレーションノードはデフォルトでグローバルにスコープされます。つまり、フロー間で状態が共有されます。
 
-### Defining a config node
+### 設定ノードの定義
 
-A configuration node is defined in the same way as other nodes. There are two
-key differences:
+構成ノードは、他のノードと同じ方法で定義されます。2つの重要な違いがあります:
 
-1. its `category` property is set to `config`
-2. the edit template `<input>` elements have ids of `node-config-input-<propertyname>`
+1. `category`プロパティを`config`にセットします。
+2. 編集テンプレート`<input>`の要素idは`node-config-input-<propertyname>`です。
 
 #### remote-server.html
 
@@ -58,19 +56,15 @@ module.exports = function(RED) {
 }
 {% endhighlight %}
 
-In this example, the node acts as a simple container for the configuration - it
-has no actual runtime behaviour.
+この例では、ノードは構成の単純なコンテナとして機能します。実際の実行動作はありません。
 
-A common use of config nodes is to represent a shared connection to a remote
-system. In that instance, the config node may also be responsible for creating
-the connection and making it available to the nodes that use the config node. In
-such cases, the config node should also handle the [`close` event](node-js#closing-the-node)
-to disconnect when the node is stopped.
+設定ノードの一般的な使い方は、リモートシステムへの共有接続を表すことです。
+その場合、構成ノードは接続を作成し、構成ノードを使用するノードで接続を使用できるようにすることもできます。
+そのような場合、configノードは、ノードが停止したときに切断する[`close`イベント](node-js#ノードを閉じる)も処理する必要があります。
 
-### Using a config node
+### 設定ノードの使用
 
-Nodes register their use of config nodes by adding a property to the `defaults`
-array with the `type` attribute set to the type of the config node.
+ノードは`type`属性が設定ノードのタイプに設定された状態で`defaults`配列にプロパティを追加することによって、設定ノードの使用を登録します。
 
 {% highlight javascript %}
 defaults: {
@@ -78,18 +72,17 @@ defaults: {
 },
 {% endhighlight %}
 
-As with other properties, the editor looks for an `<input>` in the edit template
-with an id of `node-input-<propertyname>`. Unlike other properties, the editor
-replaces this `<input>` element with a `<select>` element populated with the
-available instances of the config node, along with a button to open the config
-node edit dialog.
+他のプロパティと同様に、エディタは`node-input-<propertyname>`というIDを持つ編集テンプレート内の`<input>`を探します。
+他のプロパティとは異なり、エディタはこの`<input>`要素を`<select>`要素で置き換えます。
+この要素には、設定ノードの利用可能なインスタンスが設定されています。
+configノードの編集ダイアログを開くためのボタンが表示されます。
 
 <div style="text-align: center">
     <img title="node config select" src="images/node_config_dialog.png"/>
 </div>
 
 
-The node can then use this property to access the config node within the runtime.
+ノードはこのプロパティを使用して、ランタイム内のコンフィグノードにアクセスできます。
 
 {% highlight javascript %}
 module.exports = function(RED) {
