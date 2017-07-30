@@ -1,7 +1,7 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Node context
+title: コンテキスト
 ---
 
 ノードは、そのコンテキストオブジェクト内にデータを格納することができます。このコンテキストオブジェクトは、ノードの再デプロイ時およびNode-REDの再起動時にリセットされます。

@@ -1,7 +1,7 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Node credentials
+title: クレデンシャル
 ---
 
 ノードは、多数のプロパティを`credentials`として定義することができます。

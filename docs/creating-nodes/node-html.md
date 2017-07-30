@@ -1,7 +1,7 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: HTML File
+title: HTMLファイル
 ---
 
 `.html`ファイルは、エディタでのノード表示方法を定義します。

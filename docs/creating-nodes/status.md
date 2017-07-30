@@ -1,7 +1,7 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Node status
+title: ステータス
 ---
 
 実行中は、ノードはエディタのUIとステータス情報を共有できます。

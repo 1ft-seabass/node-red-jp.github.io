@@ -1,7 +1,7 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: JavaScript file
+title: JavaScriptファイル
 ---
 
 `.js`ファイルは、ノードのランタイム動作を定義します。

@@ -1,7 +1,7 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Node properties
+title: プロパティ
 ---
 
 ノードのプロパティは、html定義の`defaults`オブジェクトによって定義されます。
