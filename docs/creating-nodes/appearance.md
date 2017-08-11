@@ -4,29 +4,26 @@ toc: creating-nodes-toc.html
 title: Node appearance
 ---
 
-There are three aspects of a node's appearance that can be customised; the icon,
-background colour and its label.
+ノードの見た目として、アイコン、背景色、ラベルの3点を変更できます。
 
-### Icon
+### アイコン
 
-The node's icon is specified by the `icon` property in its definition.
+ノードのアイコンは、定義内のthe `icon` プロパティに指定します。
 
-The value of the property can be either a string or a function.
+プロパティの値は、文字列または関数を設定できます。
 
-If the value is a string, that is used as the icon.
+プロパティの値が文字列の場合は、その文字列をアイコン名として扱います。
 
-If the value is a function, it will get evaluated when the node is first loaded, or after it has been edited. The function is expected to return the value to use as the icon.
-The function will be called both for nodes in the workspace, where `this` references a node instance, as well as
-for the node's entry in the palette. In this latter case, `this` will not refer to a particular node instance and
-the function *must* return a valid value.
+プロパティの値が関数の場合は、ノードが最初に読み込まれた時、またはノードが編集された後に評価されます。関数はアイコン名として使う文字列を返すようにしてください。
+関数は、ワークスペース上のノード(`this` が参照するノードインスタンス)と、パレット上のノードの両方のアイコンを表示するために使用されます。パレット上のノード向けの場合、 `this` は特定のノードインスタンスを参照しません。関数は有効な値を返す *必要があります。*
 
                 ...
                 icon: "file.png",
                 ...
 
-There are some stock icons available for use, or the node can provide its own.
+用意されたアイコン、またはノードと一緒に提供されるアイコンを利用できます。
 
-#### Stock icons
+#### 用意されたアイコン
 
 <style>
 .nr-icon-list {
@@ -65,18 +62,15 @@ There are some stock icons available for use, or the node can provide its own.
 <li><img src="images/white-globe.png"/> white-globe.png</li>
 </ul>
 
-#### Custom icon
+#### 独自アイコン
 
-A node can provide its own icon in a directory called `icons` alongside its `.js`
-and `.html` files. These directories get added to the search path when the editor
-looks for a given icon filename. Because of this, the icon filename must be unique.
+ノードの `.js` ファイルや `.html` ファイルと同じディレクトリに存在する `icons` ディレクトリの中に、ノード固有の独自アイコンを配置します。アイコンのファイル名を指定すると、エディタは本ディレクトリ内からアイコンを探し出します。そのため、アイコンのファイル名は一意にする必要があります。
 
-The icon should be white on a transparent background, 20 x 30 in size.
+アイコンは、背景を透過色にした20 x 30 ピクセルの白い画像にしてください。
 
-### Background Colour
+### 背景色
 
-The node background colour is one of the main ways to quickly distinguish different
-node types. It is specified by the `color` property in the node definition.
+ノードの背景色は、異なるノードの型を素早く区別するための主な手段の1つです。ノードの背景色は、ノード定義の `color` プロパティに定義してください。
 
 {% highlight javascript %}
 ...
@@ -84,10 +78,9 @@ color: "#a6bbcf",
 ...
 {% endhighlight %}
 
-We have used a muted palette of colours. New nodes should try to find a colour that
-fits with this palette.
+Node-REDでは落ち着いた色を採用しています。 新たなノードは、この色に合うようにしてみてください。
 
-Here are some of the commonly used colours:
+以下は、ノードの背景色として良く使われる色です。
 
 
 
@@ -133,11 +126,11 @@ text-align: center;
 </ul>
 
 
-### Labels
+### ラベル
 
-There are four label properties of a node; `label`, `paletteLabel`, `outputLabel` and `inputLabel`.
+ノードのラベルについては、 `label` 、 `paletteLabel` 、 `outputLabel` 、 `inputLabel`　の4つのプロパティがあります。
 
-#### Node label
+#### ノードラベル
 
 The `label` of a node in the workspace can either be a static piece of text, or
 it can be set dynamically on a per-node basis according to the nodes properties.
@@ -165,10 +158,9 @@ label: function() {
 
 Note that it is not possible to use [credential](credentials) properties in the label function.
 
-#### Palette label
+#### パレットラベル
 
-By default, the node's type is used as its label within the palette. The
-`paletteLabel` property can be used to override this.
+標準では、ノードの型をパレット上のノード名として使います。 `paletteLabel` プロパティを指定すると、標準のノード名を上書きします。
 
 As with `label`, this property can be either a string or a function. If it is a
 function, it is evaluated once when the node is added to the palette.
