@@ -1,11 +1,10 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Node context
+title: コンテキスト
 ---
 
-A node can store data within its context object. This context object is reset
-whenever the node is redeployed and when Node-RED is restarted.
+ノードは、そのコンテキストオブジェクト内にデータを格納することができます。このコンテキストオブジェクトは、ノードの再デプロイ時およびNode-REDの再起動時にリセットされます。
 
 {% highlight javascript %}
 // Access the node's context object
@@ -17,27 +16,24 @@ context.set('count',count);
 
 {% endhighlight %}
 
-##### Flow context
+##### フローコンテキスト
 
-The flow-level context is shared by all nodes on a given tab.
+フローレベルのコンテキストは、特定のタブ上のすべてのノードによって共有されます。
 
 {% highlight javascript %}
 var flowContext = this.context().flow;
 var count = flowContext.get('count')||0;
 {% endhighlight %}
 
-##### Global context
+##### グローバルコンテキスト
 
-The global context is shared by, and accessible to all nodes. For example to
-make the variable `foo` available globally:
+グローバルコンテキストは、すべてのノードによって共有され、すべてのノードにアクセス可能です。たとえば、変数`foo`をグローバルに利用できるようにするには:
 
 {% highlight javascript %}
 var globalContext = this.context().global;
 globalContext.set("foo","bar");  // this is now available to other nodes
 {% endhighlight %}
 
-##### Accessing context in a Function node
+##### 関数ノードのコンテキストへのアクセス
 
-In the Function node, the `flow` and `global` context objects are made available
-as top-level objects. See [this section](/docs/writing-functions#storing-data)
-for more information.
+関数ノードでは、`flow`コンテキストオブジェクトと`global`コンテキストオブジェクトがトップレベルオブジェクトとして利用可能になります。詳細については、[このセクション](/docs/writing-functions#storing-data)を参照してください。

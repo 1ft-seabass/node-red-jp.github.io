@@ -1,15 +1,15 @@
 ---
 layout: default
 toc: creating-nodes-toc.html
-title: Packaging
+title: パッケージング
 ---
 
-Nodes can be packaged as modules and published to the npm repository. This makes
-them easy to install along with any dependencies they may have.
+ノードはモジュールとしてパッケージ化し、npmレポジトリに公開することができます。
+これにより、インストールするのに必要な依存関係と共にインストールが容易になります。
 
-### Directory structure
+### ディレクトリ構造
 
-Here is a typical directory structure for a node package:
+以下に、ノードパッケージの典型的なディレクトリ構造を示します:
 
     - package.json
     - sample
@@ -20,39 +20,39 @@ Here is a typical directory structure for a node package:
     - README.md
     - LICENSE
 
-There are no strict requirements over the directory structure used within the
-package. If a package contains multiple nodes, they could all exist in the same
-directory, or they could each be placed in their own sub-directory.
+パッケージ内で使用されるディレクトリ構造に厳密な要件はありません。
+パッケージに複数のノードが含まれている場合、
+それらはすべて同じディレクトリに存在することができますが、
+それぞれが独自のサブディレクトリに配置することもできます。
 
-### Testing a node module locally
+### ノードモジュールをローカルでテストする
 
-To test a node module locally, the `npm link` command can be used. This allows you
-to develop the node in a local directory and have it linked into a local node-red
-install, as if it had been npm installed.
+ノードモジュールをローカルでテストするには、`nmp link`コマンドを使うことができます。
+これにより、ローカルディレクトリにノードを作成し、ローカルのNode-REDインストールにリンクさせることができます。
+あたかもnpmがインストールされているかのように。
+ as if it had been npm installed.
 
-1. in the directory containing the node's `package.json` file, run: `sudo npm link`.
-2. in your node-red user directory, typically `~/.node-red` run: `npm link <name of node module>`.
+1.ノードの`package.json`ファイルを含むディレクトリで、以下を実行します: `sudo npm link`.
+2. あなたの node-red ユーザディレクトリでは、通常は`~/.node-red`が実行されます: `npm link <name of node module>`.
 
-This creates the appropriate symbolic links between the two directories so Node-RED
-will discover the node when it starts. Any changes to the node's file can be picked
-up by simply restarting Node-RED.
+これにより、2つのディレクトリ間に適切なシンボリックリンクが作成され、Node-REDは起動時にノードを検出します。
+Node-REDを再起動するだけで、ノードのファイルに対する変更を取得することができます。
 
 ### package.json
 
-Along with the usual entries, the `package.json` file must contain a `node-red`
-entry that identifies what nodes the module provides, along with a pointer to
-their `.js` files.
+通常の入力と並んで、`package.json`ファイルには、モジュールが提供するノードを認識する`node-red`エントリが含まれていなければナリません。
+それらの`.js`ファイルへのポインタとともに表示されます。
 
-If any of the nodes have dependencies on other npm modules, they must be included
-in the `dependencies` property.
+いずれかのノードが他のnpmモジュールと依存している場合、
+それらは`dependencies`プロパティに含まれていなければなりません。
 
-To help make the nodes discoverable within the npm repository, the file should
-include `node-red` in its `keywords` property. This will ensure the package
-appears when [searching by keyword](https://www.npmjs.org/browse/keyword/node-red).
+npmレポジトリ内でノードを発見可能にするために、
+ファイルは`keywords`プロパティに`node-red`を含める必要があります。
+これにより、[キーワードで検索する](https://www.npmjs.org/browse/keyword/node-red)際にパッケージが確実に表示されます。
 
-<div class="doc-callout"><em>Note</em>: Please do NOT add the `node-red` keyword until
-you are happy that the node is stable and working correctly, and documented sufficiently
-for others to be able to use it.</div>
+<div class="doc-callout"><em>Note</em>: ノードが安定し正しく動作するまで `node-red`キーワードを追加しないでください。
+他の人がそれを使用出来るように十分に文書化されています。
+</div>
 
 {% highlight json %}
 {
@@ -70,31 +70,26 @@ for others to be able to use it.</div>
 }
 {% endhighlight %}
 
-### Naming
+### ネーミング
 
-Node modules should use `node-red-contrib-` as a prefix to their name to make it
-clear they are not maintained by the Node-RED project. Alternatively, any name
-that doesn't use `node-red` as a prefix can be used.
+ノードモジュールは、Node-REDプロジェクトによって維持されていないことを明確にするために、`node-red-contrib-`を名前のプレフィックスとして使用する必要があります。
+あるいは、`node-red`をプレフィックスとして使用しない任意の名前を使用することができます。
 
 ### README.md
 
-The README.md file should describe the capabilities of the node, and list any
-pre-requisites that are needed in order to make it function. It may also be
-useful to include any extra instuctions not included in the *info* tab part
-of the node's html file, and maybe even a small example flow demonstrating it's
-use.
+README.mdファイルには、ノードの機能・それを機能させるために必要な前提条件を列挙します。
+ノードのhtmlファイルの、*info*タブ部分に含まれていない追加の指示や、それを使用している小さなサンプルフローを含めると便利かもしれません。
 
-The file should be marked up using
+ファイルは次のようにマークアップする必要があります。
 [GitHub flavoured markdown](https://help.github.com/articles/markdown-basics/).
 
-### LICENSE
+### ライセンス
 
-Please include a license file so that others may know what they can and cannot
-do with your code.
+他の人が自分のコードで出来ることと出来ない事を知るように、ライセンスファイルを含めてください。
 
-### Publishing to npm
+### npmに公開する
 
-There are lots of guides to publishing a package to the npm repository.
-A basic overview is available [here](https://www.npmjs.org/doc/misc/npm-developers.html).
+npmレポジトリにパッケージを公開するガイドがたくさんあります。
+ [ここに](https://www.npmjs.org/doc/misc/npm-developers.html)基本的な概要があります。
 
-Please be sure to publicise your node on the [project mailing list](https://groups.google.com/forum/#!forum/node-red).
+あなたのノードを[プロジェクトのメーリングリスト(英)](https://groups.google.com/forum/#!forum/node-red)に公開してください
