@@ -5,28 +5,21 @@ title: インストール
 
 ### Node.jsのインストール
 
-Node-REDはNode.js LTS <code>6.x</code>または<code>6.x</code>を使用することをお勧めします。Node.js <code>0.10.x</code>または<code>0.12.x</code>をサポートしなくなりました。
+Node-REDは、Node.js LTS <code>8.x</code>を使用することをお勧めします。Node.js 6.xおよび4.xのユーザーは、最新の更新があることを確認する必要があります。ノードREDはNode.js 0.12.xまたは0.10.xをサポートしなくなりました。
 
-<div class="doc-callout"><em>Note</em>:  Node.js <code>7.x</code> は現在活発に開発されており、安定した環境を求める場合はお勧めできません。多くのサードパーティのNodeパッケージ、特にバイナリコンポーネントが含まれている場合はNode.js 7.xをサポートしていない可能性があります。わからない場合はパッケージの作成者に確認してください。</div>
-
-Node <code>6.x</code> の最新の長期サポート（LTS）バージョンは以下からダウンロードできます。:
-
- - Max OS X Installer: [Universal](https://nodejs.org/dist/latest-v6.x/node-v6.10.3.pkg)
- - Windows Installer: [32-bit](https://nodejs.org/dist/latest-v6.x/node-v6.10.3-x86.msi)
-                      or
-                      [64-bit](https://nodejs.org/dist/latest-v6.x/node-v6.10.3-x64.msi)
- - Linux Binaries: [32-bit](https://nodejs.org/dist/latest-v6.x/node-v6.10.3-linux-x86.tar.gz)
-                    or
-                    [64-bit](https://nodejs.org/dist/latest-v6.x/node-v6.10.3-linux-x64.tar.gz)
-
-お使いのオペレーティングシステム用の [パッケージ版](https://nodejs.org/en/download/package-manager/) を使用するのが最も簡単です。
-
-ハードウェアへのインストール方法は、以下を参照してください。
+特定のハードウェアプラットフォームおよびオペレーティングシステムインストール方法は、以下を参照してください。
 
  - [Raspberry Pi](../hardware/raspberrypi.html)
  - [BeagleBone Black](../hardware/beagleboneblack.html)
+ - [Windows](https://nodered.org/docs/platforms/windows) → 英語サイトに遷移します
 
-他のダウンロード元は [ここ](https://nodejs.org/dist/latest-v4.x/)にあります。
+LinuxおよびOSXユーザーは、オペレーティングシステム用の [パッケージ化された Node.js バージョン](https://nodejs.org/en/download/package-manager/) をインストールするか、ダウンロードサイトから [最新のLong Term Support（LTS）バージョン](https://nodejs.org/en/download/) を入手する必要があります。
+
+Node.jsのバージョンを確認するには
+
+    node -v
+
+その他のダウンロード元は [こちら](https://nodejs.org/dist/latest-v8.x/) にあります。
 
 ### Node-REDをインストールする
 
