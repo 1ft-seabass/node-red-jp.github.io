@@ -1,3 +1,50 @@
+.docs-intro {
+    background: #8f0000;
+    border-top: 10px solid #a22222;
+}
+.docs-intro .content {
+    height: 100px;
+}
+.docs-intro h1 {
+    text-align: center;
+    font-size: 2em;
+    margin: 80px 0 100px 0;
+    padding:0;
+    color: #f0f0f0;
+    font-weight: normal;
+}
+.doc-items {
+    list-style-type: none;
+    padding: 0;
+    margin:0 30px 0;
+}
+.doc-items li {
+    box-sizing: border-box;
+    background: #eee;
+    display: inline-block;
+    width: calc(33% - 30px);
+    margin: 10px 10px 50px 10px;
+}
+.doc-items li a.box-link {
+    padding: 15px 10px;
+    width: 100%;
+    height: 100%;
+}
+.doc-items img {
+    vertical-align: top;
+    margin-top: -50px;
+}
+.doc-items h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+.doc-items li a.box-link:hover h2 {
+    color: #eee;
+}
+.doc-item-info {
+    padding: 10px;
+}
 .docs {
     background: #eee;
     font-size: 16px;
@@ -27,7 +74,7 @@ ul.toc ul {
     padding: 0;
 }
 
-ul.toc li a, ul.toc li span {
+ul.toc li:not(.tocheader) a, ul.toc li span {
     padding: 6px 10px;
     display: block;
     width: 100%;
@@ -37,18 +84,24 @@ ul.toc li a, ul.toc li span {
     -border-right: 2px solid #B68181;
     -margin-bottom: 3px;
 }
+ul.toc li.tocheader > span a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+}
 ul.toc li.tocheader {
     margin-top: 3px;
 }
-ul.toc li.active a {
+ul.toc li:not(.tocheader).active a {
     border-left-color: #B68181;
     -border-right-color: #eee;
     background: #eee;
 }
-ul.toc li a:hover {
+ul.toc li:not(.tocheader) a:hover {
     border-left-color: #B68181;
 }
-ul.toc li.tocheader span {
+ul.toc li.tocheader > span {
     background: #B68181;
     border-left-color: #B68181;
     color: #fff;
@@ -59,7 +112,7 @@ ul.toc li.tocsubheader span {
     color: #666;
     padding-left: 20px;
 }
-ul.toc li li a {
+ul.toc li.tocheader li:not(.toctitle) a {
     padding-left: 40px;
 }
 
@@ -76,8 +129,13 @@ ul.toc li li a {
     border-radius: 3px;
     border: 1px solid #BE9A9A;
 }
-pre,code {
+pre,code,.code {
     font-family: 'Ubuntu Mono', Monospace;
+}
+.code {
+    color: #533;
+    background: #F3E7E7;
+    padding: 2px;
 }
 code {
     color: #533;
@@ -142,13 +200,65 @@ ul.toc li.toc-expander {
     z-index: 10;
 
 }
-
 code.node {
     border-radius: 6px;
     border: 1px solid #B68181;
     background: #fff0f0;
     color: #555;
     white-space:nowrap;
+}
+
+div.figure {
+    max-width: 100%;
+}
+div.figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 4px 4px 8px 0px #ddd;
+}
+
+div.figure.align-right {
+    float: right;
+    width: auto;
+    margin: 5px 0 5px 20px;
+}
+div.figure.align-center {
+    margin: 5px auto;
+}
+div.figure p.caption {
+    margin-top: 3px;
+    font-size: 0.9em;
+    font-style: italic;
+    color: #999;
+}
+
+.action-ref {
+    min-width: 310px;
+    float: right;
+    font-size: 0.9em;
+    background: #ffeecc;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.action-ref.inline {
+    float: none;
+    margin-left: 0;
+}
+.action-ref th {
+    text-align: left;
+    padding: 0px 20px 0px 5px;
+}
+.action-ref td {
+    padding: 0px 5px;
+}
+.action-ref td:first-child {
+    width: 110px;
+}
+.action-ref code {
+    background: none;
+    font-size: 1.1em;
 }
 
 @media handheld, only screen and (max-width: 755px) {
@@ -167,4 +277,15 @@ code.node {
     ul.toc.open li.toc-expander div {
         transform: rotate(180deg);
     }
+
+    .doc-items li {
+        width: calc(50% - 30px);
+    }
+}
+
+@media handheld, only screen and (max-width: 450px) {
+    .doc-items li {
+        width: 100%;
+    }
+
 }
