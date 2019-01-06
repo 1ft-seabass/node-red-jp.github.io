@@ -5,6 +5,8 @@ title: PUT /nodes/:module/:set
 
 Enable/Disable a node set
 
+Requires permission: <code>nodes.write</code>
+
 ### Headers
 
 Header          | Value
@@ -17,7 +19,7 @@ Header          | Value
 
 Path Component | Description
 ---------------|------------
-`module`       | The name of the module 
+`module`       | The name of the module
 `set`          | The name of the set
 
 The request body must be a JSON string with the following fields:
@@ -36,8 +38,8 @@ Field     | Description
 
 Status Code | Reason         | Response
 ------------|----------------|--------------
-`200`       | Success        | A [Node Set](/docs/api/admin/types.html#node-module) object. See example response body
-`400`       | Bad request    | An [Error response](/docs/api/admin/errors.html)
+`200`       | Success        | A [Node Set](/docs/api/admin/types#node-module) object. See example response body
+`400`       | Bad request    | An [Error response](/docs/api/admin/errors)
 `401`       | Not authorized | _none_
 `404`       | Not found      | _none_
 
@@ -53,4 +55,3 @@ Status Code | Reason         | Response
   "module": "node-red-node-suncalc"
 }
 {% endhighlight %}
-
