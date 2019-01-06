@@ -1,0 +1,30 @@
+<ul class="toc">
+    <li class="toc-expander"><div>V</div></li>
+    <li><a href="/docs/">&larr; back</a></li>
+    <li class="tocheader">
+        <ul>
+            <li class="toctitle active"><a href="/docs/user-guide/">ユーザガイド</a></li>
+            <li {% if page.url == "/docs/user-guide/editor" %}class="active"{% endif %}><a href="/docs/user-guide/editor">Node-REDエディタを利用する</a></li>
+            <li {% if page.url contains "/docs/user-guide/projects/" %}class="active"{% endif %}><a href="/docs/user-guide/projects/">プロジェクトを利用する</a></li>
+            <li {% if page.url == "/docs/user-guide/nodes" %}class="active"{% endif %}><a href="/docs/user-guide/nodes">Coreノード</a></li>
+            <li {% if page.url == "/docs/writing-functions" %}class="active"{% endif %}><a href="/docs/writing-functions">Functionノードの書き方</a></li>
+            <li {% if page.url == "/docs/user-guide/messages" %}class="active"{% endif %}><a href="/docs/user-guide/messages">メッセージを利用する</a></li>
+            <li {% if page.url == "/docs/user-guide/context" %}class="active"{% endif %}><a href="/docs/user-guide/context">コンテキストを利用する</a></li>
+        </ul>
+    </li>
+    <li class="tocheader">
+        <ul>
+            <li class="toctitle"><span>Node-REDの実行</span></li>
+            <li {% if page.url == "/docs/configuration" %}class="active"{% endif %}><a href="/docs/configuration">設定</a></li>
+            <li {% if page.url == "/docs/security" %}class="active"{% endif %}><a href="/docs/security">セキュリティ</a></li>
+            <li {% if page.url == "/docs/user-guide/logging" %}class="active"{% endif %}><a href="/docs/user-guide/logging">ログ</a></li>
+            <li {% if page.url == "/docs/node-red-admin" %}class="active"{% endif %}><a href="/docs/node-red-admin">Adminツール</a></li>
+        </ul>
+    </li>
+    <li class="tocheader">
+        <ul>
+            <li class="toctitle"><span>Advanced</span></li>
+            <li {% if page.url == "/docs/embedding" %}class="active"{% endif %}><a href="/docs/embedding">既存アプリへの組込み</a></li>
+        </ul>
+    </li>
+</ul>
