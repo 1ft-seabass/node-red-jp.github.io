@@ -1,5 +1,6 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: 認証
 ---
 Node-REDのAdmin APIは`settings.js`ファイルの`adminAuth`プロパティによって保護できます。

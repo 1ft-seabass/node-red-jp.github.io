@@ -1,5 +1,6 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: POST /nodes
 ---
 
@@ -56,4 +57,3 @@ Status Code | Reason         | Response
   ]
 }
 {% endhighlight %}
-

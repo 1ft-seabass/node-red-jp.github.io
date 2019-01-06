@@ -1,5 +1,6 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: GET /flow/:id
 ---
 
@@ -40,4 +41,3 @@ Status Code | Reason         | Response
   "subflows": [ ]
 }
 {% endhighlight %}
-

@@ -1,5 +1,6 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: GET /nodes/:module
 ---
 
@@ -47,4 +48,3 @@ Status Code | Reason         | Response
   ]
 }
 {% endhighlight %}
-
