@@ -4,16 +4,26 @@ title: 設定
 ---
 Node-REDを設定するために以下のプロパティが利用できます。
 
-スタンドアローンのアプリケーションとして実行すると、これらのプロパティは`settings.js`ファイルから読み込まれます。このファイルの場所は以下の順に決定されます。
+スタンドアローンのアプリケーションとして実行すると、これらのプロパティは`settings.js`ファイルから読み込まれます。
+このファイルの場所は以下の順に決定されます。
 
  - 起動時に`--settings|-s`オプションで指定した場所
  - 起動時に`--userDir|-u`オプションで指定されたディレクトリ
  - デフォルトのユーザディレクトリ`$HOME/.node-red/settings.js`
  - Node-REDがインストールされたディレクトリ
 
-Node-REDにはユーザが指定する`settings.js`が存在しない場合に使用するデフォルトの`settings.js`ファイルが含まれています。また、独自の`settings.js`の雛形として使用できます。[GitHub上](https://github.com/node-red/node-red/blob/master/settings.js)でも確認できます。
+Node-REDにはユーザが指定する`settings.js`が存在しない場合に
+使用するデフォルトの`settings.js`ファイルが含まれています。
+また、独自の`settings.js`の雛形として使用できます。
+[GitHub上](https://github.com/node-red/node-red/blob/master/settings.js)でも確認できます。
 
-[既存アプリケーションへの組込み](embedding.html)の場合、`settings`プロパティは`RED.init()`の呼び出しでNode-REDへ渡されます。ただ、このモードで実行すると特定のプロパティは無視されます。
+<div class="doc-callout">
+<em>Note</em> :  <code>settings.js</code>ファイルは<em>JavaScript object</em>をエクスポートします。Node-REDを設定するため、キー/バリューのペアを新規に追加または既存のものを変更することによってJavaScript objectを変更する方法を理解する必要があります。
+</div>
+
+[既存アプリケーションへの組込み](embedding)の場合、
+`settings`プロパティは`RED.init()`の呼び出しでNode-REDへ渡されます。
+ただ、このモードで実行すると特定のプロパティは無視されます。
 
 ### Node-RED実行時の設定
 
@@ -21,70 +31,71 @@ flowFile
 : Flow設定をファイルに保存する場合のファイル名です。デフォルト: `flows_<hostname>.json`
 
 userDir
-: Flow設定をファイルに保存する場合のファイルへのPathです。デフォルト: `$HOME/.node-red`
+: Flow設定、資格情報ファイルおよびすべてのライブラリデータなどすべてのユーザデータを保存するためのディレクトリのパスです。デフォルト: `$HOME/.node-red`
 
 nodesDir
-: 自作のNodeなどを追加するディレクトリを指定できます。ここで指定したディレクトリ内にNodeの`.js`と`.html`ファイルを配置するとNode-REDのパレットに表示されるようになります。Node-REDの外部のPathも指定できます。デフォルト: `$HOME/.node-red/nodes`
+: 自作のNodeなど、追加でイントールしたノードを探索するディレクトリのパス。Node-REDは*userDir*ディレクトリ以下の`nodes`ディレクトリを探索します。このプロパティはNode-REDのインストール機構以外からインストールされたノードなどのため、Node-REDが探索をおこなう追加のディレクトリを指定します。
+  ここで指定したディレクトリ内にNodeの`.js`と`.html`ファイルを配置するとNode-REDのパレットに表示されるようになります。Node-REDの外部のパスも指定できます。
+  デフォルト: `$HOME/.node-red/nodes`
 
 uiHost
-: ホストです。デフォルト: `0.0.0.0` -
+: 接続を待機するホストインタフェースです。デフォルト: `0.0.0.0` -
   *all IPv4 interfaces*.
 
   *Standalone only*.
 
 uiPort
-: ポートです。デフォルト: `1880`.
+: エディタUIを提供するために利用するポート番号です。デフォルト: `1880`.
 
   *Standalone only*.
 
 httpAdminRoot
-: Flow EditorのPathを指定できます。ちなみに`false`を指定するとEditorが無効になります。デフォルト: `/`
+: エディタUIのためのルートURLです。`false`が設定されている場合、すべての管理エンドポイントが無効になります。
+  これにはAPIエンドポイントとエディタUIの両方が含まれます。エディタUIのみを無効にするためには、以下の`disableEditor`プロパティを参照してください。デフォルト: `/`
 
 httpAdminAuth
-: *Deprecated*: see `adminAuth`.
+: *非推奨*: `adminAuth`を参照してください。
 
-  Flow EditorにBasic認証を設けます。以下が設定例。
+  エディタUIのHTTPベーシック認証を有効にします。:
 
       httpAdminAuth: {user:"nol", pass:"5f4dcc3b5aa765d61d8327deb882cf99"}
 
-  `pass`はMD5ハッシュを指定します。上記の例では実際にBasic認証ダイアログへ入力するパスワードは`password`という文字列になるということです。コンソールなどで以下のnodeコマンドを実行することでハッシュ値を得られます。
+  `pass`プロパティは実際のパスワードのmd5ハッシュ値を指定します。上記の例では実際にBasic認証ダイアログへ入力するパスワードは`password`という文字列になります。以下のコマンドを実行することによってハッシュ値が得られます。:
 
       node -e "console.log(require('crypto').createHash('md5').update('YOUR PASSWORD HERE','utf8').digest('hex'))"
 
   *Standalone only*.
 
 httpNodeRoot
-: HTTP In NodeのHTTPエンドポイントのPathを指定できます。ちなみに`false`Editorが無効になります。デフォルト: `/`
+: HTTP In NodeのHTTPエンドポイントのルートURLを指定できます。`false`が設定されている場合、すべてのノードのHTTPエンドポイントは無効になります。デフォルト: `/`
 
 httpNodeAuth
-: HTTP In NodeのHTTPエンドポイントにBasic認証を設けます。設定方法は`httpAdminAuth`と同様です。
+: HTTP In NodeのHTTPエンドポイントにBasic認証を設けます。書式は`httpAdminAuth`を参照してください。
 
 httpRoot
-: `httpRoot`を指定すると`httpAdminRoot`と`httpNodeRoot`を同じPathで上書きします。
+: 管理およびNodeのエンドポイントの両方のルートURLを設定します。`httpRoot`を指定すると`httpAdminRoot`と`httpNodeRoot`を同じパスで上書きします。
 
 https
-: HTTPSを有効にします。以下が設定例。詳細は[here](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)。
-
-      https: {
-        key: fs.readFileSync('privatekey.pem'),
-        cert: fs.readFileSync('certificate.pem')
-      },
+: [こちら](http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)で定義されている指定されたoptionsオブジェクトでHTTPSを有効にします。
 
   *Standalone only*.
 
 disableEditor
-: `true`を指定するとFlow Editorが無効になります。`httpAdminRoot`を`false`にした場合はUIもAPIも無効になりますが、こちらはUIのみ無効になります。デフォルト: `false`
+: `true`を指定するとFlowエディタが無効になります。`httpAdminRoot`を`false`にした場合はUIもAPIも無効になりますが、こちらはUIのみ無効になります。デフォルト: `false`
 
 httpStatic
-: ここで指定したPathを静的なWebコンテンツとして表示できます。例えば`/home/username/.node-red/`と指定した場合、`/home/username/.node-red/index.html`を作成すると`/`へアクセスすると作成した`index.html`が表示されます。したがって`httpStatic`を指定する場合は`httpAdminRoot`は`/`より下層のPathにする必要があります。
+: 静的ウェブコンテンツの提供元となるローカルディレクトリのパスです。
+  コンテンツはトップレベルURL、つまり`/`から提供されます。例えば`/home/username/.node-red/`と指定した場合、`/home/username/.node-red/index.html`を作成すると`/`へアクセスすると作成した`index.html`が表示されます。
+  `httpStatic`を指定する場合、`/`ではないパスでエディタUIを利用できるようにするため、`httpAdminRoot`は`/`より下層のパスにする必要があります。
 
   *Standalone only*.
 
 httpStaticAuth
-: `httpStatic`にBasic認証を設けます。設定方法は`httpAdminAuth`と同様です。
+: 静的コンテンツにBasic認証を設けます。書式は`httpAdminAuth`を参照してください。
 
 httpNodeCors
-: HTTP In NodeのHTTPエンドポイントのCross-Origin Resource Sharing (CORS) を有効にします。以下が設定例。詳細は[here](https://github.com/troygoode/node-cors#configuration-options)
+: HTTP In NodeのHTTPエンドポイントのCross-Origin Resource Sharing (CORS) を有効にします。詳細は[こちら](https://github.com/troygoode/node-cors#configuration-options)。
+  以下が設定例です。
 
       httpNodeCors: {
         origin: "*",
@@ -92,34 +103,33 @@ httpNodeCors
       },
 
 httpNodeMiddleware
-: HTTP In NodeのHTTPエンドポイントにHTTPミドルウェアを追加できます。HTTPエンドポイントでセッションとクッキーのハンドラを利用したい場合は以下のように設定します。ミドルウェア機能の形式は[こちら](http://expressjs.com/guide/using-middleware.html#middleware.application)で文書化されています。
+: HTTP In NodeのHTTPエンドポイントにHTTPミドルウェアを追加できます。これにより、認証など、Nodeに必要なカスタム処理がすべて可能になります。
+  ミドルウェア機能の形式は[こちら](http://expressjs.com/guide/using-middleware.html#middleware.application)で文書化されています。
+  HTTPエンドポイントでセッションとクッキーのハンドラを利用したい場合は以下のように設定します。
 
       httpNodeMiddleware: function(req,res,next) {
-        session({
-          store: new MongoStore({
-            url: process.env.MONGOLAB_URI
-          })
-        })(req, res, function() {
-          cookieParser()(req, res, next);
-        });
+          // Perform any processing on the request.
+          // Be sure to call next() if the request should be passed
+          // to the relevant HTTP In node.
       }
 
 logging
-: コンソールロギングがサポートされています。以下のオプションでロギングの様々なレベルを指定することができます。
+:  現在コンソールログのみがサポートされています。以下のオプションでロギングの様々なレベルを指定することができます。
 
- - **fatal** - アプリケーションが使用できなくなるほどの致命的エラーのみを記録
- - **error** - エラー + 致命的エラーを記録
- - **warn** - 致命的でない問題の警告 + エラー + 致命的エラーを記録
- - **info** - アプリケーションの一般的な実行に関する情報 + 警告 + エラー + 致命的エラーを記録
- - **debug** - 更に詳細な情報 + 情報 + 警告 + エラー + 致命的エラーを記録
- - **trace** - 非常に詳細な情報 + 更に詳細な情報 + 情報 + 警告 + エラー + 致命的エラーを記録
+ - **fatal** - アプリケーションが使用できなくなるような致命的エラーのみを記録
+ - **error** - 特定のリクエストで致命的と判定されるエラー + fatalを記録
+ - **warn** - 致命的でない問題の警告 + error + fatalを記録
+ - **info** - アプリケーションの一般的な実行に関する情報 + warn + error + fatalを記録
+ - **debug** - infoより詳細な情報 + info + warn + error + fatalを記録
+ - **trace** - 非常に詳細な情報 + debug + info + warn + error + fatalを記録
 
-デフォルトのレベルは `info` です。限られたフラッシュストレージの組み込みデバイスではディスクへの書き込みを最小限にするために `fatal` を設定することもできます。
+デフォルトのレベルは `info` です。限られたフラッシュストレージの組込みデバイスではディスクへの書き込みを最小限にするために `fatal` を設定することもできます。
 
-### Flow Editorの設定
+### Flowエディタの設定
 
 adminAuth
-: Flow Editorにログインフォームを設けます。以下が設定例。
+: Flowエディタにログインフォームを設けます。詳細な情報は[認証](security)を参照してください。
+  以下が設定例です。
 
       adminAuth: {
         type: "credentials",
@@ -137,15 +147,16 @@ adminAuth
       node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 8));" YOUR PASSWORD HERE
 
 paletteCategories
-: Flow Editorのパレットのカテゴリの順序を設定します。カテゴリがリストにない場合はパレットの最後に追加されます。デフォルトの順序は以下。
+: Flowエディタのパレットのカテゴリの順序を設定します。カテゴリがリストにない場合はパレットの最後に追加されます。デフォルトの順序は以下のとおりです。
 
       ['subflows', 'input', 'output', 'function', 'social', 'storage', 'analysis', 'advanced'],
 
-   _Note_: Sub Flowを作成するまでSub Flowカテゴリは空のままでパレットには表示されません。
+   _Note_: Subflowを作成するまでSubflowカテゴリは空のままで
+   パレットには表示されません。
 
-### Editorテーマ
+### エディタテーマ
 
-Editorのテーマは次の設定オブジェクトを使用して変更することができます。すべての項目はオプションです。
+エディタのテーマは次の設定オブジェクトを使用して変更することができます。すべての項目はオプションです。
 
     editorTheme: {
         page: {
@@ -181,7 +192,8 @@ Editorのテーマは次の設定オブジェクトを使用して変更する�
 ### ダッシュボード
 
 ui
-: Node-RED-Dashboard のホームPathです。 これは **httpNodeRoot** の相対パスとなります。
+: Node-RED-DashboardアドオンNodeのホームパスを指定できます。
+これは**httpNodeRoot**の相対パスとなります。
 
     ui : { path: "mydashboard" },
 
@@ -198,25 +210,30 @@ functionGlobalContext
 
       var myos = global.get('osModule');
 
-<div class="doc-callout"><em>Note</em>: Node-RED v0.13以前のドキュメントではグローバルコンテキストにアクセスする方法はサブプロパティを参照する方法でした。
-<pre>
-context.global.foo = "bar";
-var osModule = context.global.osModule;
-</pre>
-この方法はまだサポートされていますが、<code> global.get </code> / <code> global.set </code>でのアクセスが推奨されます。これは将来のリリースでコンテキストデータが永続化できるようになるためです。</div>
+ <div class="doc-callout"><em>Note</em> : Node-RED v0.13以前のドキュメントでは、
+ グローバルコンテキストにアクセスする方法は<code>context</code>のサブプロパティを参照する方法でした。:
+ <pre>context.global.foo = "bar";
+ var osModule = context.global.osModule;</pre>
+ この方法はまだサポートされていますが、非推奨であり、<code>global.get</code>/<code>global.set</code>
+ でのアクセスが推奨されます。これは将来のリリースでコンテキストデータが永続化できることを見越しています。
+ </div>
 
 debugMaxLength
-: Debug NodeでDebugに表示する文字数を指定します。Debugに表示する文字が`...`で途切れてしまう場合はここを増やします。デフォルト: 1000
+: Debug NodeでサイドバーのDebugタブに表示される最大文字数を指定します。
+  デフォルト: 1000
 
 mqttReconnectTime
-: MQTT Nodeの接続が切断された場合の再接続までの待機時間。デフォルト: 5000ミリ秒（5秒）
+: MQTT Nodeの接続が切断された場合に再接続を試行するまでの待機時間（ミリ秒）。
+  デフォルト: 5000
 
 serialReconnectTime
-: Serial Nodeの接続が切断された場合の再接続までの待機時間。デフォルト: 5000ミリ秒（5秒）
+: Serial Nodeの接続が切断された場合に再接続を試行するまでの待機時間（ミリ秒）。
+  デフォルト: 5000ミリ秒（5秒）
 
 socketReconnectTime
-: TCP Nodeの接続が切断された場合の再接続までの待機時間。
-  デフォルト: 10000ミリ秒（10秒）
+: TCP Nodeの接続が切断された場合に再接続を試行するまでの待機時間（ミリ秒）。
+  デフォルト: 10000
 
 socketTimeout
-: TCP Nodeのタイムアウト時間。デフォルト: 120000ミリ秒（120秒）
+: TCP Nodeのタイムアウト時間（ミリ秒）。
+  デフォルト: 120000
