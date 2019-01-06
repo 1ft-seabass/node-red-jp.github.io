@@ -3,147 +3,188 @@ layout: default
 title: Running on Raspberry Pi
 ---
 
-このガイドでは、Node-REDをRespberry Piの上で使い始めるための2つの方法を紹介します。
+The recommended way to install Node-RED on Pi is to use our script below, however Node-RED can be installed from the Recommended Software application installed on the Raspbian SD card image that can be downloaded from [RaspberryPi.org](https://www.raspberrypi.org/downloads/raspbian/). If installed in this manner it is recommended to upgrade by using the script below.
 
-  - November 2015バージョン以降の **Raspbian Jessie** full imageにプリインストールされているバージョンを利用
-  - または、インストールスクリプトを利用し **手動でインストール** 
+If you decide not to use the script, and stick with apt to install Node-RED, then you **must** manually install npm and then upgrade it to the latest level by `sudo apt-get install npm && sudo npm i -g npm` before installing any extra nodes.
 
-これで、 [エディターを使う](#using-the-editor) ことができるようになります。
+You can upgrade Node-RED by re-running the script.
 
-## Raspbian Jessie
+### Install / Upgrade
 
-Raspbian JessieのNovember 2015バージョンでは、Node-REDは [RaspberryPi.org](https://www.raspberrypi.org/downloads/raspbian/) からダウンロードできるSDカードイメージにプリインストールされています。
-これはnode.jsの古いバージョンを使用しており、以下のbashコマンドを使用して最新バージョンにアップグレードすることをお勧めします。
-
-Jessieのminimalバージョンや、他のDebianベースを持っていて、Node-REDがまだインストールされていない場合は、Node-REDアップグレードスクリプトを使用してインストールまたはアップグレードできます。
+If you have a version of Raspbian, or other **Debian** based install, such as **Ubuntu**, or **Diet-Pi**, that doesn't have Node-RED
+already installed, you can install or upgrade using the Node-RED upgrade script command
 
     bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
 
+On really minimal Debian installs you may want to `sudo apt-get install build-essential` before running the script so that the serialport builds and installs OK. This is optional.
 
-**Note:**  **node.js 4.x または 6.x** へアップグレード済みの場合、プリインストール版Node-REDのアップグレードにapt-getは使用できません。
+#### Script Description
 
-#### Upgrading
+Nodes can be now be managed via the built in palette manager. However the default Pi install pre-loads some
+nodes globally and these cannot then be easily managed and updated. The intention of the script is to...  
 
-Node-REDバージョン0.14.x以降、アップグレードスクリプトはあらかじめインストールされており、最新のnodejs LTSおよびNode-REDの最新リリースバージョンへのフルアップグレードが行われます。
+ - upgrade an existing user to LTS 8.x Node.js and latest Node-RED
+ - migrate any existing globally installed nodes into the users ~/.node-red space so they can be managed via the palette manager
+ - optionally (re)install the extra nodes that are pre-installed on a full Raspbian Pi image
 
-このスクリプトは多くのコマンドを *sudo* として実行し、既存のnodejsとコアのNode-REDディレクトリを削除します。
-余分なノードやnpmを *グローバルインストール* したもの（つまり `〜/.node-red`ディレクトリにインストールされていないもの）がある場合、最初に `/usr/lib/node_modules` からバックアップしてください。
+While aimed at the Pi user the script will also run on any Debian based operating system, such as Ubuntu, and so can
+be used on other hardware platforms, although it has not been widely tested.
 
-アップグレードする際は、一般ユーザー(通常はデフォルトユーザーの `pi`)で次のコマンドを実行します。
+The command above runs many commands as **sudo** and does delete existing Node.js and the core Node-RED directories. Please inspect it by browsing to https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered
 
-    update-nodejs-and-nodered
+The script will perform the following steps
 
-**Note:** 再起動時にシリアルポートノードが検知できない場合、アップデートコマンドを再度実行してください。updateコマンドが実行されないか見つからない場合は、上記のbashコマンドを使用します。
+ - ask if you want to (re)install the extra Pi nodes
+ - save a list of any globally installed *node-red-* nodes found in /usr/lib/node_modules
+ - apt-get remove nodered
+ - remove any node-red binaries from /usr/bin and /usr/local/bin
+ - remove any node-red modules from /usr/lib/node_modules and /usr/local/lib/node_modules
+ - detect if Node.js was installed from Node.js package or Debian
+ - if not v8 or newer - remove as appropriate and install latest v8 LTS (not using apt).
+ - clean out npm cache and .node-gyp cache to remove any previous versions of code
+ - install Node-RED latest version
+ - re-install under the user account any nodes that had previously been installed globally
+ - re-install the extra Pi nodes if required
+ - rebuild all nodes - to recompile any binaries to match latest Node.js version
+ - add node-red-start, node-red-stop and node-red-log commands to /usr/bin
+ - add menu shortcut and icon
+ - add systemd script and set user
+ - if on a Pi add a CPU temperature -> IoT example
 
-**自己責任でお願いします:** このスクリプトは利用可能な限られたextra nodeのインストールでのみテストされてます。また、既に `~/.node-red` ディレクトリへインストールされているネイティブプラグインと一緒にいくつかのノードもリビルドします。処理が失敗した場合、手動でのリビルドが必要になるか、以前インストールしたいくつかのノードの再インストールが必要になるかもしれません。
-
-リビルドを行う:
+**Caveat emptor** - The script has only been tested on installs with a small variety
+of the possible extra nodes. The script tries to rebuild any nodes with native
+plugins that you have installed in the `~/.node-red` directory. This may fail, and
+you may need to manually rebuild or re-install some of the nodes you previous had
+installed. To rebuild:
 
     cd ~/.node-red
     npm rebuild
 
-インストールされたノードのリストを見る:
+To see the list of nodes you had installed:
 
     cd ~/.node-red
     npm ls --depth=0
 
+**Note**: It does not update any nodes you had previously installed locally. To do that go into your user directory and run the commands below. The versions of some nodes may be fixed by the `package.json` file in that directory - you may need to hand edit this to select the versions you require before running `npm update`.
+
+    cd ~/.node-red
+    npm outdated
+    npm update
+
+
+#### Swapping SD Cards
+
+Different versions of Raspberry Pi use different Arm processors. The Node.js binary is different for Arm6 and Arm7. Swapping SD cards from Arm6 to Arm7, for example Pi Zero to Pi 3, is OK. Swapping the other way will not work, unless you uninstall Node.js and then re-run the upgrade script to install the appropriate version of Node.js.
+
 
 #### Running Node-RED
 
-Node-REDを開始するには、次のいずれかを行います。
+To start Node-RED, you can either:
 
-  - Desktopにて、 `Menu -> Programming -> Node-RED` を選択
-  - またはターミナルウィンドウから `node-red-start` を実行
+  - on the Desktop, select `Menu -> Programming -> Node-RED`.
+  - or run `node-red-start` in a new terminal window.
 
-**Note:** ウィンドウを閉じても (or ctrl-c) Node-REDは終了しません。バックグラウンドで稼働し続けます。
+*Note:* closing the window (or ctrl-c) does not stop Node-RED running. It will continue running in the background.
 
-Node-REDを終了するには、 `node-red-stop` のコマンドを実行します。
+To stop Node-RED, run the command `node-red-stop`.
+
+To see the log, run the command `node-red-log`.
+
 
 #### Autostart on boot
 
-Pi起動時にNode-REDを自動で開始するには次のコマンドを使用できます。
+If you want Node-RED to run when the Pi boots up you can use
 
     sudo systemctl enable nodered.service
+
+and likewise `sudo systemctl disable nodered.service` to disable autostart on boot.
 
 
 #### Adding nodes to preloaded version
 
-デフォルトのインストールには含まれていないので、ノードを追加したい場合はまず `npm` ツールをインストールする必要があります。 node.js 4.xまたは6.xにアップグレードした場合はこの作業は必要ありません。
+To add additional nodes you must first install the `npm` tool, as it is not included
+in the default Raspbian installation. This is not necessary if you have upgraded to Node.js 8.x.
 
-次のコマンドは `npm` をインストールし、最新の ` 2.x` バージョンにアップグレードします。
+The following commands install `npm` and then upgrade
+it to the latest version.
 
     sudo apt-get install npm
-    sudo npm install -g npm@2.x
+    sudo npm install -g npm
     hash -r
     cd ~/.node-red
     npm install node-red-{example node name}
 
-**Note:** npmバージョン4は最新バージョンですが、現在は使用を推奨していません。
-
 
 #### Next
 
-次にNode-REDを再起動する必要があります。
-これで、 [エディターを使う](#using-the-editor) ことができるようになります。
+You will then need to restart Node-RED.
+You can then start [using the editor](#using-the-editor).
 
 ----
 
-## Manual install
+## Notes
 
-プリインストールでは、Debian Jessieのデフォルトnode.js（バージョン0.10.29）が使用されます。 手動でインストールする場合は、v6.xなどのより新しいバージョンのnode.jsを使用することをお勧めします。
+Debian/Raspbian Wheezy is now beyond "End of Life", and is no longer support, and this documentation is now aimed at Jessie as a minimum.
 
-Node.jsやその他の依存関係をインストールする最も簡単な方法は次のとおりです。
+### Accessing GPIO
 
-    sudo apt-get install build-essential python-rpi.gpio
-    bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+If you plan to access the GPIO pins with Node-RED, you should verify which version of the Python RPi.GPIO libraries are installed.
 
-**Note:** Debian/Raspbian Wheezyは現在「End of Life」を迎えており、もはやサポートされていません。このドキュメントは最低限Jessieを対象にしています。
-
-その他のインストールオプションについては、 [main installation instructions](../getting-started/installation#install-node-red) を参照してください。
-
-#### Accessing GPIO
-
-GPIO (汎用入出力)のピンへアクセスする場合、 どのバージョンのPython RPi.GPIOライブラリーがインストールされているかを確認すべきです。
-
-Node-REDにはハードウェアGPIOピンと対話するためのRaspberry Pi固有のスクリプトである `nrgpio` が含まれます。
-npmモジュールをグローバルインストールした場合、このスクリプトは次の場所へ配置する必要があります。
+Node-RED includes a Raspberry Pi specific script `nrgpio` for interacting with
+the hardware GPIO pins. If you have installed as a global npm module, this script should be located at:
 
     /usr/lib/node_modules/node-red/nodes/core/hardware/nrgpio ver
     or
     /usr/local/lib/node_modules/node-red/nodes/core/hardware/nrgpio ver
 
-Pi2の場合は0.5.11以上、オリジナルPiの場合は0.5.8以上必要です。
-そうでない場合、次のコマンドで利用可能な最新版をインストールします。
+You must have at least 0.5.11 for the Pi2 or 0.5.8 for the original Pi.
+If you do not then the following commands will install the latest available:
 
     sudo apt-get update && sudo apt-get install python-rpi.gpio
 
-pi（またはroot）以外のユーザーとして実行する場合は、visudoを使用してsudoersに次の行を追加するなどして、そのユーザーを  [sudoers list](https://www.raspberrypi.org/documentation/linux/usage/users.md)  へ追加する必要があります。（またはpythonへアクセスする必要があるかもしれません）
+Also, the user must be a member of the `gpio` group. To add the current user to the group
+
+    sudo adduser $USER gpio
+
+If you want to run as a user other than pi (or root), you will need either to add that user to
+the [sudoers list](https://www.raspberrypi.org/documentation/linux/usage/users.md) - or maybe just access to python - for example by adding the
+following to sudoers using visudo.
 
     NodeREDusername ALL=(ALL) NOPASSWD: /usr/bin/python
 
 
 ### Starting Node-RED
 
-Raspberry Piで使用できるメモリが限られているため、 `node-red-pi` コマンドでNode-REDを実行する必要があります。
-これにより、Node.jsが未使用メモリを解放し始める時点を設定するための、追加の引数が提供可能になります。
+Due to the constrained memory available on the Raspberry Pi, it is necessary to
+run Node-RED with the `node-red-pi` command. This allows an additional argument
+to be provided that sets at what point Node.js will begin to free up unused memory.
 
-`node-red-pi`スクリプトを実行する際は、`max-old-space-size` オプションを指定すべきです。
+When starting with the `node-red-pi` script, the `max-old-space-size` option should
+be specified:
 
     node-red-pi --max-old-space-size=256
 
-nodeコマンドを使用してNode-REDを直接実行する場合は、 `node` と `red.js` の間にこのオプションを指定する必要があります。
+If you decide to run Node-RED using the node command directly, this option must
+appear between node and red.js.
 
     node --max-old-space-size=256 red.js
 
-このオプションを使用すると、クリーンアップ前に使用できる領域が256MBに制限されます。
-あなたのPiに他の何も実行していないのであれば、その数字を256MBよりもさらに高くすることができるでしょう。
- コマンド `free -h`で、現在利用可能なメモリ量が分かります。
+This option limits the space it can use to 256MB before cleaning up. If you are
+running nothing else on your Pi you can afford to increase that figure to 256
+and possibly even higher. The command `free -h` will give you some clues as to
+how much memory is currently available.
 
-**Note:** `node-red-start`コマンドを使うRaspbian上のNode-REDのプリインストールバージョンもデフォルトで256MBに設定されています。 これを変更したい場合は、編集する必要のあるファイル（sudoとして）は `/lib/systemd/system/nodered.service` です。 手動でインストールされたバージョンにこれを追加する方法については、以下を参照してください。
+**Note**: The pre-installed version of Node-RED on Raspbian that uses the `node-red-start`
+command also sets it to 256MB by default. If you do want to change that, the
+file you need to edit (as sudo) is `/lib/systemd/system/nodered.service`. See
+below for how to add this to a manually installed version.
 
 #### Adding Autostart capability using SystemD
 
-PiでNode-REDを自動起動する場合、組み込みのsystemd機能を使用するのが良いでしょう。 あらかじめインストールされたバージョンは、 `nodered.service`ファイルとスクリプトの開始と停止を使ってこれを行います。 次のコマンドを実行してこれらをインストールすることができます。
+The preferred way to autostart Node-RED is to use the built in systemd
+capability.  The pre-installed version does this by using a `nodered.service`
+file and start and stop scripts. You may install these by running the following
+commands
 
     sudo wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/nodered.service -O /lib/systemd/system/nodered.service
     sudo wget https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/node-red-start -O /usr/bin/node-red-start
@@ -151,150 +192,189 @@ PiでNode-REDを自動起動する場合、組み込みのsystemd機能を使用
     sudo chmod +x /usr/bin/node-red-st*
     sudo systemctl daemon-reload
 
-**Info:** これらのコマンドはroot（sudo）として実行されます。
-ファイルを正しい場所にコピーし、2つのスクリプトを実行可能にしてから
-systemdデーモンをリロードしてください。
+**Info:** These commands are run as root (sudo) - They download the three required
+files to their correct locations, make the two scripts executable and then
+reload the systemd daemon.
 
-Node-REDは、 `node-red-start`と` node-red-stop`コマンドを使用して起動および停止することができます。
+Node-RED can then be started and stopped by using the commands `node-red-start`
+and `node-red-stop`
 
-次に、ブート時にクラッシュするたびにNode-REDを自動的に実行できるようにします。
+To then enable Node-RED to run automatically at every boot and upon crashes
 
     sudo systemctl enable nodered.service
 
-以下のように無効にすることも可能です。
+It can be disabled by
 
     sudo systemctl disable nodered.service
 
-Systemdはロギングに `/var/log/system.log` を使います。 ログをフィルタリングするには、以下をコマンドを使用します。
+Systemd uses the `/var/log/system.log` for logging.  To filter the log use
 
     sudo journalctl -f -u nodered -o cat
 
-#### Changing the systemd environment - using a proxy
+#### Changing the systemd environment -  running as non-Pi user
 
-http要求にプロキシーを使用する必要がある場合は、*HTTP_PROXY* 環境変数を設定する必要があります。
-*systemd* を使用する場合、これはサービス構成内で行う必要があります。 sudoを使って `/lib/systemd/system/nodered.service` ファイルを編集し、別の `Environment =` の行を追加してください。例えば下記の通り。
+To run as a user other than the default `pi`, you need to edit the nodered.service file. To edit this use sudo to edit the file `/lib/systemd/system/nodered.service` and change the lines as indicated by {your_user} below
 
+    [Service]
+    Type=simple
+    # Run as normal pi user - change to the user name you wish to run Node-RED as
+    User={your_user}
+    Group={your_user}
+    WorkingDirectory=/home/{your_user}
     Nice=5
-    Environment="NODE_OPTIONS=--max-old-space-size=128"
-    Environment="HTTP_PROXY=my-proxy-server-address"
+    Environment="PI_NODE_OPTIONS=--max_old_space_size=256"
+    ...
 
-ファイルを保存し実行します。
+Save the file, and then run:
 
     sudo systemctl daemon-reload
 
-構成をリロードし、Node-REDを停止～リスタートします。
+#### Changing the systemd environment - using a proxy
+
+If you need to use a proxy for http requests - you need to set the *HTTP_PROXY* environment variable.
+When using *systemd* this must be done within the service configuration. To edit this use sudo to edit the file `/lib/systemd/system/nodered.service` and add another `Environment=` line, for example:
+
+    ...
+    Nice=5
+    Environment="NODE_OPTIONS=--max-old-space-size=128"
+    Environment="HTTP_PROXY=my-proxy-server-address"
+    ...
+
+Save the file, and then run:
+
+    sudo systemctl daemon-reload
+
+to reload the configuration. Stop and restart Node-RED.
 
 ## Using the Editor
 
-Node-REDが実行されたら、ブラウザをNode-REDが動作しているマシンにポイントします。
-PiのIPアドレスを見つけるには、以下のコマンドを使用します。
+Once Node-RED is running - point a browser to the machine where Node-RED is running.
+One way to find the IP address of the Pi is to use the command
 
     hostname -I
 
-次に `http://{the-ip-address-returned}:1880/` を参照します。
+Then browse to `http://{the-ip-address-returned}:1880/`
 
 <div class="doc-callout">
- <em>Note:</em> RaspbianのデフォルトブラウザであるEpiphanyにはいくつかの欠点があります。これは、特定のキーボードショートカットがNode-REDエディタで機能しないことを意味します。代わりにFirefox-ESRブラウザをインストールすることを<b>強く</b>お勧めします。
+ <em>Note:</em> the default browser included in Raspbian, Epiphany,
+has some quirks that mean certain keyboard short-cuts do not work within the
+Node-RED editor. We <b>strongly</b> recommend installing the Firefox-ESR browser instead:
 <pre>
     sudo apt-get install firefox-esr
 </pre>
-最近のビルドにはChromiumも含まれています。これもうまくいきますが、Pi1やZeroではかなり遅くなる可能性があります。
+More recent build include Chromium - which also works fine but can be rather slow on a Pi1 or Zero.
 </div>
 
-その後、[first flow](../getting-started/first-flow) を作成することが可能です。
+You can then start creating your [first flow](../getting-started/first-flow).
 
 ## Extra Nodes
 
-追加のノードをインストールする際は、自分のユーザディレクトリにいることを確認してください。デフォルトでは `〜/.node-red` です。
+You can generally install extra nodes using the Editor UI, Menu - Manage Palette . To install extra nodes manually make sure you are in your user-directory, by default this is `~/.node-red`.
 
      cd ~/.node-red
 
-**[flows library](http://flows.nodered.org/)** 経由で入手可能な、ハードウェア固有のいくつかのノードがあります。（モジュール、Neopixel LED、温度センサーなどのPibrella、PiFace、LEDBorgプラグなど）
-たとえば、Pibrellaノードは次のようにインストールできます。
+There are some extra hardware specific nodes (e.g. for the Pibrella, PiFace and
+LEDBorg plug on modules, Neopixel leds, temperature sensors, etc) available via the **[flows library](http://flows.nodered.org/)**.
+For example the alternative PiGPIOd node that allows remote access and is able to drive servos
+can be installed as follows
 
     cd ~/.node-red
-    npm install node-red-node-pibrella
+    npm install node-red-node-pi-gpiod
 
-新しいノードをロードするためにNode-REDを停止して再起動し、ブラウザのフローエディタページを更新する必要があります。
+You then need to stop and restart Node-RED to load the new nodes, and then refresh the flow editor page in the browser.
 
     node-red-stop
     node-red-start
 
-エディタUI（メニュー → パレットの管理）を使用して追加ノードをインストールおよび削除することもできます。
-※英語版では（Menu - Manage Palette）
-
 ## Interacting with the Pi hardware
 
-ノードREDを使用してラズベリーパイと対話するにはいくつかの方法があります。
+There are several ways of interacting with a Raspberry Pi using Node-RED.
 
 **rpi-gpio nodes**  (default)
-: GPIOピンをモニタおよび制御するためにパレットに用意されています。 これは最も簡単で推奨される方法です。
+: provided in the palette for monitoring and controlling the GPIO
+  pins. This is the simplest and recommended method.
 
 **contrib-gpio nodes** (optional)
-: BeagleBone、Arduino、Edisonなどのための一般的なgpioサポートを提供する@montesluの追加ノードです。これらは [ここ](https://github.com/monteslu/node-red-contrib-gpio) からインストールできます。
+: additional nodes from @monteslu that provide generic gpio support for Pi, BeagleBone, Arduino, Edison, etc. They can be installed from [here](https://github.com/monteslu/node-red-contrib-gpio).
 
 **wiring-pi module** (advanced)
-: Functionノード内のGPIOピンやその他のデバイスへのより完全なアクセスを提供します。 これにより、ノード内にない他の機能への制御やアクセスが強化されますが、自分でプログラムを書く必要があります。
+: this provides more complete access to the GPIO pins, and other devices, within
+  Function nodes. This gives more control and access to other features not in
+  the nodes but you have to program it yourself.
 
 
 ### rpi-gpio nodes
 
-これらはPythonの `nrgpio` コマンドをコアインストールの一部として使用します。
-これにより、Node-REDパレットのノードを介してGPIOピンを制御する方法が提供されます。
+These use a python `nrgpio` command as part of the core install.
+This provides a way of controlling the GPIO pins via nodes in the Node-RED palette. Your user needs to be in the gpio group.
+
+    sudo adduser $USER gpio
 
 
 #### First Flow - Blink - gpio
 
-GPIOヘッダーの11番ピンのLEDをトグルする「点滅」フローを実行するには、[ここ](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/) に記載されているようにLEDを接続する必要があります。
+To run a "blink" flow that toggles an LED on Pin 11 of the GPIO header, you will
+need to connect up an LED as described [here](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/).
 
-次のフローをコピーし、Import Nodesダイアログに貼り付けます。(ドロップダウンメニューから *インポートフォーム → クリップボード* 、またはCtrl-I)
-[OK]をクリックしたら、ワークスペースをクリックして新しいノードを配置します。
-※英語版では(ドロップダウンメニューから *Import From - Clipboard*)
+Then copy the following flow and paste it into the Import Nodes dialog
+(*Import From - Clipboard* in the dropdown menu, or Ctrl-I). After clicking
+okay, click in the workspace to place the new nodes.
+
 
         [{"id":"ae05f870.3bfc2","type":"function","name":"Toggle 0/1 on input","func":"\ncontext.state = context.state || 0;\n\n(context.state == 0) ? context.state = 1 : context.state = 0;\nmsg.payload = context.state;\n\nreturn msg;","outputs":1,"x":348.1666488647461,"y":146.16667652130127,"wires":[["1b0b73e9.14712c","b90e5005.a7c3b8"]]},{"id":"1b0b73e9.14712c","type":"debug","name":"","active":true,"x":587.1666488647461,"y":206.1666774749756,"wires":[]},{"id":"7aa75c69.fd5894","type":"inject","name":"tick every 1 sec","topic":"","payload":"","repeat":"1","crontab":"","once":false,"x":147.1666488647461,"y":146.1666774749756,"wires":[["ae05f870.3bfc2"]]},{"id":"b90e5005.a7c3b8","type":"rpi-gpio out","name":"","pin":"7","x":585.0000114440918,"y":146.00001049041748,"wires":[]}]
 
 
-デプロイ(deploy)ボタンをクリックすると、フローが起動します。 1秒ごとにLEDのオンとオフが切り替わります。
+Click the deploy button and the flow should start running. The LED should start
+toggling on and off once a second.
 
 
 ### wiring-pi module
 
-このセクションは上級ユーザー向けです。
-通常、ほとんどのユーザーはこれを行う必要はありません。
+This section is for advanced users only.
+In general most users will not need to do this.
 
-このバージョンのRaspberry Piを使用すると、以前にインストールされたWiringPiライブラリへのnode.jsラッパーが使用されるため、Pi関数にアクセスするすべての関数に常にアクセスできるため、より複雑な作業を行うことができます。
-ノードをドラッグして配置するのではなく、関数内にコードを記述する必要があります。
+This version of working with the Raspberry Pi uses a Node.js wrapper to the
+WiringPi libraries previously installed, and so
+gives all functions you write access to the Pi capabilities at all times, so
+you can do more complex things, at the expense of having to write code within a
+function rather than dragging and wiring nodes.
 
 #### Installation
 
-Node-REDをインストールしたら、次の [説明](http://wiringpi.com/download-and-install/) にしたがってWiring Piをインストールしてください。
+After installing Node-RED, follow these [instructions](http://wiringpi.com/download-and-install/)
+to get Wiring Pi installed.
 
 #### Configuring Node-RED
 
-まず、 `settings.js` ファイルと同じディレクトリに、wiring-pi npmモジュールをインストールする必要があります。
+Firstly the wiring-pi npm module needs to be installed into the same directory as your
+`settings.js` file.
 
     cd ~/.node-red
     npm install wiring-pi
 
-これは、特定のノードをNode-REDに追加するものではありません。 代わりに、Wiring-Piモジュールを関数ノードで使用できるようにすることができます。
+This does not add any specific nodes to Node-RED. Instead the Wiring-Pi module can be made
+available for use in Function nodes.
 
-これを行うには、 `settings.js` ファイルを編集して `wiring-pi` モジュールをFunctionグローバルコンテキストセクションに追加します：
+To do this, edit your `settings.js` file to add the `wiring-pi` module to the Function
+global context section:
 
     functionGlobalContext: {
         wpi: require('wiring-pi')
     }
 
-このモジュールは、 `context.global.wpi` として書くことができます。
+The module is then available to any functions you write as `context.global.wpi`.
 
 #### Blink - Wiring-Pi
 
-GPIOヘッダのWiringPiピン0〜11ピンを使用する「blink」フローを実行するには、[ここ](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/) に記載されているようにLEDを接続する必要があります。
+To run a "blink" flow that uses the WiringPi pin 0 - Pin 11 on the GPIO header,
+you will need to connect up an LED as described [here](https://projects.drogon.net/raspberry-pi/gpio-examples/tux-crossing/gpio-examples-1-a-single-led/).
 
-次のフローをコピーし、Import Nodesダイアログに貼り付けます。(ドロップダウンメニューから *インポートフォーム → クリップボード* 、またはCtrl-I)
-[OK]をクリックしたら、ワークスペースをクリックして新しいノードを配置します。
-※英語版では(ドロップダウンメニューから *Import From - Clipboard*)
+Then copy the following flow and paste it into the Import Nodes dialog
+(*Import From - Clipboard* in the dropdown menu, or Ctrl-I). After clicking
+okay, click in the workspace to place the new nodes.
 
     [{"id":"860e0da9.98757","type":"function","name":"Toggle LED on input","func":"\n// select wpi pin 0 = pin 11 on header (for v2)\nvar pin = 0;\n\n// initialise the wpi to use the global context\nvar wpi = context.global.wpi;\n\n// use the default WiringPi pin number scheme...\nwpi.setup();\n\n// initialise the state of the pin if not already set\n// anything in context.  persists from one call to the function to the next\ncontext.state = context.state || wpi.LOW;\n\n// set the mode to output (just in case)\nwpi.pinMode(pin, wpi.modes.OUTPUT);\n\n// toggle the stored state of the pin\n(context.state == wpi.LOW) ? context.state = wpi.HIGH : context.state = wpi.LOW;\n\n// output the state to the pin\nwpi.digitalWrite(pin, context.state);\n\n// we don't \"need\" to return anything here but may help for debug\nreturn msg;","outputs":1,"x":333.16666412353516,"y":79.16666793823242,"wires":[["574f5131.36d0f8"]]},{"id":"14446ead.5aa501","type":"inject","name":"tick","topic":"","payload":"","repeat":"1","once":false,"x":113.16666412353516,"y":59.16666793823242,"wires":[["860e0da9.98757"]]},{"id":"574f5131.36d0f8","type":"debug","name":"","active":true,"x":553.1666641235352,"y":99.16666793823242,"wires":[]}]
 
 
-デプロイ(deploy)ボタンをクリックすると、フローが起動します。 1秒ごとにLEDのオンとオフが切り替わります。
+Click the `Deploy` button and the flow should start running. The LED should start
+toggling on and off once a second.
