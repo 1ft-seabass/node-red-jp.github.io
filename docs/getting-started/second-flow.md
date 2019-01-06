@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Flow作成
+title: 2つ目のFlow作成
 ---
 
 今回はもう少し有益なFlowを作成するために外部ソースからデータを取り込むFlowを作成します。
@@ -8,11 +8,11 @@ title: Flow作成
  - 外部Webサイトへアクセスします
  - いくつかの情報を取得します
  - 情報を読み込んで有用な状態に変換します
- - 取得した情報のJSONオブジェクトとモノのon/offを表すBoolean値の2種類を出力します
 
 #### 1. Inject nodeの追加
 
-[以前の例](first-flow.html)ではボタンクリックでFlowが開始されるような設定を行いました。この例では一定間隔で自動的にFlowが開始されるように設定します。
+[以前の例](first-flow)ではボタンクリックでFlowが開始されるような設定を行いました。
+この例では一定間隔で自動的にFlowが開始されるように設定します。
 
 パレットからワークスペース上にInject nodeをドラッグします。
 
@@ -26,73 +26,79 @@ HttpRequest nodeを使ってWebページの内容を取得することができ�
 
 Nodeを配置後に設定ダイアログの `URL` 項目に以下をセットします。
 
-    http://realtimeweb-prod.nationalgrid.com/SystemData.aspx
+    https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.csv
 
 Nodeの `Name` 項目には解りやすい任意の名前をセットすることができます。
 
-#### 3. Function nodeの追加
+これはアメリカ地質調査所のウェブサイトの、最新7日間での大きな地震のフィードです。
+このフィードには様々なオプションが存在しています。詳しくはhttps://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.phpをご覧ください。
 
-Function nodeを配置して以下のコードをセットします。
 
-{% highlight javascript %}
-// HTTP出力文字列からイギリスの電力需要/周波数/時間をテキスト抽出解析
+#### 3. CSV nodeの追加
 
-if (~msg.payload.indexOf('<span')) {
-    var dem = msg.payload.split('Demand:')[1].split("MW")[0];
-    var fre = msg.payload.split('Frequency:')[1].split("Hz")[0];
+CSV nodeを配置してプロパティを編集し、以下のようにチェックマークを入れます。
 
-    msg.payload = {};
-    msg.payload.demand = parseInt(dem.split(">")[1].split("<")[0]);
-    msg.payload.frequency = parseFloat(fre.split(">")[1].split("<")[0]);
-
-    msg2 = {};
-    msg2.payload = (msg.payload.frequency >= 50) ? true : false;
-
-    return [msg,msg2];
-}
-return null;
-{% endhighlight %}
-
-Function nodeの出力数を<b>2</b>にします。
+    Input - [x] First row contains column names
 
 #### 4. Debug nodeの追加
 
-Debug nodeを2つ追加します。
+Debug nodeを追加します。
 
 #### 5. すべてのNodeをワイヤーで接続
 
   - ワイヤーでInject nodeのOutputポートとHttpRequest nodeのInputポートを接続します
-  - ワイヤーでHttpRequest nodeのOutputポートとFunction nodeのInputポートを接続します
-  - ワイヤーでFunction nodeの2つのOutputポートと各Debug nodeのInputポートを接続します
+  - ワイヤーでHttpRequest nodeのOutputポートとCSV nodeのInputポートを接続します
+  - ワイヤーでCSV nodeのOutputポートとDebug nodeのInputポートを接続します
 
-#### 6. デプロイ
+#### 7. Switch nodeの追加
 
-この時点ではNodeやFlowはエディタ上にしか存在しないのでサーバーにデプロイする必要があります。
+  - CSV nodeのOutputポートにSwitch nodeをワイヤーで接続
+  - プロパティを`msg.payload.mag`に設定
+  - 条件句を`>=`に、値を`7`に設定
 
-Deployボタンをクリックするとサーバにデプロイできます。
+#### 8. Change nodeの追加
 
-サイドバーのDebugタブを選択してInjectボタンをクリックします。次のような内容のエントリが表示されます。
+  - Switch nodeのOutputポートにChange nodeをワイヤーで接続
+  - ノードを`Set`とし、`msg.payload`に`PANIC!`を設定
 
-    (Object) { "demand": 34819, "frequency": 50.04 }
+#### 9. Debug nodeの追加
 
-さらに次のような別の内容のエントリも出力されます。
-
-    (boolean) true
+Debug nodeをChange nodeのインプットポートにワイヤーで接続
 
 
-#### 7. まとめ
+#### 10. デプロイ
 
-これでイギリスの総電力消費量をWeb経由で取得し、電力需要と周波数をJavaScriptオブジェクトに変換しました。
+この時点で、エディタにはサーバにデプロイされるべきノードのみが
+存在しています。
 
-このオブジェクトはFunction nodeの1つ目のOutputから出力されます。
+デプロイボタンをクリックします。
 
-この周波数は全体的な負荷指標です。周波数が50Hz未満の場合、ナショナルグリッド社全体に余分な負荷があるかもしれません。これはFunction nodeの2つ目のOutputから出力されたメッセージが示しています。Payloadが `true` の場合、グリッドの容量があります。
+サイドバーのDebugタブを選択（Ctrl-Space、またはドロップダウンメニューからDebugタブをクリック）して
+Injectボタンをクリックします。次のような内容のエントリが表示されます。:
+
+    msg.payload : Object
+    {"time":"2017-11-19T15:09:03.120Z","latitude":-21.5167,"longitude":168.5426,"depth":14.19,"mag":6.6,"magType":"mww","gap":21,"dmin":0.478,"rms":0.86,"net":"us","id":"us2000brgk","updated":"2017-11-19T17:10:58.449Z","place":"68km E of Tadine, New Caledonia","type":"earthquake","horizontalError":6.2,"depthError":2.8,"magError":0.037,"magNst":72,"status":"reviewed","locationSource":"us","magSource":"us"}
+
+それぞれのプロパティの左にある小さな矢印をクリックすることで、プロパティを開いて内容を確認できます。
+
+マグニチュード7以上の地震があった場合、以下のような出力も確認できます。
+
+    msg.payload : string(6)
+    PANIC!
+
+それぞれのDebug nodeの右端の緑色のボタンを利用して、特定のDebug nodeのオンとオフを切り替えることができます。
+
+#### 11. まとめ
+
+インターネットにアクセスして直近7日間での大きな地震リストを取得し、それぞれの詳細な情報（深さ、規模、位置など）についてJavaScriptオブジェクトに変換するFlowを作成できました。また、条件句によってマグニチュード7以上の地震を確認することができ、警告を出力することもできました。
 
 ***
 
 #### ソース
 
-この例で作成したFlowは以下のJSONで表現されます。このJSONをコピーしてインポートダイアログに貼り付けることで、Flowをエディタに簡単にインポートすることができます（インポートは `Ctrl` キーを押しながら `i` キー、またはドロップダウンメニューから選択可能）
+この例で作成したFlowは以下のJSONで表されます。
+JSONファイルをインポートダイアログ（Ctrl-I、またはドロップダウンメニュー）で引き渡すことで
+直接インポートすることができます。
 
 
-    [{"id":"11b032a3.ee4fcd","type":"inject","name":"Tick","topic":"","payload":"","repeat":"","crontab":"*/5 * * * *","once":false,"x":161,"y":828,"z":"6480e14.f9b7f2","wires":[["a2b3542e.5d4ca8"]]},{"id":"a2b3542e.5d4ca8","type":"http request","name":"UK Power","method":"GET","url":"http://realtimeweb-prod.nationalgrid.com/SystemData.aspx","x":301,"y":828,"z":"6480e14.f9b7f2","wires":[["2631e2da.d9ce1e"]]},{"id":"2631e2da.d9ce1e","type":"function","name":"UK Power Demand","func":"// does a simple text extract parse of the http output to provide an\n// object containing the uk power demand, frequency and time\n\nif (~msg.payload.indexOf('<span')) {\n    var dem = msg.payload.split('Demand:')[1].split(\"MW\")[0];\n    var fre = msg.payload.split('Frequency:')[1].split(\"Hz\")[0];\n\n    msg.payload = {};\n    msg.payload.demand = parseInt(dem.split(\">\")[1].split(\"<\")[0]);\n    msg.payload.frequency = parseFloat(fre.split(\">\")[1].split(\"<\")[0]);\n    \n    msg2 = {};\n    msg2.payload = (msg.payload.frequency >= 50) ? true : false;\n\n    return [msg,msg2];\n}\n\nreturn null;","outputs":"2","valid":true,"x":478,"y":828,"z":"6480e14.f9b7f2","wires":[["8e56f4d3.71a908"],["cd84371b.327bc8"]]},{"id":"8e56f4d3.71a908","type":"debug","name":"","active":true,"complete":false,"x":678,"y":798,"z":"6480e14.f9b7f2","wires":[]},{"id":"cd84371b.327bc8","type":"debug","name":"","active":true,"complete":false,"x":679,"y":869,"z":"6480e14.f9b7f2","wires":[]}]
+    [{"id":"e36406f2.8ef798","type":"inject","z":"f03b57d5.e525f8","name":"","topic":"","payload":"","payloadType":"str","repeat":"300","crontab":"","once":false,"x":130,"y":900,"wires":[["c3c50023.3bbed"]]},{"id":"c3c50023.3bbed","type":"http request","z":"f03b57d5.e525f8","name":"Recent Quakes","method":"GET","url":"https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.csv","tls":"","x":300,"y":900,"wires":[["8afc6cac.e0812"]]},{"id":"8afc6cac.e0812","type":"csv","z":"f03b57d5.e525f8","name":"","sep":",","hdrin":true,"hdrout":"","multi":"one","ret":"\\n","temp":"","x":470,"y":900,"wires":[["44779781.4190f8","6f0eb546.9e208c"]]},{"id":"44779781.4190f8","type":"debug","z":"f03b57d5.e525f8","name":"","active":true,"complete":false,"x":630,"y":900,"wires":[]},{"id":"6f0eb546.9e208c","type":"switch","z":"f03b57d5.e525f8","name":"","property":"payload.mag","propertyType":"msg","rules":[{"t":"gte","v":"7","vt":"num"}],"checkall":"true","outputs":1,"x":510,"y":960,"wires":[["d78d4aa8.8c8208"]]},{"id":"d78d4aa8.8c8208","type":"change","z":"f03b57d5.e525f8","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"PANIC!","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":650,"y":1020,"wires":[["72fddece.fac0d"]]},{"id":"72fddece.fac0d","type":"debug","z":"f03b57d5.e525f8","name":"","active":true,"complete":false,"x":750,"y":960,"wires":[]}]
