@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: docs
 toc: creating-nodes-toc.html
 title: ステータス
 ---
