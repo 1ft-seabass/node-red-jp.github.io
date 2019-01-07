@@ -1,9 +1,12 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: GET /nodes
 ---
 
 Get a list of the installed nodes
+
+Requires permission: <code>nodes.read</code>
 
 ### Headers
 
@@ -22,7 +25,7 @@ Status Code | Reason         | Response
 
 #### Accept: application/json
 
-Returns an array of [Node Set](/docs/api/admin/types.html#node-set) objects. For
+Returns an array of [Node Set](/docs/api/admin/types#node-set) objects. For
 example:
 
 {% highlight json %}
@@ -42,5 +45,5 @@ example:
 
 #### Accept: text/html
 
-This returns the [HTML content](/docs/creating-nodes/node-html.html) for
+This returns the [HTML content](/docs/creating-nodes/node-html) for
 all of the installed nodes as a single response.

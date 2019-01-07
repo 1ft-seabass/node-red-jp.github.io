@@ -1,9 +1,12 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: POST /nodes
 ---
 
 Install a new node module
+
+Requires permission: <code>nodes.write</code>
 
 ### Headers
 
@@ -19,7 +22,7 @@ The request body must be a JSON string with the following fields:
 
 Field    | Description
 ---------|-----------------------
-`module` | The name of the node module to install
+`module` | Either the name of the node module to install from the npm repository, or a full path to a directory containing the node module. _Note_: this api does not support the full range of module specifiers used by npm such as `.tgz` files or version qualifiers.
 
 {% highlight json %}
 {
@@ -31,8 +34,8 @@ Field    | Description
 
 Status Code | Reason         | Response
 ------------|----------------|--------------
-`200`       | Success        | A [Node Module](/docs/api/admin/types.html#node-module) object. See example response body
-`400`       | Bad request    | An [Error response](/docs/api/admin/errors.html)
+`200`       | Success        | A [Node Module](/docs/api/admin/types#node-module) object. See example response body
+`400`       | Bad request    | An [Error response](/docs/api/admin/errors)
 `401`       | Not authorized | _none_
 `404`       | Not found      | _none_
 
@@ -54,4 +57,3 @@ Status Code | Reason         | Response
   ]
 }
 {% endhighlight %}
-

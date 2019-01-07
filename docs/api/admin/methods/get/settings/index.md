@@ -1,9 +1,12 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: GET /settings
 ---
 
 Get the runtime settings.
+
+Requires permission: <code>settings.read</code>
 
 ### Headers
 
@@ -35,4 +38,4 @@ Field          | Description
 ---------------|------------
 `httpNodeRoot` | The root path of HTTP nodes
 `version`      | Node-RED runtime version
-`user`         | Information about the logged in user. This field is only present if [authentication is enabled](/docs/security.html).
+`user`         | Information about the logged in user. This field is only present if [authentication is enabled](/docs/security).

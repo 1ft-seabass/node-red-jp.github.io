@@ -1,64 +1,46 @@
 <ul class="toc">
     <li class="toc-expander">V</li>
     <li><a href="/docs/">&larr; back</a></li>
-    <li class="tocheader"><span>API</span>
+    <li class="tocheader">
         <ul>
-            <li {% if page.url == "/docs/api/" %}class="active"{% endif %}><a href="/docs/api/">概要</a>
+            <li class="toctitle active"><a href="/docs/api/">APIリファレンス</a>
         </ul>
     </li>
 
-    <li class="tocheader"><span>Admin HTTP API</span>
+    <li class="tocheader">
         <ul>
-            <li {% if page.url == "/docs/api/admin/" %}class="active"{% endif %}><a href="/docs/api/admin/">概要</a>
+            <li class="toctitle{% if page.url == "/docs/api/admin/" %} active{% endif %}"><a href="/docs/api/admin/">Admin HTTP API</a>
             <li {% if page.url == "/docs/api/admin/oauth" %}class="active"{% endif %}><a href="/docs/api/admin/oauth">認証</a>
-            <li {% if page.url == "/docs/api/admin/types" %}class="active"{% endif %}><a href="/docs/api/admin/types">種類</a>
+            <li {% if page.url == "/docs/api/admin/types" %}class="active"{% endif %}><a href="/docs/api/admin/types">型</a>
             <li {% if page.url == "/docs/api/admin/errors" %}class="active"{% endif %}><a href="/docs/api/admin/errors">エラー</a>
             <li {% if page.url contains "/docs/api/admin/methods" %}class="active"{% endif %}><a href="/docs/api/admin/methods">メソッド</a>
         </ul>
     </li>
-    <li class="tocheader"><span>Runtime API</span>
+    <li class="tocheader">
         <ul>
-            <li {% if page.url == "/docs/api/runtime/" %}class="active"{% endif %}><a href="/docs/api/runtime/">概要</a>
+            <li class="toctitle{% if page.url == "/docs/api/runtime/" %} active{% endif %}"><a href="/docs/api/runtime/">Runtime API</a>
             <li {% if page.url == "/docs/api/runtime/api" %}class="active"{% endif %}><a href="/docs/api/runtime/api">API</a>
         </ul>
     </li>
-    <li class="tocheader"><span>Storage API</span>
+    <li class="tocheader">
         <ul>
-            <li {% if page.url == "/docs/api/storage/" %}class="active"{% endif %}><a href="/docs/api/storage/">概要</a>
+            <li class="toctitle{% if page.url == "/docs/api/storage/" %} active{% endif %}"><a href="/docs/api/storage/">Storage API</a>
             <li {% if page.url contains "/docs/api/storage/methods" %}class="active"{% endif %}><a href="/docs/api/storage/methods">メソッド</a>
         </ul>
     </li>
-    <li class="tocheader"><span>Editor Widgets</span>
+    <li class="tocheader">
         <ul>
-            <li {% if page.url == "/docs/api/ui/" %}class="active"{% endif %}><a href="/docs/api/ui/">概要</a>
+            <li class="toctitle{% if page.url == "/docs/api/context/" %} active{% endif %}"><a href="/docs/api/context/">Context Store API</a>
+            <li {% if page.url contains "/docs/api/context/methods" %}class="active"{% endif %}><a href="/docs/api/context/methods">メソッド</a>
+            <li {% if page.url contains "/docs/api/context/store/memory" %}class="active"{% endif %}><a href="/docs/api/context/store/memory">Memoryストア</a>
+            <li {% if page.url contains "/docs/api/context/store/localfilesystem" %}class="active"{% endif %}><a href="/docs/api/context/store/localfilesystem">Fileストア</a>
+        </ul>
+    </li>
+    <li class="tocheader">
+        <ul>
+            <li class="toctitle{% if page.url == "/docs/api/ui/" %} active{% endif %}"><a href="/docs/api/ui/">エディタウィジェット</a>
             <li {% if page.url == "/docs/api/ui/typedInput" %}class="active"{% endif %}><a href="/docs/api/ui/typedInput">TypedInput</a>
             <li {% if page.url == "/docs/api/ui/editableList" %}class="active"{% endif %}><a href="/docs/api/ui/editableList">EditableList</a>
         </ul>
     </li>
-<!--
-    <li class="tocheader"><span>Editor API</span>
-        <ul>
-            <li {% if page.url == "/docs/api/editor" %}class="active"{% endif %}><a href="/docs/api/editor">Overview</a>
-        </ul>
-    </li>
--->
 </ul>
-
-<script>
-$(function() {
-    $(".toc-expander").click(function() {
-        if ($("ul.toc").hasClass('open')) {
-            $("ul.toc").removeClass('open');
-        } else {
-            $("ul.toc").addClass('open');
-        }
-    })
-});
-//$(function() {
-//    $("li.tocheader ul").hide();
-//    $("li.tocheader a.active").parent().parent().show();
-//    $("li.tocheader>span").click(function(e) {
-//        $(this).next().toggle("fast");
-//    });
-//});
-</script>

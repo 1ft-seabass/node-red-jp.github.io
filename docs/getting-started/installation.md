@@ -1,19 +1,19 @@
 ---
-layout: default
+layout: docs
+toc: getting-started-toc.html
 title: インストール
 ---
 
-### Node.jsのインストール
-
-Node-REDは、Node.js LTS <code>8.x</code>を使用することをお勧めします。Node.js 6.xおよび4.xのユーザーは、最新の更新があることを確認する必要があります。Node-REDはNode.js 0.12.xまたは0.10.xをサポートしなくなりました。
+Node-REDをインストール前に、Node.jsをインストールする必要があります。Node.js **LTS 8.x**を使用することをお勧めします。Node.js 6.xおよび4.xのユーザーは、最新の更新があることを確認する必要があります。Node-REDはNode.js 0.12.xまたは0.10.xをサポートしなくなりました。
 
 特定のハードウェアプラットフォームおよびオペレーティングシステムインストール方法は、以下を参照してください。
 
- - [Raspberry Pi](../hardware/raspberrypi.html)
- - [BeagleBone Black](../hardware/beagleboneblack.html)
- - [Windows](https://nodered.org/docs/platforms/windows) → 英語サイトに遷移します
+ - [Raspberry Pi](../hardware/raspberrypi)
+ - [BeagleBone Black](../hardware/beagleboneblack)
+ - [Windows](../platforms/windows)
 
-LinuxおよびOSXユーザーは、オペレーティングシステム用の [パッケージ化された Node.js バージョン](https://nodejs.org/en/download/package-manager/) をインストールするか、ダウンロードサイトから [最新のLong Term Support（LTS）バージョン](https://nodejs.org/en/download/) を入手する必要があります。
+LinuxおよびOSXユーザーは、オペレーティングシステム用の**[パッケージ化された Node.js バージョン](https://nodejs.org/en/download/package-manager/)** をインストールするか、
+最新のLong Term Support（LTS）バージョンを[ダウンロードサイト](https://nodejs.org/en/download/) から入手する必要があります。
 
 Node.jsのバージョンを確認するには
 
@@ -21,40 +21,38 @@ Node.jsのバージョンを確認するには
 
 その他のダウンロード元は [こちら](https://nodejs.org/dist/latest-v8.x/) にあります。
 
-### Node-REDをインストールする
 
-Node-REDをインストールする最も簡単な方法は、nodeのパッケージマネージャであるnpmを使用する方法です。
-グローバルインストールで`node-red`コマンドをシステムに加えるには以下の命令を行ってください。
+最も簡単なNode-REDのインストール方法は、Node.jsに付随しているnode package manager（npm）を利用する方法です。
+グローバルモジュールとしてインストールし、システムパスに`node-red`のコマンドを追加するには以下のようにします。:
 
     sudo npm install -g --unsafe-perm node-red
 
 <div class="doc-callout">
-<em>Note</em>: Node-REDのインストールに<code>npm 1.1</code>を使用しないでください。次のコマンドで最新の<code>npm 2.x</code>にバージョンアップしてください: <code>sudo npm install -g npm@2.x</code><br />
-<em>Note</em>: <code>sudo</code> はLinux/OS Xでルートユーザ以外のユーザとして実行するときに必要となるコマンドです。Windowsで実行するときは、<a href="https://technet.microsoft.com/en-gb/library/cc947813%28v=ws.10%29.aspx">Administratorとしてコマンドプロンプトから</a>,
-<code>sudo</code>コマンドを使わずに実行してください。<br />
-<em>Note</em>: インストール中、いくつかのエラーが<code>node-gyp</code>コマンドから報告される可能性があります。
-それらのエラーは概して<em>致命的ではない</em> エラーであり、それらのエラーはオプショナルな依存性に関係しており、それらを構築するためのコンパイラを要求しています。
- <b>Node-RED はそれらのオプショナルな依存性にかかわらず動きます。</b>しかしnodeモジュールを追加する際にネイティブコードをコンパイルする必要がある場合があります。 <code>node-gyp</code>
-のインストール方法は <a href="https://github.com/TooTallNate/node-gyp#installation">ここ</a>に記述されています。
+Note: <code>sudo</code>はLinuxまたはOS Xの実行環境でのインストールでのみ必要です。
+Windows環境であれば、<a href="../platforms/windows">Windows環境でのインストール手順</a>をご覧ください。
 </div>
 
 #### 次のステップ
 
 インストールが終わったら[Node-REDの実行](running.html)を行います。
 
+---
+
 ### 他のインストール方法
 
 #### zipをダウンロードする
 
-最新版は[ここ](https://github.com/node-red/node-red/releases/latest)からダウンロードできます。
+最新版は[こちら](https://github.com/node-red/node-red/releases/latest)からダウンロードできます。
 このzipファイルは`node-red-X.Y.Z` (`X.Y.Z`はバージョンナンバー) という最上位フォルダを持っています。
-展開した後、最上位フォルダの中から、以下のコマンドを実行してください。
+展開した後、最上位フォルダの中から、
+以下のコマンドを実行してください。:
 
     npm install --production
 
 #### 開発者向け -GitHubを使う
 
-GitHubからコードを実行するのは、開発コードの使用が好きな方か、コード開発に参加したい方にのみおすすめします。
+GitHubからコードを実行するのは、
+開発コードの使用が好きな方か、コード開発に参加したい方にのみおすすめします。
 
 GitHubからソースリポジトリをクローンするには以下のコマンドを実行します。
 
@@ -66,11 +64,13 @@ GitHubからソースリポジトリをクローンするには以下のコマ�
     npm install
 
 <div class="doc-callout">
-<em>Note</em>: gitのクローンから実行する際、全ての依存性をインストールする必要性があります。
- <code>--production</code> オプションは使用しないでください。
+<em>Note</em> : gitのクローンから実行する際、
+productionレベルの依存性だけでなく、全ての依存性をインストールする必要性があります。
+ <code>--production</code> オプションは使用しないのはこのためです。
 </div>
 
-また、アプリケーションをビルドしそれを使用する前に、`grunt-cli` をインストールする必要があります。 このインストールはグローバルで行う必要があります。
+また、アプリケーションをビルドしそれを使用する前に、`grunt-cli` をインストールする必要があります。
+このインストールはグローバルで行う必要があります。
 
     sudo npm install -g grunt-cli
 
@@ -81,4 +81,4 @@ GitHubからソースリポジトリをクローンするには以下のコマ�
 
 #### 次のステップ
 
-インストールが終わったら[Node-REDの実行](running.html)を行います。
+インストールが終わったら、[Node-REDの実行](running)を行います。

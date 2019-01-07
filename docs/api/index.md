@@ -1,17 +1,27 @@
 ---
-layout: api
-title: Documentation
+layout: docs
+toc: api-toc.html
+title: APIリファレンス
 ---
-## Overview
 
-Welcome to the Node-RED API documentation.
+### [Admin HTTP API](admin)
 
-### [Runtime Admin API](admin/index.html)
+Admin HTTP APIによってリモートで実行環境を管理することができます。
+Node-REDエディタおよびコマンドラインAdminツールから利用することができます。
 
-This API can be used to remotely administer the runtime. It is used by the Node-RED
-Editor and command-line tool.
+### [Runtime API](runtime)
 
-### [Storage API](storage/index.html)
+Runtime APIはNode-REDを他のアプリケーションに組み込む際に利用できます。
 
-This API provides a pluggable way to configure where the Node-RED runtime stores
-data.
+### [Storage API](storage)
+
+Storage APIはNode-REDランタイムがデータを保存する場所を設定するための
+着脱可能な方法を提供します。
+
+### [Context Store API](context)
+
+**0.19で追加** : Context Store APIはランタイム外にコンテキストデータを保管する着脱可能な方法を提供します。
+
+### [Editor UI Widgets](ui)
+
+ノードの編集テンプレート内において利用可能なjQuery widgetの一覧です。 _0.14以降_

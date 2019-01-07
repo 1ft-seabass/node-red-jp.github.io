@@ -1,13 +1,13 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: Admin API
 ---
 
-This API can be used to remotely administer the runtime. It is used by the Node-RED
-Editor and command-line tool
+このHTTP APIによってリモートで実行環境を管理することができます。
+Node-REDエディタおよびコマンドラインAdminツールから利用することができます。
 
-- [Authentication](/docs/api/admin/oauth.html)
-- [Types](/docs/api/admin/types.html)
-- [Errors](/docs/api/admin/errors.html)
-- [Methods](/docs/api/admin/methods)
-
+- [認証](/docs/api/admin/oauth)
+- [型](/docs/api/admin/types)
+- [エラー](/docs/api/admin/errors)
+- [メソッド](/docs/api/admin/methods)

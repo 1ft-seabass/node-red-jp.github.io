@@ -1,5 +1,6 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: Storage API
 ---
 
@@ -37,7 +38,7 @@ a placeholder until the result is available.
 
 Node-RED uses the [When.js](https://github.com/cujojs/when) library. The following
 example shows it in use. For a more complete example, the default file-system
-implementation is located in `red/storage/localfilesystem.js`.
+implementation is located in `red/runtime/storage/localfilesystem.js`.
 
 
 {% highlight javascript %}

@@ -1,9 +1,12 @@
 ---
-layout: api
+layout: docs
+toc: api-toc.html
 title: DELETE /nodes/:module
 ---
 
 Remove a node module
+
+Requires permission: <code>nodes.write</code>
 
 ### Headers
 
@@ -15,15 +18,13 @@ Header          | Value
 
 Path Component | Description
 ---------------|------------
-`module`       | The name of the module 
+`module`       | The name of the module
 
 ### Response
 
 Status Code | Reason         | Response
 ------------|----------------|------------
 `204`       | Success        | _none_
-`400`       | Bad request    | An [Error response](/docs/api/admin/errors.html).
+`400`       | Bad request    | An [Error response](/docs/api/admin/errors).
 `401`       | Not authorized | _none_
 `404`       | Not found      | _none_
-
-
