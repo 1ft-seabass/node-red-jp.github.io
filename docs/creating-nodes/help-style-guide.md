@@ -33,75 +33,72 @@ a consistent appearance between nodes.
     </div>
     <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
         <h3>Inputs</h3>
-           <dl class="message-properties">
-              <dt>payload
-                  <span class="property-type">string | buffer</span>
-              </dt>
-              <dd> the payload of the message to publish. </dd>
-              <dt class="optional">topic <span class="property-type">string</span></dt>
-              <dd> the MQTT topic to publish to.</dd>
-         </dl>
-     </div>
- </div>
- <div class="grid" style="min-height:auto; padding:5px 0 5px; border-bottom: 1px solid #f0f0f0;">
-     <div class="col-1-2">
-         If the node has outputs, as with the Inputs section, this section
-         describes the properties of the messages the node will send. If the node
-         has multiple outputs, a separate property list can be provided for each.
-     </div>
-     <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
-         <h3>Outputs</h3>
-             <ol class="node-ports">
-                 <li>Standard output
-                     <dl class="message-properties">
-                         <dt>payload <span class="property-type">string</span></dt>
-                         <dd>the standard output of the command.</dd>
-                     </dl>
-                 </li>
-                 <li>Standard error
-                     <dl class="message-properties">
-                         <dt>payload <span class="property-type">string</span></dt>
-                         <dd>the standard error of the command.</dd>
-                     </dl>
-                 </li>
-             </ol>
-      </div>
-  </div>
- <div class="grid" style="min-height:auto; padding:5px 0 5px; border-bottom: 1px solid #f0f0f0;">
-     <div class="col-1-2">
+            <dl class="message-properties">
+                <dt>payload
+                    <span class="property-type">string | buffer</span>
+                </dt>
+                <dd> the payload of the message to publish. </dd>
+                <dt class="optional">topic <span class="property-type">string</span></dt>
+                <dd> the MQTT topic to publish to.</dd>
+            </dl>
+    </div>
+</div>
+<div class="grid" style="min-height:auto; padding:5px 0 5px; border-bottom: 1px solid #f0f0f0;">
+    <div class="col-1-2">
+        If the node has outputs, as with the Inputs section, this section
+        describes the properties of the messages the node will send. If the node
+        has multiple outputs, a separate property list can be provided for each.
+    </div>
+    <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
+        <h3>Outputs</h3>
+            <ol class="node-ports">
+                <li>Standard output
+                    <dl class="message-properties">
+                        <dt>payload <span class="property-type">string</span></dt>
+                        <dd>the standard output of the command.</dd>
+                    </dl>
+                </li>
+                <li>Standard error
+                    <dl class="message-properties">
+                        <dt>payload <span class="property-type">string</span></dt>
+                        <dd>the standard error of the command.</dd>
+                    </dl>
+                </li>
+            </ol>
+    </div>
+</div>
+<div class="grid" style="min-height:auto; padding:5px 0 5px; border-bottom: 1px solid #f0f0f0;">
+    <div class="col-1-2">
         <p>This section provides more detailed information about the node. It should
         explain how it should be used, providing more information on its inputs/outputs.</p>
-        <p></p>
-     </div>
-     <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
+    </div>
+    <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
         <h3>Details</h3>
-         <p><code>msg.payload</code> is used as the payload of the published message.
-        If it contains an Object it will be converted to a JSON string before being sent.
-        If it contains a binary Buffer the message will be published as-is.</p>
-         <p>The topic used can be configured in the node or, if left blank, can be set by <code>msg.topic</code>.</p>
-         <p>Likewise the QoS and retain values can be configured in the node or, if left
-        blank, set by <code>msg.qos</code> and <code>msg.retain</code> respectively.</p>
+            <p><code>msg.payload</code> is used as the payload of the published message.
+            If it contains an Object it will be converted to a JSON string before being sent.
+            If it contains a binary Buffer the message will be published as-is.</p>
+            <p>The topic used can be configured in the node or, if left blank, can be set by <code>msg.topic</code>.</p>
+            <p>Likewise the QoS and retain values can be configured in the node or, if left
+            blank, set by <code>msg.qos</code> and <code>msg.retain</code> respectively.</p>
     </div>
 </div>
 <div class="grid" style="min-height:auto; padding:5px 0 5px;">
     <div class="col-1-2">
-       <p>This section can be used to provide links to external resources, such as:</p>
-       <ul>
-          <li>any relevant additional documentation. Such as how the Template node links
-          to the Mustache language guide.</li>
-          <li>the node's git repository or npm page - where the user can get additional help</li>
-       </ul>
-
+        <p>This section can be used to provide links to external resources, such as:</p>
+        <ul>
+            <li>any relevant additional documentation. Such as how the Template node links
+            to the Mustache language guide.</li>
+            <li>the node's git repository or npm page - where the user can get additional help</li>
+        </ul>
     </div>
     <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
-       <h3>References</h3>
-        <ul>
-            <li><a>Twitter API docs</a> - full description of <code>msg.tweet</code> property</li>
-            <li><a>GitHub</a> - the node's github repository</li>
-        </ul>
-   </div>
+        <h3>References</h3>
+            <ul>
+                <li><a>Twitter API docs</a> - full description of <code>msg.tweet</code> property</li>
+                <li><a>GitHub</a> - the node's github repository</li>
+            </ul>
+    </div>
 </div>
-
 
 <hr/>
 
@@ -121,21 +118,21 @@ The above example was created with the following HTML.
         <dd> the MQTT topic to publish to.</dd>
     </dl>
 
- <h3>Outputs</h3>
-     <ol class="node-ports">
-         <li>Standard output
-             <dl class="message-properties">
-                 <dt>payload <span class="property-type">string</span></dt>
-                 <dd>the standard output of the command.</dd>
-             </dl>
-         </li>
-         <li>Standard error
-             <dl class="message-properties">
-                 <dt>payload <span class="property-type">string</span></dt>
-                 <dd>the standard error of the command.</dd>
-             </dl>
-         </li>
-     </ol>
+<h3>Outputs</h3>
+    <ol class="node-ports">
+        <li>Standard output
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>the standard output of the command.</dd>
+            </dl>
+        </li>
+        <li>Standard error
+            <dl class="message-properties">
+                <dt>payload <span class="property-type">string</span></dt>
+                <dd>the standard error of the command.</dd>
+            </dl>
+        </li>
+    </ol>
 
 <h3>Details</h3>
     <p><code>msg.payload</code> is used as the payload of the published message.
@@ -165,9 +162,10 @@ sub headings, they must use `<h4>` tags.
 ...
 <h3>Details</h3>
 ...
- <h4>A sub section</h4>
- ...
+  <h4>A sub section</h4>
+  ...
 ~~~~~
+
 
 #### Message properties
 
@@ -195,6 +193,7 @@ Each `<dd>` contains the brief description of the property.
     <dd> the MQTT topic to publish to.</dd>
 </dl>
 ~~~~~
+
 
 #### Multiple outputs
 
