@@ -43,6 +43,12 @@
   ga('create', 'UA-849397-6', 'auto');
   ga('send', 'pageview');
 
+  $(function() {
+    $(".menu").click(function(e) {
+        var s = $(".navigation").slideToggle('hide');
+        e.preventDefault();
+    });
+  });
 </script>
 </body>
 </html>
