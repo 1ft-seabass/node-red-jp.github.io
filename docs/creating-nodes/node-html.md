@@ -58,13 +58,13 @@ title: HTMLファイル
 - `credentials`: (object) ノードの[認証プロパティ](credentials)
 - `inputs`: (number) ノードがいくつの入力を有するか `0` または `1`のどちらか.
 - `outputs`: (number) ノードがいくつの出力を有するか `0`またはそれ以上にすることができる
-- `color`: (string) 使用する[背景色](appearance#background-colour)
+- `color`: (string) 使用する[背景色](appearance#背景色)
 - `paletteLabel`: (string\|function) パレットで使用する[ラベル](appearance#label)
 - `label`: (string\|function) ワークスペースで使用する[ラベル](appearance#label)
 - `labelStyle`: (string\|function) ラベルに適用する [スタイル](appearance#label-style)
 - `inputLabels`: (string\|function) ホバー上にノードの入力ポートに追加するオプションの [ラベル](appearance#port-labels)
 - `outputLabels`: (string\|function) ホバー上にノードの出力ポートに追加するオプションの [ラベル](appearance#port-labels)
-- `icon`: (string) 使用する[アイコン](appearance#icon)
+- `icon`: (string) 使用する[アイコン](appearance#アイコン)
 - `align`: (string) アイコンとラベルの[位置合わせ](appearance#alignment)
 - `oneditprepare`: (function) 編集ダイアログが作成されている時に呼び出されます。 [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
 - `oneditsave`: (function) 編集ダイアログがOKの時に呼び出されます。 [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。

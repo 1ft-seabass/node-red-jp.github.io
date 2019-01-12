@@ -28,4 +28,4 @@ var globalContext = this.context().global;
 {% endhighlight %}
 
 こららのコンテキストオブジェクトのそれぞれが同じように`get`/`set`関数を有していることが
-[Functionノードを記述するためのガイド](/docs/writing-functions#storing-data)で説明されています。
+[Functionノードを記述するためのガイド](/docs/writing-functions#データの保存)で説明されています。
