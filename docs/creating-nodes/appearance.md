@@ -1,7 +1,7 @@
 ---
 layout: docs
 toc: creating-nodes-toc.html
-title: Node appearance
+title: 外観
 ---
 
 ノードの見た目として、
