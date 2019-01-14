@@ -62,8 +62,8 @@ title: HTMLファイル
 - `paletteLabel`: (string\|function) パレットで使用する[ラベル](appearance#label)
 - `label`: (string\|function) ワークスペースで使用する[ラベル](appearance#label)
 - `labelStyle`: (string\|function) ラベルに適用する [スタイル](appearance#label-style)
-- `inputLabels`: (string\|function) ホバー上にノードの入力ポートに追加するオプションの [ラベル](appearance#port-labels)
-- `outputLabels`: (string\|function) ホバー上にノードの出力ポートに追加するオプションの [ラベル](appearance#port-labels)
+- `inputLabels`: (string\|function) ホバー上にノードの入力ポートに追加するオプションの [ラベル](appearance#ポートラベル)
+- `outputLabels`: (string\|function) ホバー上にノードの出力ポートに追加するオプションの [ラベル](appearance#ポートラベル)
 - `icon`: (string) 使用する[アイコン](appearance#アイコン)
 - `align`: (string) アイコンとラベルの[位置合わせ](appearance#alignment)
 - `oneditprepare`: (function) 編集ダイアログが作成されている時に呼び出されます。 [カスタム編集の動作](properties#カスタム編集の動作)を参照してください。
