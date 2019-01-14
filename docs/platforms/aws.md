@@ -16,7 +16,7 @@ title: Amazon Web Servicesで実行する
 
 1. Elastic Beanstalk、SQSおよびS3を利用できるAWSアカウントを保有していることを確認します。
 
-2. EBコマンドラインをダウンロードし、ローカルPCにインストールします。[リンク先] (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/GettingStarted.html)を参照してください。
+2. EBコマンドラインをダウンロードし、ローカルPCにインストールします。[リンク先](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/GettingStarted.html) を参照してください。
 
 3. AWS認証情報を作成し、以下のようにローカルファイル(~/.aws/config or Usersusername.awsconfig)として保存してください。
 
