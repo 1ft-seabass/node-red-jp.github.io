@@ -17,7 +17,7 @@ title: はじめてのノード開発
    - [package.json](#package-json)
    - [lower-case.js](#lower-casejs)
    - [lower-case.html](#lower-casehtml)
- - [Node-REDでノードの動作確認](#Node-REDでノードの動作確認)
+ - [Node-REDでノードの動作確認](#node-redでノードの動作確認)
 
 ### 簡単なノードを開発
 
