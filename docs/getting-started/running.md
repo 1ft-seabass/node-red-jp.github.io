@@ -113,7 +113,7 @@ Debian系（例 Ubuntu、Mint、Debianなど）のLinuxユーザは、
 
 以下のガイドは、大多数のユーザにとって最も素直だと考えている方法です。
 Windowsユーザの場合、PM2はサービスとして自動的に実行されないので
-以下の[NSSMオプション](#alternative-options)が良いかもしれません。
+以下の[NSSMオプション](#その他の方法)が良いかもしれません。
 
 #### Using PM2
 
