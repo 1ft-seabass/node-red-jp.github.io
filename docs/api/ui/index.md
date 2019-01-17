@@ -1,13 +1,13 @@
 ---
 layout: docs
 toc: api-toc.html
-title: Editor UI Widgets
+title: エディタUIウェジェット
 ---
 
-A set of jQuery widgets are available that can be used within a node's edit template.
+ノードの編集テンプレート内で利用できるjQueryウィジェットの一覧です。
 
-  - __[TypedInput](typedInput)__ - a replacement for a regular `<input>` that allows
-    the type of the value to be chosen, including options for string, number and boolean.
-    Used extensively in the core Node-RED nodes.
-  - __[EditableList](editableList)__ - an editable list where the elements can be complex
-    forms in their own right. Used by the core `Switch` and `Change` nodes.
+  - __[TypedInput](typedInput)__ - 標準的な`<input>`を置換し、
+    値を文字列型、数値型、boolean型から指定した型にすることができます。
+    Node-REDのコアノード全般で利用されています。
+  - __[EditableList](editableList)__ - 要素それ自体が複雑なフォームになる編集可能なリスト。
+    `Switch`および`Change`というコアノードで利用されています。
