@@ -6,20 +6,20 @@ title: Admin API Methods
 
  Endpoint                                                   | Description
 ------------------------------------------------------------|-------------------------
-[<span>GET</span>/auth/login](get/auth/login)               | Get the active authentication scheme
-[<span>POST</span>/auth/token](post/auth/token)             | Exchange credentials for access token
-[<span>POST</span>/auth/revoke](post/auth/revoke)           | Revoke an access token
-[<span>GET</span>/settings](get/settings)                   | Get the runtime settings
-[<span>GET</span>/flows](get/flows)                         | Get the active flow configuration
-[<span>POST</span>/flows](post/flows)                       | Set the active flow configuration
-[<span>POST</span>/flow](post/flow)                         | Add a flow to the active configuration
-[<span>GET</span>/flow/:id](get/flow)                       | Get an individual flow configuration
-[<span>PUT</span>/flow/:id](put/flow)                       | Update an individual flow configuration
-[<span>DELETE</span>/flow/:id](delete/flow)                 | Delete an individual flow configuration
-[<span>GET</span>/nodes](get/nodes)                         | Get a list of the installed nodes
-[<span>POST</span>/nodes](post/nodes)                       | Install a new node module
-[<span>GET</span>/nodes/:module](get/nodes/module)          | Get a node module's information
-[<span>PUT</span>/nodes/:module](put/nodes/module)          | Enable/Disable a node module
-[<span>DELETE</span>/nodes/:module](delete/nodes/module)    | Remove a node module
-[<span>GET</span>/nodes/:module/:set](get/nodes/module/set) | Get a node module set information
-[<span>PUT</span>/nodes/:module/:set](put/nodes/module/set) | Enable/Disable a node set
+[<span>GET</span>/auth/login](get/auth/login)               | アクティブな認証スキームを取得する
+[<span>POST</span>/auth/token](post/auth/token)             | アクセストークンを発行する
+[<span>POST</span>/auth/revoke](post/auth/revoke)           | アクセストークンを取り消す
+[<span>GET</span>/settings](get/settings)                   | ランタイムの設定を取得する
+[<span>GET</span>/flows](get/flows)                         | アクティブなフローの設定を取得する
+[<span>POST</span>/flows](post/flows)                       | アクティブなフローに設定を取得する
+[<span>POST</span>/flow](post/flow)                         | アクティブなフローに設定を追加する
+[<span>GET</span>/flow/:id](get/flow)                       | フローの設定を取得する
+[<span>PUT</span>/flow/:id](put/flow)                       | フローの設定を更新する
+[<span>DELETE</span>/flow/:id](delete/flow)                 | フローを削除する
+[<span>GET</span>/nodes](get/nodes)                         | インストールされたノードの一覧を取得する
+[<span>POST</span>/nodes](post/nodes)                       | ノードをインストールする
+[<span>GET</span>/nodes/:module](get/nodes/module)          | ノードの情報を取得する
+[<span>PUT</span>/nodes/:module](put/nodes/module)          | ノードの有効・無効を設定する
+[<span>DELETE</span>/nodes/:module](delete/nodes/module)    | ノードを削除する
+[<span>GET</span>/nodes/:module/:set](get/nodes/module/set) | Node Setの情報を取得する
+[<span>PUT</span>/nodes/:module/:set](put/nodes/module/set) | Node setの有効・無効を設定する
