@@ -11,8 +11,8 @@ title: Admin API Methods
 [<span>POST</span>/auth/revoke](post/auth/revoke)           | アクセストークンを取り消す
 [<span>GET</span>/settings](get/settings)                   | ランタイムの設定を取得する
 [<span>GET</span>/flows](get/flows)                         | アクティブなフローの設定を取得する
-[<span>POST</span>/flows](post/flows)                       | アクティブなフローに設定を取得する
-[<span>POST</span>/flow](post/flow)                         | アクティブなフローに設定を追加する
+[<span>POST</span>/flows](post/flows)                       | アクティブなフローの設定を行う
+[<span>POST</span>/flow](post/flow)                         | アクティブな設定にフローを追加する
 [<span>GET</span>/flow/:id](get/flow)                       | フローの設定を取得する
 [<span>PUT</span>/flow/:id](put/flow)                       | フローの設定を更新する
 [<span>DELETE</span>/flow/:id](delete/flow)                 | フローを削除する
