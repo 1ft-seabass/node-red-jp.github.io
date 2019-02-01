@@ -1,41 +1,41 @@
 ---
 layout: docs
 toc: editor-guide-toc.html
-title: 'Sidebar: Context data'
+title: 'サイドバー: コンテキストデータ'
 ---
 
 <div style="width: 300px" class="figure align-right">
   <img src="../images/editor-sidebar-context.png" alt="Context data Sidebar">
-  <p class="caption">Context data Sidebar</p>
+  <p class="caption">コンテキストデータサイドバー</p>
 </div>
 
-The Context sidebar displays the contents of the context data store.
+コンテキストデータサイドバーはコンテキストデータストアの中身を表示します。
 
-For more information about using context, read the [Working with context](/docs/user-guide/context) guide.
+コンテキストの使い方についての更なる情報は、[コンテキストを利用する](/docs/user-guide/context)ガイドを参照してください。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Action</td><td><code>core:show-context-tab</code></td></tr>
- <tr><td>Key shortcut</td><td><code>Ctrl/⌘-g x</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>動作</td><td><code>core:show-context-tab</code></td></tr>
+ <tr><td>ショートカットキー</td><td><code>Ctrl/⌘-g x</code></td></tr>
 </table>
 
-The panel is split into three sections, one for each context scope.
+パネルは、各コンテキストスコープに応じた3つのセクションに分かれています。
 
-The 'Node' section shows the context of the current selected node. It does not
-display the contents automatically and requires the user to click the refresh button
-to load it.
+「Node」セクションは、現在選択されているノードのコンテキストを表示します。
+この内容は自動的には表示されないため、
+ロードをおこなうためにはユーザが更新ボタンをクリックする必要があります。
 
-The 'Flow' section shows the context of the current flow. This automatically refreshes
-whenever the flow is changed in the main workspace.
+「Flow」セクションは現在のフローのコンテキストを表示します。
+ワークスペースのフローが変更されるたびに自動的に更新されます。
 
-The 'Global' section shows the global context and is loaded each time the editor
-is loaded.
+「Global」セクションはグローバルコンテキストを表示し、
+エディタが読み込まれるたびにロードされます。
 
-For all three scopes, to see changes, the corresponding refresh button must be clicked.
+3つのセクションすべてにおいて、変更を確認するためにはそれぞれに対応した更新ボタンをクリックします。
 
-Hovering the mouse over any context property name will show a refresh button that
-can be used to refresh just that one value.
+コンテキストプロパティの名称にマウスをホバーすると、
+1つの値だけを更新するための更新ボタンが表示されます。
 
-Hovering over the value of a context property will show a button to copy its contents
-to the system clipboard. The value will be converted to JSON, so not all values
-can be copied.
+コンテキストプロパティの値にマウスをホバーすると、
+その内容をクリップボードへコピーするボタンが表示されます。
+値はJSONに変換されるため、すべての値がコピーされるわけではありません。

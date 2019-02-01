@@ -1,25 +1,25 @@
 ---
 layout: docs
 toc: editor-guide-toc.html
-title: 'Sidebar: Information'
+title: 'サイドバー: ノードの情報'
 ---
 
 <div style="width: 300px" class="figure align-right">
   <img src="../images/editor-sidebar-info.png" alt="Information Sidebar">
-  <p class="caption">Information Sidebar</p>
+  <p class="caption">情報サイドバー</p>
 </div>
 
-The Information sidebar shows more information about the current selected node
-including:
+情報サイドバーは、
+現在選択しているノードについて以下の内容を含めて更なる情報を表示します。
 
- - a summary of its properties
- - help text for the node
+ - プロパティの概要
+ - ノードのヘルプテキスト
 
-If nothing is selected, it displays the description of the current flow - which
-can be edited in the [Flow Properties edit dialog](../workspace/flows#editing-flow-properties).
+未選択の場合、
+[フロープロパティの編集ダイアログ](../workspace/flows#editing-flow-properties)で編集できる現在のフローの詳細を表示します。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Action</td><td><code>core:show-info-tab</code></td></tr>
- <tr><td>Key shortcut</td><td><code>Ctrl/⌘-g i</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>動作</td><td><code>core:show-info-tab</code></td></tr>
+ <tr><td>ショートカットキー</td><td><code>Ctrl/⌘-g i</code></td></tr>
 </table>
