@@ -1,120 +1,120 @@
 ---
 layout: docs
 toc: editor-guide-toc.html
-title: Nodes
+title: ノード
 ---
 
-Nodes can be added to the workspace by either:
+ノードは以下のような方法でワークスペースに追加できます。:
 
- - dragging them from the [palette](../palette),
- - using the [quick-add dialog](#quick-add-dialog),
- - or importing from the library or clipboard.
+ - [パレット](../palette)からドラッグする
+ - [クイック追加ダイアログ](#クイック追加ダイアログ)を利用する
+ - ライブラリまたはクリップボードからインポートする
 
 
  <div style="width: 222px" class="figure align-right">
    <img src="../images/editor-node-port-label.png" alt="Node port labels">
-   <p class="caption">Node port labels</p>
+   <p class="caption">ノードポートラベル</p>
  </div>
 
-Nodes are joined together by wires via their ports. A node can have at most one
-input port and many output ports. A port may have a label that is displayed
-when the mouse hovers over it. A node may specify labels, for example, the Switch
-node shows the rule that matches the port. The labels can also be customised
-in the node edit dialog.
+ノード同士はポートを介してワイヤーで繋がれます。
+ノードの多くは1つの入力ポートと複数の出力ポートを持っています。
+ポートは、マウスをホバーした際に表示されるラベルを持っているかもしれません。
+ノードはラベルを指定することができ、例えばSwitchノードはポートに対応するルールを表示します。
+また、ラベルはノードの編集ダイアログでカスタマイズすることができます。
 
-Some nodes display a status message and icon below the node. This is used to indicate
-the runtime state of the node - for example, the MQTT nodes indicate if they are
-currently connected or not.
+いくつかのノードは、ノードの下にステータスメッセージとアイコンを表示します。
+これはノードの実行状態を示します。
+例えば、MQTTノードでは現在接続しているか否かを示します。
 
 <div style="width: 550px" class="figure">
   <img src="../images/editor-node-details.png" alt="">
-  <p class="caption">Node elements</p>
+  <p class="caption">ノードの要素</p>
 </div>
 
-If a node has any undeployed changes, it displays a blue circle above it. If there
-are are errors with its configuration, it displays a red triangle.
+ノードにデプロイされていない変更があった場合、ノードの上に青い丸が表示されます。
+ノードの設定にエラーがあった場合、赤い三角形が表示されます。
 
-Some nodes include a button on either its left or right edge. These allow some
-interaction with the node from within the editor. The Inject and Debug nodes
-are the only core nodes that have buttons.
+一部のノードは左端または右端にボタンを持っています。
+これらはノードに何らかの作用をもたらします。
+InjectノードやDebugノードはボタンを持っているコアノードです。
 
-#### Quick-Add dialog
+#### クイック追加ダイアログ
 
-The Quick-Add dialog provides an easy way to add a node to the workspace wherever
-the mouse is, without having to drag it over from the palette.
+クリック追加ダイアログは、
+パレットからノードをドラッグする必要なく、マウスがどこにあろうともワークスペースにノードを追加できる簡単な方法です。
 
 <div style="width: 340px" class="figure align-right">
   <img src="../images/editor-quick-add.png" alt="Quick-Add dialog">
-  <p class="caption">Quick-Add dialog</p>
+  <p class="caption">クイック追加ダイアログ</p>
 </div>
 
-The dialog is opened by holding the `Ctrl` or `Command` key when clicking on the
-workspace.
+ワークスペースをクリックするときに`Ctrl`または`Command`キーを押すことで、
+ダイアログが開きます。
 
-The dialog contains a complete list of all nodes available to add. It shows the
-five main core nodes at the top of the list, followed by any recently added nodes
-and finally a complete, alphabetical, list of the remaining nodes.
+ダイアログは追加できるすべてのノード一覧を含みます。
+一覧の上部には主な5つのコアノードを表示し、
+その下に最近追加されたノードが続き、最後に残りのノードがアルファベット順に並びます。
 
-As with the main palette, the dialog has an input at the top to filter the list
-and quickly find a node.
+パレットと同様に、
+ダイアログの上部には一覧をフィルダリングし、素早くノードを発見するための入力欄があります。
 
-#### Editing node configuration
+#### ノードの設定を編集する
 
-A node's configuration can be edited by double clicking on the node, or pressing
-`Enter` when the workspace has focus. If multiple nodes are selected, the *first*
-node in the selection will be edited.
+ノードの設定はノード上でダブルクリック、
+またはワークスペースでフォーカスされているときに`Enter`キーを押すことで編集できます。
+複数のノードが選択されている場合、選択された*最初*のノードを編集します。
 
 <div class="figure">
   <img style="width: calc(50% - 10px); display: inline-block;" src="../images/editor-edit-node.png" alt="Node edit dialog - properties">
   <img style="width: calc(50% - 10px); margin-left: 10px; display: inline-block;"  src="../images/editor-edit-node-settings.png" alt="Node edit dialog - properties">
-  <p class="caption">Node edit dialog - properties and settings sections</p>
+  <p class="caption">ノード編集ダイアログ - プロパティおよび設定セクション</p>
 </div>
 
-The node edit dialog has two separate sections; properties and settings. The
-properties section shows the edit form specific to the node type being edited.
-The settings section shows the common settings that can be set on all nodes.
-This includes the custom port labels as well as the icon for the node.
+ノード編集ダイアログは、プロパティ（node properties）と設定（node settings）という2つの異なるセクションを持っています。
+プロパティセクションには編集中のノードごとに独自の編集フォームが表示されます。
+設定セクションにはすべてのノードで設定可能な共通設定が表示されます。
+これにはカスタムポートラベルおよびノードのアイコンが含まれます。
 
-Clicking on the icon shows the Node icon picker that can be used to select the icon
-for the node from the list of all available icons.
+アイコンをクリックするとノードのアイコンピッカーが表示され、
+利用可能なアイコン一覧からこのノードに利用するアイコンを選ぶことができます。
 
 <div style="width:346px;" class="figure align-center">
   <img src="../images/editor-edit-node-settings-icon.png" alt="Node icon picker">
-  <p class="caption">Node icon picker</p>
+  <p class="caption">ノードアイコンピッカー</p>
 </div>
 
-#### Configuration nodes
+#### Configurationノード
 
-A Configuration (config) Node is a special type of node that holds reusable configuration
-that can be shared by regular nodes in a flow.
+Configuration（config）ノードは、
+フロー内の通常のノードと共有できる再利用可能な設定を持った特殊なノードです。
 
-For example, the MQTT In and Out nodes use an MQTT Broker config node to
-represent a shared connection to an MQTT broker.
+例えば、MQTT InノードおよびMQTT OutノードはMQTTブローカ設定ノードを利用して、
+MQTTブローカーへの共有接続を表します。
 
-Configuration nodes are added through the edit dialog of a node that requires
-the config node. It will have a field to select from the available config nodes
-of the required type or to add a new instance.
+Configurationノードは、Configノードを必要とするノードの編集ダイアログを介して追加されます。
+必要なタイプの利用可能なConfigノードから選択するか、
+新しいインスタンスを追加するためのフィールドがあります。
 
 <div style="width:468px;" class="figure align-center">
   <img src="../images/editor-edit-node-config-node.png" alt="Adding a configuration node">
-  <p class="caption">Adding a configuration node</p>
+  <p class="caption">Configurationノードを追加する</p>
 </div>
 
-Clicking the button next to the select box will open the edit dialog for the
-selected node, or add a new instance.
+セレクトボックスの横のボタンをクリックすることで、
+選択しているノードの編集ダイアログを開く、または新しいインスタンスを追加します。
 
 
 <div  class="figure">
   <img src="../images/editor-edit-config-node.png" alt="Configuration node edit dialog">
-  <p class="caption">Configuration node edit dialog</p>
+  <p class="caption">Configurationノード編集ダイアログ</p>
 </div>
 
-The config node edit dialog only has the node properties section - as a config node
-has no icon or ports to set labels on.
+Configノードはアイコンや設定するラベルがないため、
+Configノード編集ダイアログはノードプロパティセクションのみ持っています。
 
-In the footer of the dialog is an indication of how many nodes use this config node.
-It also provides a select box to set the scope of the config node. The scope
-determines which flows the config node is available on. By default it is available
-on all flows, but the select box can be used to make it local to just one flow.
+ダイアログのフッタには、このConfigノードを利用しているノードの数が表示されます。
+また、Configノードのスコープを設定するセレクトボックスも表示されます。
+スコープは、このConfigノードが利用できるフローを定義します。
+デフォルトではすべてのフローで利用できますが、セレクトボックスはこのスコープを1つのフローに限定することができます。
 
-The [Configuration Nodes Sidebar](sidebar/config) can be used to manage all config nodes.
+[ノードの設定サイドバー](sidebar/config)で、すべてのConfigノードの管理をおこなうことができます。

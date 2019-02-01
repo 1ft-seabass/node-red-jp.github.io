@@ -1,54 +1,54 @@
 ---
 layout: docs
 toc: editor-guide-toc.html
-title: Importing and Exporting Flows
+title: フローのインポートとエクスポート
 ---
 
-Flows can be imported and exported from the editor using their JSON format, making
-it very easy to share flows with others.
+JSON形式でフローをエディタにインポートしたりエクスポートしたりすることで、
+フローを非常に簡単に他の人々と共有することができます。
 
-### Importing flows
+### フローをインポートする
 
 <div style="width:400px" class="figure align-right">
   <img src="../images/editor-import.png" alt="Import Flows dialog">
-  <p class="caption">Import Flows dialog</p>
+  <p class="caption">フロー読み込みダイアログ</p>
 </div>
 
-To import a flow, open the Import dialog, paste in the flow json and click 'Import'.
+フローをインポートするには、インポートダイアログを開き、JSON形式のフローを貼り付けて「読み込み（Import）」をクリックします。
 
-The 'Import' button will only be active if valid JSON is pasted into the dialog.
+ダイアログに正常なJSONが貼り付けられたときのみ、「読み込み」ボタンがアクティブになります。
 
-The dialog also offers the option to import the nodes into the current flow, or
-to create a new flow for them.
+また、ダイアログでは現在のフローにノードをインポートするか、
+新しいフローを作成するかを選ぶことができます。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Key shortcut</td><td><code>Ctrl/⌘-i</code></td></tr>
- <tr><td>Menu option</td><td><code>Import -&gt; Clipboard</code></td></tr>
- <tr><td>Action</td><td><code>core:show-import-dialog</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>ショートカットキー</td><td><code>Ctrl/⌘-i</code></td></tr>
+ <tr><td>メニューオプション</td><td><code>読み込み -&gt; クリップボード</code></td></tr>
+ <tr><td>動作</td><td><code>core:show-import-dialog</code></td></tr>
 </table>
 
 <br style="clear:both" />
 
-### Exporting flows
+### フローをエクスポートする
 
 <div style="width:400px" class="figure align-right">
   <img src="../images/editor-export.png" alt="Export Flows dialog">
-  <p class="caption">Export Flows dialog</p>
+  <p class="caption">フロー書き出しダイアログ</p>
 </div>
 
-The Export dialog can be used to copy flow json out of the editor.
+書き出しダイアログはエディタからJSON形式のフローをコピーするために利用できます。
 
-It can export either the selected nodes, the current flow (including its tab node)
-or the complete flow configuration.
+選択されているノード、現在のフロー（タブノードを含む）またはすべてのフロー設定を
+エクスポートすることができます。
 
-It offers the option to export compact or formatted JSON. The compact option generates
-a single line of JSON with no whitespace. The formatted JSON option is formatted
-over multiple lines with full indentation - which can be easier to read.
+ダイアログはエクスポートするJSONフォーマットをインデントのない形式とインデント付きの形式という選択肢を提示します。
+インデントのないフォーマットでは空白がなく、単一行のJSONになります。
+インデント付きのフォーマットでは、読みやすいようにインデントがつけられ、複数行になります。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Key shortcut</td><td><code>Ctrl/⌘-e</code></td></tr>
- <tr><td>Menu option</td><td><code>Export -&gt; Clipboard</code></td></tr>
- <tr><td>Action</td><td><code>core:show-export-dialog</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>ショートカットキー</td><td><code>Ctrl/⌘-e</code></td></tr>
+ <tr><td>メニューオプション</td><td><code>書き出し -&gt; クリップボード</code></td></tr>
+ <tr><td>動作</td><td><code>core:show-export-dialog</code></td></tr>
 </table>
