@@ -1,59 +1,59 @@
 ---
 layout: docs
 toc: editor-guide-toc.html
-title: Flows
+title: フロー
 ---
 
 
 <div class="figure">
   <img src="../images/editor-flow-tabs.png" alt="Flow tabs">
-  <p class="caption">Flow tabs</p>
+  <p class="caption">フロータブ</p>
 </div>
 
-#### Adding a flow
+#### フローを追加する
 
-To add a new flow, click the <i style="border-radius: 2px; display:inline-block;text-align:center; width: 30px; color: #777; border: 1px solid #777; padding: 6px;" class="fa fa-plus"></i> button
-in the top bar.
+フローを追加するには、
+上部バーの<i style="border-radius: 2px; display:inline-block;text-align:center; width: 30px; color: #777; border: 1px solid #777; padding: 6px;" class="fa fa-plus"></i>ボタンをクリックします。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Key shortcut</td><td><i>none</i></td></tr>
- <tr><td>Menu option</td><td><code>Flows -&gt; Add</code></td></tr>
- <tr><td>Action</td><td><code>core:add-flow</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>ショートカットキー</td><td><i>なし</i></td></tr>
+ <tr><td>メニューオプション</td><td><code>フロー -&gt; フローを新規追加</code></td></tr>
+ <tr><td>動作</td><td><code>core:add-flow</code></td></tr>
 </table>
 
-#### Editing flow properties
+#### フロープロパティを編集する
 
 <div style="width:350px" class="figure align-right">
   <img src="../images/editor-edit-flow.png" alt="Flow properties editor">
-  <p class="caption">Flow properties editor</p>
+  <p class="caption">フロープロパティエディタ</p>
 </div>
 
-To edit a flow's properties, double-click on its tab in the top bar. This will
-open the Flow Properties dialog.
+フローのプロパティを編集するには、上部バーのタブをダブルクリックします。
+この操作でフロープロパティダイアログが開きます。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Key shortcut</td><td><i>none</i></td></tr>
- <tr><td>Menu option</td><td><code>Flows -&gt; Rename</code></td></tr>
- <tr><td>Action</td><td><code>core:edit-flow</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>ショートカットキー</td><td><i>なし</i></td></tr>
+ <tr><td>メニューオプション</td><td><code>フロー -&gt; フロー名を変更</code></td></tr>
+ <tr><td>動作</td><td><code>core:edit-flow</code></td></tr>
 </table>
 
-Within the dialog, the flow's name and description can be set. The description
-can use Markdown syntax for formatting and will appear in the [Information sidebar](../sidebar/info).
+ダイアログ内では、フロー名と詳細を設定できます。
+詳細は整形のためにMarkdownシンタックスを利用することができ、[情報サイドバー](../sidebar/info)に表示されます。
 
-The Status property can be used to disable or enable the flow.
+状態（State）プロパティは、フローを無効化または有効化するために利用できます。
 
 <br style="clear: both;" />
 
 
-#### Deleting a flow
+#### フローを削除する
 
-To delete a flow, click the 'Delete' button in the Flow Properties dialog.
+フローを削除するには、フロープロパティダイアログで「削除」ボタンをクリックします。
 
 <table class="action-ref inline">
- <tr><th colspan="2">Reference</th></tr>
- <tr><td>Key shortcut</td><td><i>none</i></td></tr>
- <tr><td>Menu option</td><td><code>Flows -&gt; Delete</code></td></tr>
- <tr><td>Action</td><td><code>core:remove-flow</code></td></tr>
+ <tr><th colspan="2">リファレンス</th></tr>
+ <tr><td>ショートカットキー</td><td><i>なし</i></td></tr>
+ <tr><td>メニューオプション</td><td><code>フロー -&gt; フローを削除</code></td></tr>
+ <tr><td>動作</td><td><code>core:remove-flow</code></td></tr>
 </table>
