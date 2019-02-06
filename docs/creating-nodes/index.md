@@ -15,7 +15,7 @@ Node-REDを拡張する主な方法は、パレットに新しいNodeを追加�
  - [Nodeプロパティ](properties)
  - [Nodeの見た目](appearance)
  - [Nodeステータス](status)
- - [設定を設定](config-nodes)
+ - [設定ノード](config-nodes)
  - [Help style guide](help-style-guide)
  - [パッケージング](packaging)
  - [国際化](i18n)
