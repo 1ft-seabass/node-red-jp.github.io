@@ -1,7 +1,7 @@
 ---
 layout: docs
 toc: api-toc.html
-title: エディタUIウェジェット
+title: エディタUIウィジェット
 ---
 
 ノードの編集テンプレート内で利用できるjQueryウィジェットの一覧です。
