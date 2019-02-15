@@ -82,9 +82,9 @@ title: ノードヘルプのスタイルガイド
     <div class="col-1-2">
         <p>Referencesセクションは下記のような外部リンクなどを提供するために使用します。</p>
         <ul>
-            <li>any relevant additional documentation. Such as how the Template node links
-            to the Mustache language guide.</li>
-            <li>the node's git repository or npm page - where the user can get additional help</li>
+            <li>テンプレートノードがmustache記法へリンクする方法などのような
+            何かしらの関連ドキュメント。</li>
+            <li>ノードのgitリポジトリやnpmのページなどユーザーが追加のヘルプを得られるようなもの。</li>
         </ul>
     </div>
     <div class="col-1-2 node-help" style="padding-right: 5px; background: #f9f9f9;">
