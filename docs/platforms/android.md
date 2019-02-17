@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Running on Android
+title: Androidで実行する
 ---
 
-Using the <a href="https://termux.com">Termux</a> app in the app store makes it easy to run Node-RED on Android devices. You can get it from the <a href="https://play.google.com/store/apps/details?id=com.termux&amp;hl=en_GB">Play Store</a>.
+アプリストアの<a href="https://termux.com">Termux</a>アプリを利用することで、簡単にAndoroidデバイス上でNode-REDを実行することができます。このアプリは<a href="https://play.google.com/store/apps/details?id=com.termux&amp;hl=en_GB">Playストア</a>から入手できます。
 
-<div class="doc-callout"><em>Note</em> : the Node-RED team have no connection with the Termux application nor it's development. We cannot provide support for it in any way, other than to say that at this point in time it works rather well.</div>
+<div class="doc-callout"><em>Note</em> : Node-REDチームはTermuxアプリケーションおよびその開発に何の関わりも持っていません。現時点では動作していると言う以外にサポートを提供することはできません。</div>
 
-Install it, and run it. Then at the prompt type
+アプリをインストールし、起動します。そしてプロンプトに以下のように入力します。
 
     apt update
     apt upgrade
@@ -15,38 +15,38 @@ Install it, and run it. Then at the prompt type
     npm i -g --unsafe-perm node-red
     node-red
 
-Then you can point a browser to `localhost:1880`
+そしてブラウザで`localhost:1880`を指定します。
 
 
-#### Notes
+#### 注意
 
- - You can also npm install other node-red nodes such as `node-red-dashboard` in the standard way :
+ - 一般的な方法によって、`node-red-dashboard`のようなNode-REDの他のノードをnpm installすることもできます。:
 
     cd ~/.node-red
     npm i node-red-dashboard
 
- - The `volume-down` key is the ctrl key - so `vol-down-c` can be used to "break" a running app.
- - The instructions above also install the `nano` editor, as I find it useful for editing files.
+ - `volume-down`キーはctrlキーです。 - そのため、`vol-down-c`によって実行中のアプリを「終了」することができます。
+ - 上述の手順で`nano`エディタもインストールされ、これはファイルの編集に役立ちます。
 
 
-### Misc
+### その他
 
-#### Autostarting
+#### 自動起動
 
-For a discussion on autostarting apps within Termux - see <a href="https://github.com/termux/termux-app/issues/14">this thread</a> on the Termux Github project.
+Termux内のアプリの自動起動についてのディスカッションについては、Termux GitHubプロジェクトの<a href="https://github.com/termux/termux-app/issues/14">このスレッド</a>を参照してください。
 
-I have found this other app useful for autostarting Termux on boot - <a href="https://play.google.com/store/apps/details?id=com.autostart&amp;hl=en_GB">Autostart - No Root</a>
+起動時のTermux自動起動に役立つアプリがあります。 - <a href="https://play.google.com/store/apps/details?id=com.autostart&amp;hl=en_GB">Autostart - No Root</a>
 
-#### Device Access
+#### デバイスアクセス
 
-You can also get direct access to various hardware on the device by using the extra Termux device plugins - which can then of course be accessed via `Node-RED` using the exec command.
+追加のTermuxデバイスプラグインを利用することで様々なハードウェアに直接アクセスすることもできます。 - 勿論、これはexecコマンドを利用して`Node-RED`を介してアクセスすることもできます。
 
-**Note**: you need to install both the add-on app, and also the add-on api in Termux.
+**Note**: TermuxにアドオンアプリとアドオンAPIの両方をインストールする必要があります。
 
-Install add-on app - <a href="https://play.google.com/store/apps/details?id=com.termux.api&amp;hl=en">Termux:API</a> from Play store.
+Playストアからアドオンアプリ - <a href="https://play.google.com/store/apps/details?id=com.termux.api&amp;hl=en">Termux:API</a>をインストールします。
 
-Install add-on access into Termux
+Termuxにアドオンアクセスをインストールします。
 
     apt install termux-api
 
-Link to - <a href="https://termux.com/add-on-api.html">How to use Termux API</a>
+リンク - <a href="https://wiki.termux.com/wiki/Termux:API">Termux APIの使い方</a>
