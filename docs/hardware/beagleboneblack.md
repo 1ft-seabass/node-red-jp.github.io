@@ -1,138 +1,138 @@
 ---
 layout: default
-title: Running on BeagleBone Boards
+title: BeagleBone基板で実行する
 ---
 
-We recommend using the latest Debian 9 Stretch based SD card images - from
- <a href="https://beagleboard.org/latest-images" target="bbb">beagleboard.org</a>.
+<a href="https://beagleboard.org/latest-images" target="bbb">beagleboard.org</a>から、
+最新のSDカードイメージのDebian 9 Stretchを利用することを推奨します。
 
-The 4GB images for BeagleBone boards already have Node-RED pre-installed and set to auto-start,
-so you can just boot and point your browser at your BeagleBone, port 1880.
+4GBイメージのBeagleBone基板はNode-REDがプリインストールされていて自動起動が設定されているため、
+BeagleBoneを起動してブラウザでポート番号1880を表示することができます。
 
-The 2GB console version suitable for flashing to older eMMC versions of the BBB is not recommended but can be
-installed as per the manual installation instructions below.
+古いeMMCバージョンのBBBへのフラッシュに適した2GBコンソールバージョンは推奨されませんが、
+以下の手動インストール手順にしたがってインストールすることができます。
 
-To view the Node-RED log
+Node-REDのログを確認するには
 
     sudo journalctl -f -u node-red -o cat
 
-To stop Node-RED
+Node-REDを停止するには
 
     sudo service node-red stop
 
-To start Node-RED
+Node-REDを起動するには
 
     sudo service node-red start
 
-To set Node-RED to auto-start on every boot
+起動のたびにNode-REDを自動起動するように設定するには
 
     sudo systemctl enable node-red.service
 
-and likewise to stop it auto-running on boot
+同様に起動時の自動起動を停止するには
 
     sudo systemctl disable node-red.service
 
 
 ---
 
-#### Upgrading
+#### アップグレード
 
-The latest Debian images already have Node-RED and Node.js installed - the easiest way to upgrade is to use the built in upgrade tool:
+最新のDebianイメージはNode-REDおよびNode.jsが既にインストールされています。 - 最も簡単なアップグレード方法はビルトインアップグレードツールを利用することです。:
 
     sudo apt update
     sudo apt upgrade nodejs bb-node-red-installer
 
-This should also restart the Node-RED service - but you will need to refresh any open browser sessions.
+また、Node-REDサービスを再起動する必要があり、開いているブラウザセッションをリフレッシュする必要があるでしょう。
 
-If you are on the 2017 Debian 9.2 version you may need to run `sudo apt full-upgrade` first.
+2017 Debian 9.2版を利用している場合、まず`sudo apt full-upgrade`を実行する必要があるでしょう。
 
-**Note**: Do NOT use the Raspberry Pi / Debian upgrade script (`update-nodejs-and-nodered`) as
-it will re-install both Node.js and Node-RED in different locations and will conflict with and
-break the existing systemd configuration files.
-
----
-
-#### Configuring
-
-The Beaglebone is configured by default to run Node-RED as root. Therefore the configuration files are located in the
-`/root/.node-red` directory and you will need root privileges (sudo) to edit them. This is where you need to edit your
-`settings.js` file for example.
-
-Beaglebone also has a systemd service, `/lib/systemd/system/node-red.socket`, that automatically starts Node-RED
-when is sees an attempt to connect. By default this is port 1880 - but if you want change that you need to change it
-here as well as in the `settings.js` file.
+**Note**: Raspberry Pi / Debianアップグレードスクリプト（`update-nodejs-and-nodered`）を使わないでください。
+異なる場所にNode.jsおよびNode-REDの両方を再インストールし、
+競合が発生して既存のsystemd設定ファイルを破壊してしまうためです。
 
 ---
 
-### Manual installation
+#### 設定
+
+デフォルトではBeagleboneはrootとしてNode-REDを起動するように設定されています。
+そして設定ファイルは`/root/.node-red`ディレクトリに位置し、これらを編集するにはroot権限（sudo）が必要です。
+例えば`settings.js`ファイルを編集するには、ここで設定をおこないます。
+
+また、Beagleboneはsystemdサービス、`/lib/systemd/system/node-red.socket`を持っており、接続しようとしたときに自動的にNode-REDを起動します。
+デフォルトではこれはポート番号1880です。 - しかし、これを変更する必要がある場合、
+`settings.js`を同様に変更する必要があります。
+
+---
+
+### マニュアルインストール
 
 <div class="doc-callout">
-This section is deprecated in favour of using the images with Node-RED built in. See above.
+このセクションはNode-REDを組み込まれたイメージを利用することによって非推奨となりました。上述の項目を参照してください。
 </div>
 
-#### Before you start
+#### 起動する前に
 
-If you are using the 2GB eMMC version of Debian it has been stripped right down so you may need to install some
-utility functions first
+Debianの2GB eMMCバージョンを利用している場合、
+これはすぐに削除されているため、まずユーティリティ関数をインストールする必要があるかもしれません。
 
     sudo apt-get update
     sudo apt-get install -y curl locales ntpdate avahi-utils python build-essential
 
-Make sure the local time is set correctly. The Beaglebone Black does not have a
-battery backed real time clock so needs to be set on every boot in order for
-software certificates date checks to be valid.
+ローカルタイムが正しく設定されていることを確認してください。
+Beaglebone Blackにはバッテリーでバックアップされたリアルタイム・クロックが存在しないため、
+ソフトウェア証明書の日付確認を有効にするために起動するたびに設定する必要があります。
 
     ntpdate -b -s -u pool.ntp.org
 
-#### Updating Node.js
+#### Node.jsをアップグレードする
 
-We recommend using Node.js LTS 8.x or 10.x
+Node.js LTS 8.xまたは10.xを利用することを推奨します。
 
     sudo apt-get install curl
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install -y build-essential nodejs
     hash -r
 
-#### Installing Node-RED
+#### Node-REDをインストールする
 
-The easiest way to install Node-RED is to use node's package manager, npm:
+Node-REDをインストールする最も簡単な方法はnode's package manager、npmを利用することです。:
 
     sudo npm i -g --unsafe-perm node-red
 
-_Note_: the reason for using the `--unsafe-perm` option is that when node-gyp tries
-to recompile any native libraries it tries to do so as a "nobody" user and often
-fails to get access to certain directories. This causes alarming warnings that look
-like errors... but only sometimes are errors. Allowing node-gyp to run as root using
-this flag avoids this - or rather, shows up any real errors instead.
+_Note_: `--unsafe-perm`オプションを利用する理由は、node-gypがネイティブライブラリを再コンパイルする際に、
+「nobody」ユーザとして実行しようとし、特定のディレクトリへのアクセスに失敗することが多いためです。
+これはエラーのように見える警告を発生させますが、エラーであるのはときどきです。
+このフラグを利用してrootとして実行することをnode-gypに許可することで、
+この状況を回避し、代わりに本当のエラーを表示させます。
 
-For other install options, e.g. to run in development mode from GitHub, see the [main installation instructions](../getting-started/installation#install-node-red).
+他のインストール方法、例えばGitHubから開発版を実行するには、[インストール手順](../getting-started/installation#install-node-red)を参照してください。
 
-#### Beaglebone specific nodes
+#### Beaglebone固有のノード
 
-There are some Beaglebone specific nodes that give you direct access to the I/O pins in the simplest possible manner.
-The easiest way to install them is direct from npm.
+最も簡潔な方法でI / Oピンに直接アクセスできるようにするBeaglebone固有のノードがいくつかあります。
+それらをインストールする最も簡単な方法はnpmから直接おこなうことです。
 
-To install manually run the following command:
+以下のコマンドを手動で実行してインストールします。:
 
     sudo npm install -g --unsafe-perm beaglebone-io johnny-five node-red-contrib-gpio
 
-*Note*: There is also a set of BBB specific nodes that can be used. However they are built on a no longer supported
-library (octalbonescript), and so are not recommended for future use, but are noted for having some extra capabilities
-beyond the generic gpio nodes.
+*Note*: BBB固有ノードセットも利用できます。
+しかし、これらは既にサポートされていないライブラリ（octalbonescript）であり、将来的に利用することは推奨できませんが、
+一般的なGPIOノード以上の追加機能を持っているために注目に値します。
 
     sudo npm install -g --unsafe-perm node-red-node-beaglebone
 
-### Starting Node-RED
+### Node-REDを起動する
 
-Due to the constrained memory available on the Beaglebone boards, it is advisable to
-run Node-RED with the command:
+Beaglebone基板では限られたメモリしか利用できないため、
+Node-REDを以下のコマンドで起動することが望ましいです。
 
     node-red-pi
 
-#### Auto-starting
+#### 自動起動
 
-The simplest way to auto-start Node-RED on boot is to use the built in systemd.
-To do this create a file `/lib/systemd/system/nodered.service` containing the following
+起動時にNode-REDを自動起動する最も簡単な方法は、ビルトインsystemdを利用することです。
+これをおこなうには、以下の内容を含む`/lib/systemd/system/nodered.service`ファイルを作成します。
 
     # systemd service file to start Node-RED
     [Unit]
@@ -154,16 +154,16 @@ To do this create a file `/lib/systemd/system/nodered.service` containing the fo
     [Install]
     WantedBy=multi-user.target
 
-Reload the systemd configuration, and enable the service
+systemd設定をリロードし、サービスを有効にします。
 
     sudo systemctl daemon-reload
     sudo systemctl enable nodered.service
 
-Systemd uses the `/var/log/system.log` for logging.  To filter the log use
+systemdはログのために`/var/log/system.log`を利用します。このログをフィルタリングするためには、以下を利用します。
 
     sudo journalctl -f -u nodered -o cat
 
-### Using the Editor
+### エディタを利用する
 
-Once Node-RED is started, assuming you haven't changed the hostname, point a
-browser to [http://beaglebone.local:1880](http://beaglebone.local:1880).
+Node-REDを起動したら、ホスト名を変更していないと仮定して、
+ブラウザで[http://beaglebone.local:1880](http://beaglebone.local:1880)を表示してください。
