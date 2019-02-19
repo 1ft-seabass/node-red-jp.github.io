@@ -4,9 +4,8 @@ toc: api-toc.html
 title: Runtime API
 ---
 
-This API can be used when embedding Node-RED into another application.
+このAPIはNode-REDを他のアプリケーションに埋め込む際に使用できます。
 
 ### Getting Started
 
-Node-RED can be loaded into another node.js application using the standard
-`require` module loader.
+Node-REDは標準の `require` モジュールローダーを使用して、他のNode.jsアプリケーションにロードすることができます。
