@@ -390,9 +390,9 @@ var filteredCount = $("ol.list").editableList('filter',function(data) {
 
 #### <a href="#methods-show" name="methods-show">show( item )</a>
 
-*Since 0.20.0*
+*0.20.0から*
 
-Scrolls the list to ensure the specific item is in view.
+特定の項目が表示されるようにするため、リストをスクロールします。
 
 ```javascript
 $("ol.list").editableList('show', item);
