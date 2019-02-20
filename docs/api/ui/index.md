@@ -11,5 +11,5 @@ title: エディタUIウィジェット
     Node-REDのコアノード全般で利用されています。
   - [`EditableList`](editableList) - 要素それ自体が複雑なフォームになる編集可能なリスト。
     `Switch`および`Change`というコアノードで利用されています。
-  - [`SearchBox`](searchBox) - an enhanced `<input>` for common usage around Search UX.
-  - [`TreeList`](treeList) - a list to display tree-structured data.
+  - [`SearchBox`](searchBox) - 検索UXに関する一般的な利用のために拡張された`<input>`です。
+  - [`TreeList`](treeList) - ツリー構造のデータを表示するためのリストです。
