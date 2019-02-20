@@ -77,7 +77,7 @@ $(".input").typedInput({
 `bin` | Node.js Buffer
 `re` | 正規表現
 `date` | 現在のタイムスタンプ
-`env` | an environment variable
+`env` | 環境変数
 
 ```javascript
 $(".input").typedInput({
