@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: docs
+toc: user-guide-toc.html
 title: Functionノードの書き方
 ---
 
@@ -179,7 +180,6 @@ Functionノードの場合、
 
 <div class="doc-callout"><em>Note</em> : これらの定義済み変数はFunctionノードの特徴です。
 ノードを自作する場合は、contextへのアクセス方法は<a href="/docs/creating-nodes/context">ノード作成ガイド</a>を参照してください。</div>
-
 
 コンテキストへのアクセスには、同期または非同期の2種類のモードがあります。
 既存のコンテキストストアは両方のモードを提供しています。いくつかのストアは非同期アクセスのみ提供しており、
