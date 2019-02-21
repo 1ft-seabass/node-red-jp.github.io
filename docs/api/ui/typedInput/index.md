@@ -7,8 +7,6 @@ title: TypedInputウィジェット
 標準的な`<input>`を文字列型、数値型、boolean型から
 選んだ型の値のフィールドに置換します。
 
-_0.14版から導入_
-
 <div class="widget">
     <div class="col-4-12">
         <h3>オプション</h3>
@@ -43,7 +41,6 @@ _0.14版から導入_
 
 ### オプション
 
-
 #### <a href="#options-default" name="options-default">default</a>
 
 <span class="method-return">型: String</span>
@@ -51,9 +48,11 @@ _0.14版から導入_
 この値が定義されている場合、
 [`typeField`](#options-typeField)が定義されていなければデフォルトのinputフィールドの型を設定します。
 
-    $(".input").typedInput({
-        default: "msg"
-    });
+```javascript
+$(".input").typedInput({
+    default: "msg"
+});
+```
 
 #### <a href="#options-types" name="options-types">types</a>
 
@@ -78,11 +77,13 @@ _0.14版から導入_
 `bin` | Node.js Buffer
 `re` | 正規表現
 `date` | 現在のタイムスタンプ
+`env` | 環境変数
 
-    $(".input").typedInput({
-        types: ["msg","str"]
-    });
-
+```javascript
+$(".input").typedInput({
+    types: ["msg","str"]
+});
+```
 
 #### <a href="#options-typeField" name="options-typeField">typeField</a>
 
@@ -93,10 +94,11 @@ _0.14版から導入_
 typedInputの型が変更されたとき、
 inputの型も変更されます。
 
-    $(".input").typedInput({
-        typeField: ".my-type-field"
-    });
-
+```javascript
+$(".input").typedInput({
+    typeField: ".my-type-field"
+});
+```
 
 ### メソッド
 
@@ -108,20 +110,25 @@ inputの型も変更されます。
 
 選択しているtypedInputの型を取得します。
 
-    var type = $(".input").typedInput('type');
-
+```javascript
+var type = $(".input").typedInput('type');
+```
 
 #### <a href="#methods-type-set" name="methods-type-set">type( type )</a>
 
 選択しているtypedInputの型を設定します。
 
-    $(".input").typedInput('type','msg');
+```javascript
+$(".input").typedInput('type','msg');
+```
 
 #### <a href="#methods-types" name="methods-types">types( types )</a>
 
 typedInputが提供する型の一覧を設定します。詳細は[`types` option](#options-types)を参照してください。
 
-    $(".input").typedInput('types',['str','num']);
+```javascript
+$(".input").typedInput('types',['str','num']);
+```
 
 #### <a href="#methods-validate" name="methods-validate">validate()</a>
 
@@ -130,7 +137,9 @@ typedInputが提供する型の一覧を設定します。詳細は[`types` opti
 typedInputの型/値の再検証をおこなわせます。
 再検証は型または値が変更されたときに自動的に実行されますが、このメソッドによって手動で実行することができます。
 
-    var isValid = $(".input").typedInput('validate');
+```javascript
+var isValid = $(".input").typedInput('validate');
+```
 
 <a name="methods-value"></a>
 
@@ -140,21 +149,26 @@ typedInputの型/値の再検証をおこなわせます。
 
 typedInputの値を取得します。
 
-    var value = $(".input").typedInput('value');
+```javascript
+var value = $(".input").typedInput('value');
+```
 
 #### <a href="#methods-value-set" name="methods-value-set">value( value )</a>
 
 typedInputの値を設定します。
 
-    $(".input").typedInput('value','payload');
+```javascript
+$(".input").typedInput('value','payload');
+```
 
 #### <a href="#methods-width" name="methods-width">width( width )</a>
 
 typedInputのwidthを設定します。
 要素のリサイズが適切にするため、標準的な`jQuery.width()`の代わりにこのメソッドを利用してください。
 
-    $(".input").typedInput('width', '200px');
-
+```javascript
+$(".input").typedInput('width', '200px');
+```
 
 ### イベント
 
@@ -162,7 +176,9 @@ typedInputのwidthを設定します。
 
 inputの型または値が変更されたとき、トリガーされます。
 
-    $(".input").on('change', function(type, value) {} );
+```javascript
+$(".input").on('change', function(type, value) {} );
+```
 
 ### 型
 
@@ -186,29 +202,35 @@ typedInput要素で提供される型を記述します。
 
 数値型:
 
-    {
-        value:"num",
-        label:"number",
-        icon:"red/images/typedInput/09.png",
-        validate:/^[+-]?[0-9]*\.?[0-9]*([eE][-+]?[0-9]+)?$/
-    }
+```javascript
+{
+    value:"num",
+    label:"number",
+    icon:"red/images/typedInput/09.png",
+    validate:/^[+-]?[0-9]*\.?[0-9]*([eE][-+]?[0-9]+)?$/
+}
+```
 
 Boolean型:
 
-    {
-        value:"bool",
-        label:"boolean",
-        icon:"red/images/typedInput/bool.png",
-        options:["true","false"]
-    }
+```javascript
+{
+    value:"bool",
+    label:"boolean",
+    icon:"red/images/typedInput/bool.png",
+    options:["true","false"]
+}
+```
 
 タイムスタンプ型:
 
-    {
-        value:"date",
-        label:"timestamp",
-        hasValue:false
-    }
+```javascript
+{
+    value:"date",
+    label:"timestamp",
+    hasValue:false
+}
+```
 
 
 <style>

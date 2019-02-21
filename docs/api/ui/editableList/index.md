@@ -39,13 +39,14 @@ title: EditableListウィジェット
             <tr><td><a href="#methods-items">items</a></td></tr>
             <tr><td><a href="#methods-empty">empty</a></td></tr>
             <tr><td><a href="#methods-filter">filter</a></td></tr>
+            <tr><td><a href="#methods-show">show</a></td></tr>
             <tr><td><a href="#methods-sort">sort</a></td></tr>
             <tr><td><a href="#methods-length">length</a></td></tr>
         </table>
     </div>
     <div class="col-4-12">
-    <h3>イベント</h3>
-    <h3>型</h3>
+        <h3>イベント</h3>
+        <h3>型</h3>
     </div>
 </div>
 
@@ -65,9 +66,11 @@ title: EditableListウィジェット
 
 空白以外の文字列が設定された場合、その値がテキストとして利用されたボタンが表示されます。
 
-    $("ol.list").editableList({
-        addButton: "pets"
-    });
+```javascript
+$("ol.list").editableList({
+    addButton: "pets"
+});
+```
 
 #### <a href="#options-addItem" name="options-addItem">addItem( row, index, data )</a>
 
@@ -82,11 +85,13 @@ title: EditableListウィジェット
 「追加ボタン」のクリックをトリガーとして、`data`は`{}`になります。
 言い換えれば、dataは[`addItem`](#methods-addItem)メソッドの引数として渡されるデータです。
 
-    $("ol.list").editableList({
-        addItem: function(row, index, data) {
-            $(row).html("Item "+index);
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    addItem: function(row, index, data) {
+        $(row).html("Item "+index);
+    }
+});
+```
 
 #### <a href="#options-connectWith" name="options-connectWith">connectWith</a>
 
@@ -95,9 +100,11 @@ title: EditableListウィジェット
 リストが[ソート可能](#options-sortable)である場合、
 このオプションはこのリストから他のjQueryの`sortable`なリスト、つまり他の`editableList`に項目をドラッグして移動できるようにします。
 
-    $("ol.list").editableList({
-        connectWith: ".my-other-list"
-    });
+```javascript
+$("ol.list").editableList({
+    connectWith: ".my-other-list"
+});
+```
 
 #### <a href="#options-header" name="options-header">header</a>
 
@@ -105,9 +112,11 @@ title: EditableListウィジェット
 
 リストのヘッダとしてDOM/jQueryオブジェクトに追加します。
 
-    $("ol.list").editableList({
-        header: $("<div>").append($.parseHTML("<div style='width:40%; display: inline-grid'>Name</div><div style='display: inline-grid'>Type</div>")),
-    });
+```javascript
+$("ol.list").editableList({
+    header: $("<div>").append($.parseHTML("<div style='width:40%; display: inline-grid'>Name</div><div style='display: inline-grid'>Type</div>")),
+});
+```
 
 #### <a href="#options-height" name="options-height">height</a>
 
@@ -115,9 +124,11 @@ title: EditableListウィジェット
 
 可能であれば、追加ボタンを含めたリストの高さを設定します。heightに「auto」を設定すると、垂直方向のスクロールバーを除去し、コンテンツを収容するために必要な全高でリストを表示します。
 
-    $("ol.list").editableList({
-        height: 300
-    });
+```javascript
+$("ol.list").editableList({
+    height: 300
+});
+```
 
 #### <a href="#options-filter" name="options-filter">filter( data )</a>
 
@@ -130,11 +141,13 @@ title: EditableListウィジェット
 項目が表示されるべきか否かを示すため、
 この関数は`true`/`false`（boolean）を返却しなくてはいけません。
 
-    $("ol.list").editableList({
-        filter: function(data) {
-            return data.index%2 === 0
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    filter: function(data) {
+        return data.index%2 === 0
+    }
+});
+```
 
 
 #### <a href="#options-resize" name="options-resize">resize()</a>
@@ -143,11 +156,13 @@ title: EditableListウィジェット
 
 リストのサイズが変更されたときに呼び出される関数です。
 
-    $("ol.list").editableList({
-        resize: function() {
-            console.log("I have changed in size")
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    resize: function() {
+        console.log("I have changed in size")
+    }
+});
+```
 
 #### <a href="#options-resizeItem" name="options-resizeItem">resizeItem( row, index )</a>
 
@@ -163,12 +178,14 @@ title: EditableListウィジェット
 
 このコールバック関数は、メインである[`resize`](#options-resize)コールバック関数が呼び出された後に呼び出されます。
 
-    $("ol.list").editableList({
-        resizeItem: function(row,index) {
-            var originalData = $(row).data('data');
-            consol.log("Resize the row for item:", originalData)
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    resizeItem: function(row,index) {
+        var originalData = $(row).data('data');
+        consol.log("Resize the row for item:", originalData)
+    }
+});
+```
 
 #### <a href="#options-scrollOnAdd" name="options-scrollOnAdd">scrollOnAdd</a>
 
@@ -182,10 +199,11 @@ title: EditableListウィジェット
 
 `false`（boolean）が設定された場合、リストはスクロールされません。
 
-
-    $("ol.list").editableList({
-        scrollOnAdd: false
-    });
+```javascript
+$("ol.list").editableList({
+    scrollOnAdd: false
+});
+```
 
 #### <a href="#options-sort" name="options-sort">sort( itemDataA, itemDataB )</a>
 
@@ -203,11 +221,13 @@ title: EditableListウィジェット
 
 この関数が0より大きい値を返した場合、`itemDataA`は`itemDataB`の後になります。
 
-    $("ol.list").editableList({
-        sort: function(dataA, dataB) {
-            return dataA.index-dataB.index;
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    sort: function(dataA, dataB) {
+        return dataA.index-dataB.index;
+    }
+});
+```
 
 #### <a href="#options-sortable" name="options-sortable">sortable</a>
 
@@ -220,9 +240,11 @@ title: EditableListウィジェット
 CSSセレクタが設定された場合、
 そのセレクタは項目のコンテンツ要素内のドラッグハンドルとして使われる要素を特定するために利用されます。
 
-    $("ol.list").editableList({
-        sortable: true
-    });
+```javascript
+$("ol.list").editableList({
+    sortable: true
+});
+```
 
 #### <a href="#options-sortItems" name="options-sortItems">sortItems( items )</a>
 
@@ -234,11 +256,13 @@ CSSセレクタが設定された場合、
 
 各行の要素は、項目の元のデータを`data`プロパティに保管しています。
 
-    $("ol.list").editableList({
-        sortItems: function(items) {
-            console.log("The items have changed order")
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    sortItems: function(items) {
+        console.log("The items have changed order")
+    }
+});
+```
 
 
 #### <a href="#options-removable" name="options-removable">removable</a>
@@ -249,9 +273,11 @@ CSSセレクタが設定された場合、
 このボタンをクリックするとリストから行が削除され、
 もし設定されていれば[`removeItem`](#options-removeItem)コールバック関数を呼び出します。
 
-    $("ol.list").editableList({
-        removable: true
-    });
+```javascript
+$("ol.list").editableList({
+    removable: true
+});
+```
 
 #### <a href="#options-removeItem" name="options-removeItem">removeItem( data )</a>
 
@@ -265,11 +291,13 @@ CSSセレクタが設定された場合、
 または[`removeItem`](#methods-removeItem)メソッドが呼び出されたときに実施されます。
 
 
-    $("ol.list").editableList({
-        removeItem: function(data) {
-            console.log("An item has been removed")
-        }
-    });
+```javascript
+$("ol.list").editableList({
+    removeItem: function(data) {
+        console.log("An item has been removed")
+    }
+});
+```
 
 
 ### メソッド
@@ -279,38 +307,45 @@ CSSセレクタが設定された場合、
 リストの最後尾に項目を追加します。
 `itemData`はリストの項目になるオブジェクトです。
 
-    $("ol.list").editableList('addItem',{fruit:"banana"});
+```javascript
+$("ol.list").editableList('addItem',{fruit:"banana"});
+```
 
 #### <a href="#methods-addItems" name="methods-addItems">addItems( itemData )</a>
 
 配列に含まれている項目をリストの最後尾に追加します。
 `itemData`はリストの項目になるオブジェクトの配列です。
 
-    $("ol.list").editableList('addItem',[{fruit:"banana"},{fruit:"apple"},{fruit:"pear"}]);
-
+```javascript
+$("ol.list").editableList('addItem',[{fruit:"banana"},{fruit:"apple"},{fruit:"pear"}]);
+```
 
 #### <a href="#methods-removeItem" name="methods-removeItem">removeItem( itemData )</a>
 
 リストから項目を削除します。
 `itemData`は削除する項目を特定するオブジェクトです。
 
-    $("ol.list").editableList('removeItem',{fruit:"banana"});
+```javascript
+$("ol.list").editableList('removeItem',{fruit:"banana"});
+```
 
 #### <a href="#methods-width" name="methods-width">width( width )</a>
 
 editableListの幅を設定します。
 コンポーネントのリサイズが適切に実施されるようにするため、一般的な`jQuery.width()`関数の代わりにこの関数を使用する必要があります。
 
-    $("ol.input").editableList('width', '200px');
-
+```javascript
+$("ol.input").editableList('width', '200px');
+```
 
 #### <a href="#methods-height" name="methods-height">height( height )</a>
 
 editableListの高さを設定します。
 コンポーネントのりサイズが適切におこなわれるため、一般的な`jQuery.height()`関数の代わりにこの関数を使用する必要があります。
 
-    $("ol.input").editableList('height', '200px');
-
+```javascript
+$("ol.input").editableList('height', '200px');
+```
 
 #### <a href="#methods-items" name="methods-items">items()</a>
 
@@ -320,13 +355,17 @@ editableListの高さを設定します。
 
 各要素は、項目の元のデータを`data`プロパティに保管しています。
 
-    var items = $("ol.list").editableList('items');
+```javascript
+var items = $("ol.list").editableList('items');
+```
 
 #### <a href="#methods-empty" name="methods-empty">empty()</a>
 
 リストの全項目を削除します。この関数は他のコールバック関数を呼び出しません。
 
-    $("ol.list").editableList('empty');
+```javascript
+$("ol.list").editableList('empty');
+```
 
 #### <a href="#methods-filter" name="methods-filter">filter( filter )</a>
 
@@ -343,9 +382,21 @@ editableListの高さを設定します。
 
 `filter`が`null`の場合、フィルターは削除されます。
 
-    var filteredCount = $("ol.list").editableList('filter',function(data) {
-        return data.index%2 === 0
-    });
+```javascript
+var filteredCount = $("ol.list").editableList('filter',function(data) {
+    return data.index%2 === 0
+});
+```
+
+#### <a href="#methods-show" name="methods-show">show( item )</a>
+
+*0.20.0から*
+
+特定の項目が表示されるようにするため、リストをスクロールします。
+
+```javascript
+$("ol.list").editableList('show', item);
+```
 
 #### <a href="#methods-sort" name="methods-sort">sort( sort )</a>
 
@@ -363,9 +414,11 @@ sortは2つの項目を比較し、
 `sort`が設定されていない場合、
 リストは現在利用可能なソート関数によって並び替えられます。
 
-    $("ol.list").editableList('sort', function(dataA, dataB) {
-        return dataA.index-dataB.index;
-    });
+```javascript
+$("ol.list").editableList('sort', function(dataA, dataB) {
+    return dataA.index-dataB.index;
+});
+```
 
 #### <a href="#methods-length" name="methods-length">length()</a>
 
@@ -373,7 +426,9 @@ sortは2つの項目を比較し、
 
 リストの項目数を取得します。
 
-    var length = $("ol.list").editableList('length');
+```javascript
+var length = $("ol.list").editableList('length');
+```
 
 <style>
 
