@@ -7,8 +7,8 @@ title: コンテキストを利用する
  - [コンテキストとは](#コンテキストとは)
  - [コンテキストスコープ](#コンテキストスコープ)
  - [コンテキストに保管する](#コンテキストに保管する)
-   - [Saving context data to the file-system](#saving-context-data-to-the-file-system)
-   - [Using multiple context stores](#using-multiple-context-stores)
+   - [ファイルシステムにコンテキストデータを保存する](#ファイルシステムにコンテキストデータを保存する)
+   - [複数のコンテキストストアを利用する](#複数のコンテキストストアを利用する)
  - [フローでコンテキストを利用する](#フローでコンテキストを利用する)
  - [Functionノードでコンテキストを利用する](#functionノードでコンテキストを利用する)
  - [カスタムノードでコンテキストを利用する](#カスタムノードでコンテキストを利用する)
@@ -40,10 +40,10 @@ Node-REDは、フローで受け渡すメッセージを利用せずに異なる
 設定ファイルの`functionGlobalContext`プロパティを利用することで、
 グローバルコンテキストに事前に値を設定することができます。
 
-<div class="doc-callout"><em>Note</em> : for nodes in a subflow, the <code>flow</code>
-context is shared by those nodes and not the flow the subflow is on.
-From Node-RED 0.20, the nodes inside a subflow can access the context of the
-parent flow by prepending <code>$parent.</code> to the context key. For example:
+<div class="doc-callout"><em>Note</em> : サブフロー内のノードでは、<code>flow</code>コンテキストはこれらのノードで共有されますが、サブフローが存在するフローとは共有されません。
+Node-RED 0.20版から、サブフロー内のノードはコンテキストキーの先頭に<code>$parent.</code>をつけることで、
+親フローのコンテキストにアクセスすることができます。
+例えば:
 <pre>var colour = flow.get("$parent.colour");</pre></div>
 
 
@@ -56,12 +56,12 @@ parent flow by prepending <code>$parent.</code> to the context key. For example:
 `setting.js`の`contextStorage`プロパティは、
 コンテキストデータがどのように保管されるかを設定するために利用できます。
 
-Node-RED provides two built-in modules for this: `memory` and `localfilesystem`.
-It is also possible to create custom store plugins to save the data elsewhere.
+これについて、Node-REDは2つのビルトインモジュールを提供します。: `memory` and `localfilesystem`
+他の場所にデータを保存するためのカスタムストアプラグインを作成することも可能です。
 
-#### Saving context data to the file-system
+#### ファイルシステムにコンテキストデータを保存する
 
-To enable file-based storage, the following option can be used:
+ファイルベースのストレージを使用できるようにするには、以下のオプションを利用することtができます。:
 
 ```javascript
 contextStorage: {
@@ -71,24 +71,24 @@ contextStorage: {
 }
 ```
 
-This sets the default context store to be an instance of the `localfilesystem`
-plugin, with all of its default settings. That means:
+これによって、デフォルトのコンテキストストアが`localfilesystem`プラグインのインスタンスになり、すべての設定がデフォルトに設定されます。
+つまり、:
 
- - it will store the context data in files under `~/.node-red/context/`
- - it caches the values in memory and only writes them out to the file-system
-   every 30 seconds.
+ - `~/.node-red/context/`下のファイルにコンテキストデータを保管します。
+ - 値をメモリにキャッシュし、
+   30秒ごとにファイルシステムに値を書き出すだけです。
 
-<div class="doc-callout"><em>Note</em> : Depending on when you installed Node-RED,
-your <code>settings.js</code> file may not have an example entry for <code>contextStorage</code>.
-If that is the case, you can copy the example above and add it yourself.</div>
+<div class="doc-callout"><em>Note</em> : Node-REDをインストールした時期によっては、
+<code>settings.js</code>ファイルが<code>contextStorage</code>へのエントリ例がないかもしれません。
+この場合、上述の例をコピーして自身のファイルに追加してください。
 
-#### Using multiple context stores
+#### 複数のコンテキストストアを利用する
 
-It is possible to configure more than one store so that some values are saved to
-the local file-system and some are only held in memory.
+1つ以上のストアを設定することができ、
+ある値はローカルファイルシステムに保存し、ある値はメモリに保存するだけとすることができます。
 
-For example, to configure the default store to be in-memory only, and a second
-store for the file-system, the following options can be used:
+例えば、デフォルトのストアは内蔵メモリのみに、2つめのストアはファイルシステムに設定するには、
+以下のオプションを利用することができます。:
 
 ```javascript
 contextStorage: {
@@ -98,16 +98,16 @@ contextStorage: {
 }
 ```
 
-In this example, the `default` property tells Node-RED which store to use if a
-request to access context doesn't specify a store.
+この例において`default`プロパティは、
+コンテキストにアクセスするリクエストがストアを指定しなかった場合にNode-REDがどのストアを利用するかを伝えています。
 
-<div class="doc-callout"><em>Note</em> : if you choose to configure multiple
-<code>localfilesystem</code> stores, you <em>must</em> set their <code>dir</code>
-option so they use different directories to store data. Details on how to configure
-the store is available <a href="/docs/api/context/store/localfilesystem#options">here</a></div>
+<div class="doc-callout"><em>Note</em> : 複数の<code>localfilesystem</code>ストアを設定することを選んだ場合、
+データを保管する異なるディレクトリを使用するため、
+それらの<code>dir</code>オプションを設定<em>しなくてはなりません</em>。
+ストアの設定方法の詳細は<a href="/docs/api/context/store/localfilesystem#options">こちら</a>で確認することができます。</div>
 
-Full details on the built-in modules, what configuration options they provide and
-how to create custom modules, are available on the [api pages](../api/context/).
+どのような設定オプションが提供され、どのようにカスタムモジュールを作成するのかといったビルトインモジュールについてのすべての情報は、
+[APIのページ](../api/context/)で確認することができます。
 
 ### フローでコンテキストを利用する
 
@@ -121,8 +121,8 @@ how to create custom modules, are available on the [api pages](../api/context/).
 例えば、Injectノードはコンテキスト値を注入するように設定することができ、
 Switchノードはコンテキストに保管された値をもとにメッセージをルーティングすることができます。
 
-If you have multiple context stores configured, the UI will allow you to pick
-which store a value should be stored in.
+複数のコンテキストストアを設定した場合、
+UIは値を保管するストアを選択できるようにします。
 
 <div style="text-align: center"><img src="/docs/user-guide/images/context_change_multiple_stores.png" width="471px"></div>
 
