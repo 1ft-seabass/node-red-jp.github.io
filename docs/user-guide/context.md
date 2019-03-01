@@ -80,7 +80,7 @@ contextStorage: {
 
 <div class="doc-callout"><em>Note</em> : Node-REDをインストールした時期によっては、
 <code>settings.js</code>ファイルが<code>contextStorage</code>へのエントリ例がないかもしれません。
-この場合、上述の例をコピーして自身のファイルに追加してください。
+この場合、上述の例をコピーして自身のファイルに追加してください。</div>
 
 #### 複数のコンテキストストアを利用する
 

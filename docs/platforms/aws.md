@@ -7,8 +7,8 @@ title: Amazon Web Servicesで実行する
 
 以下の2つの方法があります。
 
-1. [AWS Elastic Beanstalk Service (EBS)で実行](#running-on-aws-ebs)
-2. [AWS EC2のUbuntuイメージ環境で実行](#running-on-aws-ec2-with-ubuntu)
+1. [AWS Elastic Beanstalk Service (EBS)で実行](#aws-ebsで実行)
+2. [AWS EC2のUbuntuイメージ環境で実行](#aws-ec2のubuntuイメージ環境で実行)
 
 ## AWS EBSで実行
 
