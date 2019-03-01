@@ -10,16 +10,16 @@ title: セキュリティ
 このセクションでは、Node-REDをセキュアにする方法を記載しています。
 セキュリティは2つのパートに分けられます。
 
-- [エディタおよび管理API](#editor--admin-api-security)
-  - [ユーザ名/パスワードによる認証](#usernamepassword-based-authentication)
-    - [パスワードのハッシュ値生成](#generating-the-password-hash)
-  - [OAuth/OpenIDによる認証](#oauthopenid-based-authentication)
-  - [デフォルトユーザの設定](#setting-a-default-user)
-  - [ユーザ権限](#user-permissions)
-  - [トークン有効期限](#token-expiration)
-  - [Admin APIへのアクセス](#accessing-the-admin-api)
-  - [カスタムユーザ認証](#custom-user-authentication)
-- [HTTP Node、Dashboardおよび静的コンテンツ](#http-node-security)
+- [エディタおよび管理API](#エディタおよび管理apiセキュリティ)
+  - [ユーザ名/パスワードによる認証](#ユーザ名パスワードによる認証)
+    - [パスワードのハッシュ値生成](#パスワードのハッシュ値生成)
+  - [OAuth/OpenIDによる認証](#oauthopenidによる認証)
+  - [デフォルトユーザの設定](#デフォルトユーザの設定)
+  - [ユーザ権限](#ユーザ権限)
+  - [トークン有効期限](#トークン有効期限)
+  - [Admin APIへのアクセス](#admin-apiへのアクセス)
+  - [カスタムユーザ認証](#カスタムユーザ認証)
+- [HTTP Node、Dashboardおよび静的コンテンツ](#http-nodeのセキュリティ)
 
 ### エディタおよび管理APIセキュリティ
 

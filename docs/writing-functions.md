@@ -13,21 +13,21 @@ Functionノードは、受け取ったメッセージに対してJavaScriptコ�
 独自のプロパティをメッセージに追加することも可能ですが、
 そのことをドキュメントに記載するべきです。
 
- - [Functionの作成](#writing-a-function)
- - [複数の出力に送る](#multiple-outputs)
- - [複数のメッセージを送る](#multiple-messages)
- - [メッセージの非同期送信](#sending-messages-asynchronously)
- - [イベントのログ](#logging-events)
- - [エラーの処理](#handling-errors)
- - [データの保存(context)](#storing-data)
-    - [複数の値の取得/設定](#getset-multiple-values)
-    - [コンテキストへの非同期なアクセス](#asynchronous-context-access)
-    - [複数のコンテキストストア](#multiple-context-stores)
-    - [globalコンテキスト](#global-context)
- - [ステータスの追加](#adding-status)
- - [追加モジュール読み込み](#loading-additional-modules)
- - [APIリファレンス](#api-reference)
-    - [その他のモジュールと関数](#other-modules-and-functions)
+ - [Functionの作成](#functionの作成)
+ - [複数の出力に送る](#複数の出力に送る)
+ - [複数のメッセージを送る](#複数のメッセージを送る)
+ - [メッセージの非同期送信](#メッセージの非同期送信)
+ - [イベントのログ](#イベントのログ)
+ - [エラーの処理](#エラーの処理)
+ - [データの保存(context)](#データの保存)
+    - [複数の値の取得/設定](#複数の値の取得設定)
+    - [コンテキストへの非同期なアクセス](#コンテキストへの非同期なアクセス)
+    - [複数のコンテキストストア](#複数のコンテキストストア)
+    - [globalコンテキスト](#globalコンテキスト)
+ - [ステータスの追加](#ステータスの追加)
+ - [追加モジュールのロード](#追加モジュールのロード)
+ - [APIリファレンス](#apiリファレンス)
+    - [その他のモジュールと関数](#その他のモジュールと関数)
 
 ### Functionの作成
 
