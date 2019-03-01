@@ -15,40 +15,40 @@ Slackチームでのディスカッションも同様に妥当です。これら
 コミュニティでのディスカッションで結論が出た時点で、
 リクエストは撤回されるか次の段階に進みます。
 
-デザインまたはコードのコントリビュータの立場ではないコミュニティメンバからの機能要求については、
+デザインまたはコードのコントリビュータの立場ではないコミュニティメンバからの機能要求は、
 コミッタによって
 [Trello Whiteboard](https://trello.com/b/R0O3CSrI/node-red-whiteboard)に追加されます。
-このホワイトボードは
+このホワイトボードは、
 作業の優先順位付けの際に技術委員会が汲み上げる可能性のある機能のバックログとして機能しています。
 
-If an item has a Contributor to do the work, the next step will depend on the nature
-of the change.
+アイテムに作業を担当するコントリビュータがいる場合、
+次のステップは変更の質に依ります。
 
-If it is a well-defined feature that has limited impact - such as adding a new
-option to an existing node - an issue should be raised in the appropriate
-repository with the `feature` label applied. The issue should provide a
-description of the feature and any key design points that are needed.
-This issue can then be used to help refine the proposal. The issue should
-clearly identify who is working on it - this is to avoid accidental duplication
-of work and ensure there is a focal point for the work.
+既存のノードに新しいオプションを追加するなどのように、
+影響が限定的で明確に定義されている機能である場合には、
+適切なリポジトリに`feature`ラベルがつけられたissueが挙げられる必要があります。
+issueには機能の詳細と必要なキーデザインポイントが書かれていなければなりません。
+このissueは提案を洗練することにも利用されます。 
+issueは現在誰が取り組んでいるかを明確に特定できるようにする必要があります。
+これは作業の偶発的な重複を避け、作業への集中を保証するためです。
 
-If it is a larger scoped feature that may require multiple pull-requests to
-implement, or has a great impact to the end user, a design note should be
-created in the [node-red/designs](https://github.com/node-red/designs) repo.
+実装するために複数のプルリクエストを必要とする、またはエンドユーザに与える影響が大きいような、
+より広いスコープの機能である場合、
+[node-red/designs](https://github.com/node-red/designs)リポジトリにデザインノードを作成する必要があります。
 
-Once the design has been approved and moved to the `in-progress` state, an issue
-should be raised in the appropriate repository with the `feature` label applied.
-If the design identifies multiple stages of delivery for the feature, an issue
-should be raised for each stage as needed. The issues should reference the design
-note. Each issue should have a milestone set if it is planned for a particular release.
+デザインが承認され、`in-progress`状態に移行すると、
+適切なリポジトリに`feature`ラベルがつけられたissueを挙げる必要があります。
+デザインが機能についての提供段階を決めている場合、必要に応じて各段階ごとにissueを挙げるべきです。
+issueはデザインノートを参照する必要があります。
+特定のリリースを予定している場合は、それぞれのissueにマイルストーンを設定する必要があります。
 
-At some point a pull request will arrive. This will go through the normal review
-processes. The Committer community have a responsibility to review the PR in a
-timely manner. For any significant changes, the PR should be allowed to sit on
-the list for at least 48 hours - with consideration for weekends and other
-holiday periods. This gives all committers a fair chance to review the PR, or at
-least register their desire to give it a proper review, regardless of their
-timezone.
+ある時点でプルリクエストが到着します。
+これは通常のレビュープロセスに入るでしょう。
+コミッタコミュニティは、適時にPRをレビューする責任があります。
+重大な変更があった場合は、週末やその他の休暇期間を考慮してPRを最低48時間リストに掲載されるようにしてください。
+これはすべてのコミッタに対して、
+それぞれのタイムゾーンに関係なくPRをレビューする、
+もしくは自身の希望を記述する公平な機会を提供します。
 
 未解決の異議がなければ、コミッタはPRを承認します。
 
@@ -56,9 +56,9 @@ timezone.
 
 issueに関する全てのPRが解消された時点で、issueをクローズすることができます。
 
-Once it has been merged, the corresponding feature issue should be
-closed. If there is a corresponding design note, its history section should be
-updated to reflect where/when the item was delivered.
+マージされたら、対応する機能のissueをクローズする必要があります。
+対応するデザインノートがある場合、
+その履歴セクションを更新し、項目がどこに/いつ提供されたのかを反映します。
 
 
 ## プルリクエストの要件
@@ -103,8 +103,8 @@ PRをおこなう以前にコード変更のためにどの開発方法論を用
    このブランチはいつでも次のメンテナンスリリースとしてリリースできるでしょう。
    このドキュメントを書いている時点では、
    ブランチには0.16.2と0.16.3として将来リリースされる予定のいくつかの修正が含まれています。
- - `dev` - this branch contains the development work on the next milestone release.
-   This is where new features are developed.
+ - `dev` - このブランチは次回のマイルストーンリリースに向けた開発作業を含んでいます。
+   ここでは新しい機能が開発されています。
  - より大きな機能はそれぞれ独自のブランチで開発され、
    機能が幅広い利用に対して
    十分に安定したときに開発ブランチにマージされます。
@@ -117,13 +117,13 @@ PRをおこなう以前にコード変更のためにどの開発方法論を用
 
  - [フォーラム](https://discourse.nodered.org)
 
-   This is the main discussion venue for the project. 誰でもメーリングリストに参加することができます。
+   ここはプロジェクトについての主なディスカッションの場です。誰でもフォーラムに参加することができます。
 
  - [Slack](https://nodered.org/slack)
 
-   For active, real-time, conversations, slack can be more productive than the
-   forum. Anyone can join the slack team. The `#dev` channel is used for discussions
-   on project development.
+   活発で、リアルタイムで、対話的なSlackはフォーラムよりも生産的です。
+   誰でもSlackチームに参加することができます。
+   `#dev`チャンネルはプロジェクト開発についてのディスカッションに利用されます。
 
  - [Trello - Whiteboard](https://trello.com/b/R0O3CSrI/node-red-whiteboard)
 
