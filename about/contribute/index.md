@@ -8,23 +8,47 @@ title: Node-REDへの貢献
 Slackチームでのディスカッションも同様に妥当です。これらは次の2つの目的を果たしています。
 
  - GitHubユーザではない人々を含む幅広い支援者に届けること。
- - 実際には支援依頼または重複している項目を、除外や合理化して処理してから対応できるようにすること。
+ - 実際には支援依頼または重複している項目を、
+   除外や合理化して処理してから
+   対応できるようにすること。
 
-コミュニティでのディスカッションで結論が出た時点で、リクエストは撤回されるか次の段階に進みます。
+コミュニティでのディスカッションで結論が出た時点で、
+リクエストは撤回されるか次の段階に進みます。
 
-コードコントリビュータではない立場のコミュニティメンバからの機能要求については、コミッタによってTrelloホワイトボードに追加されます。
-このホワイトボードは作業の優先順位付けの際に技術委員会が汲み上げる可能性のある機能のバックログとして機能しています。
+デザインまたはコードのコントリビュータの立場ではないコミュニティメンバからの機能要求については、
+コミッタによって
+[Trello Whiteboard](https://trello.com/b/R0O3CSrI/node-red-whiteboard)に追加されます。
+このホワイトボードは
+作業の優先順位付けの際に技術委員会が汲み上げる可能性のある機能のバックログとして機能しています。
 
-ある項目に取り組んでいるコントリビュータがいる場合、GitHub上のプロジェクトでissueを作成する必要があります。
-issueには機能の詳細および必要な設計上のポイントが書かれていなければなりません。また、issueは提案を洗練することにも利用されます。
-issueは現在誰が取り組んでいるかを明確に特定できるようにする必要があります。これは作業の偶発的な重複を避け、
-作業へ集中できるように保証するためです。
+If an item has a Contributor to do the work, the next step will depend on the nature
+of the change.
 
-最終的にissueを参照するプルリクエスト(PR)が届きます。
+If it is a well-defined feature that has limited impact - such as adding a new
+option to an existing node - an issue should be raised in the appropriate
+repository with the `feature` label applied. The issue should provide a
+description of the feature and any key design points that are needed.
+This issue can then be used to help refine the proposal. The issue should
+clearly identify who is working on it - this is to avoid accidental duplication
+of work and ensure there is a focal point for the work.
 
-コミッタコミュニティは、適時にPRをレビューする責任があります。
-重大な変更があった場合は、PRは週末やその他の休暇期間を考慮して最低48時間リストに掲載されるようにしてください。
-これはすべてのコミッタに対して、それぞれのタイムゾーンに関係なくPRをレビューする、もしくは自身の希望を記述する公平な機会を提供します。
+If it is a larger scoped feature that may require multiple pull-requests to
+implement, or has a great impact to the end user, a design note should be
+created in the [node-red/designs](https://github.com/node-red/designs) repo.
+
+Once the design has been approved and moved to the `in-progress` state, an issue
+should be raised in the appropriate repository with the `feature` label applied.
+If the design identifies multiple stages of delivery for the feature, an issue
+should be raised for each stage as needed. The issues should reference the design
+note. Each issue should have a milestone set if it is planned for a particular release.
+
+At some point a pull request will arrive. This will go through the normal review
+processes. The Committer community have a responsibility to review the PR in a
+timely manner. For any significant changes, the PR should be allowed to sit on
+the list for at least 48 hours - with consideration for weekends and other
+holiday periods. This gives all committers a fair chance to review the PR, or at
+least register their desire to give it a proper review, regardless of their
+timezone.
 
 未解決の異議がなければ、コミッタはPRを承認します。
 
@@ -32,27 +56,40 @@ issueは現在誰が取り組んでいるかを明確に特定できるように
 
 issueに関する全てのPRが解消された時点で、issueをクローズすることができます。
 
+Once it has been merged, the corresponding feature issue should be
+closed. If there is a corresponding design note, its history section should be
+updated to reflect where/when the item was delivered.
+
+
 ## プルリクエストの要件
 
 コードの変更をおこなったすべてのプルリクエストは、承認される前にいくつかの基準を満たしていることが求められます。
 
-1. PRへのすべてのコミッタはJS Foundation CLAに同意しなくてはなりません。同意していないコミッタからの変更をプロジェクトは承認できません。
+1. PRへのすべてのコミッタはJS Foundation CLAに同意しなくてはなりません。
+   同意していないコミッタからの変更をプロジェクトは承認できません。
 
-2. PRによって初めてプロジェクトがコントリビュートに気がつくべきではありません。前述のとおり、
-   すべてのコードコントリビュートはコミュニティや事前に作成されているissueで既に議論されているべきです。
+2. PRによって初めてプロジェクトがコントリビュートに気がつくべきではありません。
+   前述のとおり、
+   すべてのコードコントリビュートはコミュニティや
+   事前に作成されているissueで既に議論されているべきです。
    
-   PRがバグ修正を含んでいる場合、議論が必要な変更がないかぎり承認されます。
+   PRがバグ修正を含んでいる場合、
+   議論が必要な変更がないかぎり承認されます。
 
    重大な変更がある場合、適切なコントリビューションのプロセスに従っていなければ却下される可能性があります。
-   私達はコントリビューションを思いとどまらせたいわけではなく、適切なレビュー/ディスカッションの過程を省略することを避けたいのです。
+   私達はコントリビューションを思いとどまらせたいわけではなく、
+   適切なレビュー/ディスカッションの過程を省略することを避けたいのです。
 
-3. ビルドテストはきれいに合格するはずです。テストは各PRに対して自動実行され、報告されます。
+3. ビルドテストはきれいに合格するはずです。
+   テストは各PRに対して自動実行され、報告されます。
    このテストは、単体テストおよび機能テストと同様にコードスタイルおよびリントを含んでいます。
 
-4. 変更には適切なテストカバレッジが含まれている必要があります。コアプロジェクトは90%以上のコードカバレッジの維持を
-   目標としています。PRがコードカバレッジを低下させる場合、正当な理由がないかぎり却下されます。
+4. 変更には適切なテストカバレッジが含まれている必要があります。
+   コアプロジェクトは90%以上のコードカバレッジの維持を目標としています。
+   PRがコードカバレッジを低下させる場合、正当な理由がないかぎり却下されます。
 
-このプロジェクトでは、PRをおこなう以前にコード変更のためにどの開発方法論を用いるかという要件は設けていません。
+このプロジェクトでは、
+PRをおこなう以前にコード変更のためにどの開発方法論を用いるかという要件は設けていません。
 優れたテストカバレッジとドキュメントに対して価値を見出しています。
 
 ## Gitワークフロー
@@ -63,30 +100,36 @@ issueに関する全てのPRが解消された時点で、issueをクローズ�
 以下に現在の利用用途について記載しています。
 
  - `master` - このブランチにはNode-REDの最新リリース版、およびそれに追加したバグ修正が含まれています。
-   このブランチはいつでも次のメンテナンスリリースとしてリリースできるでしょう。このドキュメントを書いている時点では、
+   このブランチはいつでも次のメンテナンスリリースとしてリリースできるでしょう。
+   このドキュメントを書いている時点では、
    ブランチには0.16.2と0.16.3として将来リリースされる予定のいくつかの修正が含まれています。
- - 開発ブランチ(例 `0.17`) - 次回のマイルストーンリリースとして開発作業がおこなわれており、
-   リリース予定のバージョン番号をとって命名されているブランチです。
- - より大きな機能はそれぞれ独自のブランチで開発され、機能が幅広い利用に対して
-   十分に安定したときに現行の開発ブランチにマージされます。
+ - `dev` - this branch contains the development work on the next milestone release.
+   This is where new features are developed.
+ - より大きな機能はそれぞれ独自のブランチで開発され、
+   機能が幅広い利用に対して
+   十分に安定したときに開発ブランチにマージされます。
 
 ## ツール
 
 プロジェクトではその活動を支援するため、数多くのツールが利用されています。
 以下のリストは、現在利用されているツールとその目的を反映しています。
 
- - [メーリングリスト](https://groups.google.com/forum/#!forum/node-red)
 
-   プロジェクトについてのディスカッションをおこなう主なツールです。誰でもメーリングリストに参加することができます。
+ - [フォーラム](https://discourse.nodered.org)
+
+   This is the main discussion venue for the project. 誰でもメーリングリストに参加することができます。
 
  - [Slack](https://nodered.org/slack)
 
-   活発で、リアルタイムで、対話的なSlackはメーリングリストよりも生産的です。誰でもSlackチームに参加できます。
+   For active, real-time, conversations, slack can be more productive than the
+   forum. Anyone can join the slack team. The `#dev` channel is used for discussions
+   on project development.
 
  - [Trello - Whiteboard](https://trello.com/b/R0O3CSrI/node-red-whiteboard)
 
-   アイデアと機能を高度に追跡できます。既存の機能を拡張したり、より「偉大な」アイデアや機能をバックログに
-   含めることができるツールです。
+   アイデアと機能を高度に追跡できます。
+   既存の機能を拡張したり、
+   より「偉大な」アイデアや機能をバックログに含めることができるツールです。
 
    このツールは技術委員会がアイデアや機能に優先順位を決定するために利用します。
    誰でもホワイトボードを閲覧することができます。コミッタは書き込み権限を有しています。
@@ -95,11 +138,13 @@ issueに関する全てのPRが解消された時点で、issueをクローズ�
 
    特定のコード変更に結び付けられていないドキュメント作成タスクのため、異なるホワイトボードが利用されています。
    ユーザ/開発者/コントリビュータそれぞれに適したドキュメントを提供できるようにしています。
-   誰でもホワイトボードを閲覧することができます。コミッタは書き込み権限を有しています。
+   誰でもホワイトボードを閲覧することができます。
+   コミッタは書き込み権限を有しています。
 
  - [GitHub - code](https://github.com/node-red/node-red)
 
-   プロジェクトのソースコードのバージョン管理。誰でもリポジトリをクローンまたはフォークできます。
+   プロジェクトのソースコードのバージョン管理。
+   誰でもリポジトリをクローンまたはフォークできます。
    プライベートリポジトリは存在しません。コミッタはリポジトリへのコミットを適用できます。
 
  - [GitHub - issues](https://github.com/node-red/node-red/issues)
