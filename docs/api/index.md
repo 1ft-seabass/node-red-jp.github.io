@@ -4,14 +4,15 @@ toc: api-toc.html
 title: APIリファレンス
 ---
 
+### [Node-RED module APIs](modules)
+
+The APIs provided by npm modules that Node-RED is built from. These can be used
+to embed Node-RED into existing Node.js applications.
+
 ### [Admin HTTP API](admin)
 
 Admin HTTP APIによってリモートで実行環境を管理することができます。
 Node-REDエディタおよびコマンドラインAdminツールから利用することができます。
-
-### [Runtime API](runtime)
-
-Runtime APIはNode-REDを他のアプリケーションに組み込む際に利用できます。
 
 ### [Storage API](storage)
 
