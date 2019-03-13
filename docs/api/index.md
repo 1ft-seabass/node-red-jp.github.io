@@ -6,8 +6,8 @@ title: APIリファレンス
 
 ### [Node-RED module APIs](modules)
 
-The APIs provided by npm modules that Node-RED is built from. These can be used
-to embed Node-RED into existing Node.js applications.
+このAPIはNode-REDがビルドされているnpmモジュールから提供されます。
+これらは既存のNode.jsアプリケーションにNode-REDを組み込むために利用できます。
 
 ### [Admin HTTP API](admin)
 
