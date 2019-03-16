@@ -9,17 +9,16 @@
 
     <li class="tocheader">
         <ul>
+            <li class="toctitle{% if page.url == "/docs/api/modules/" %} active{% endif %}"><a href="/docs/api/modules/">Module APIs</a>
+        </ul>
+    </li>
+    <li class="tocheader">
+        <ul>
             <li class="toctitle{% if page.url == "/docs/api/admin/" %} active{% endif %}"><a href="/docs/api/admin/">Admin HTTP API</a>
             <li {% if page.url == "/docs/api/admin/oauth" %}class="active"{% endif %}><a href="/docs/api/admin/oauth">認証</a>
             <li {% if page.url == "/docs/api/admin/types" %}class="active"{% endif %}><a href="/docs/api/admin/types">型</a>
             <li {% if page.url == "/docs/api/admin/errors" %}class="active"{% endif %}><a href="/docs/api/admin/errors">エラー</a>
             <li {% if page.url contains "/docs/api/admin/methods" %}class="active"{% endif %}><a href="/docs/api/admin/methods">メソッド</a>
-        </ul>
-    </li>
-    <li class="tocheader">
-        <ul>
-            <li class="toctitle{% if page.url == "/docs/api/runtime/" %} active{% endif %}"><a href="/docs/api/runtime/">Runtime API</a>
-            <li {% if page.url == "/docs/api/runtime/api" %}class="active"{% endif %}><a href="/docs/api/runtime/api">API</a>
         </ul>
     </li>
     <li class="tocheader">
