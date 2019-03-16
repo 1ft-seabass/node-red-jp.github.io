@@ -6,7 +6,7 @@ title: Windowsで実行する
 このページでは、Microsoft Windows環境におけるNode-REDのセットアップについて具体的な手順を紹介しています。この手順はWindows 10固有ですが、Windows 7およびWindows Server 2008R2以降でも利用できるはずです。Windows 7またはWindows Server 2008R2以前のバージョンは現在サポートされていないため、推奨できません。
 
 <div class="doc-callout">
-<em>Note</em> : 以下の説明の中では、「コマンドプロンプト」についての説明があります。コマンドプロンプトが使用されている場合、Windows cmdまたはPowerShellターミナルシェルを指します。<a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">PowerShell</a>を使うことで、Windowsのすべての新しいバージョンでLinux/Macに似たコマンドやフォルダ名を利用できるため、PowerShellの利用を推奨します。
+<em>Note</em> : 以下の説明の中では、「コマンドプロンプト」についての説明があります。コマンドプロンプトと書かれている場合、Windows cmdまたはPowerShellターミナルシェルを指します。<a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">PowerShell</a>を使うことで、Windowsのすべての新しいバージョンでLinux/Macに似たコマンドやフォルダ名を利用できるため、PowerShellの利用を推奨します。
 </div>
 
 ### クイックスタート
