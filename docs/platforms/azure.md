@@ -43,7 +43,7 @@ Node-REDを実行する手順を紹介します。
 
 ログインしたら、 node.js と Node-RED をインストールする必要があります。
 
-       curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+       curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
        sudo apt-get install -y nodejs build-essential
        sudo npm install -g node-red
 
