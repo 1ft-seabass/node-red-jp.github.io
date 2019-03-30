@@ -64,7 +64,7 @@ SSHを利用したい場合、新規のキーペアを生成するのであれ�
 }
 ```
 
-2. [Node-RED settings.js file](https://github.com/node-red/node-red/blob/master/settings.js)をdemoapp ディレクトリにコピーしてください。
+2. [Node-RED settings.js file](https://github.com/node-red/node-red/blob/master/packages/node_modules/node-red/settings.js)をdemoapp ディレクトリにコピーしてください。
 
 3. settings.jsファイルを編集して、以下のエントリをmodule.exportsに追加します(awsRegionをeb initで使用したものに設定し、demoappは自分のアプリ名に置換してください) 。:
 
