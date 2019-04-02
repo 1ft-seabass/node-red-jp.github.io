@@ -15,7 +15,7 @@ Node-REDを設定するために以下のプロパティが利用できます。
 Node-REDにはユーザが指定する`settings.js`が存在しない場合に
 使用するデフォルトの`settings.js`ファイルが含まれています。
 また、独自の`settings.js`の雛形として使用できます。
-[GitHub上](https://github.com/node-red/node-red/blob/master/settings.js)でも確認できます。
+[GitHub上](https://github.com/node-red/node-red/blob/master/packages/node_modules/node-red/settings.js)でも確認できます。
 
 <div class="doc-callout">
 <em>Note</em> :  <code>settings.js</code>ファイルは<em>JavaScript object</em>をエクスポートします。Node-REDを設定するため、キー/バリューのペアを新規に追加または既存のものを変更することによってJavaScript objectを変更する方法を理解する必要があります。
