@@ -12,14 +12,16 @@ Node-REDは`node-red`コマンドで起動できます。:
     Welcome to Node-RED
     ===================
 
-    25 Mar 22:51:09 - [info] Node-RED version: v0.18.4
-    25 Mar 22:51:09 - [info] Node.js  version: v8.11.1
+    25 Mar 22:51:09 - [info] Node-RED version: v0.20.5
+    25 Mar 22:51:09 - [info] Node.js  version: v10.15.3
     25 Mar 22:51:09 - [info] Loading palette nodes
     25 Mar 22:51:10 - [warn] ------------------------------------------
     25 Mar 22:51:10 - [warn] [rpi-gpio] Info : Ignoring Raspberry Pi specific node
     25 Mar 22:51:10 - [warn] ------------------------------------------
     25 Mar 22:51:10 - [info] Settings file  : /home/nol/.node-red/settings.js
+    25 Mar 22:51:10 - [info] Context store  : 'default' [module=localfilesystem]
     25 Mar 22:51:10 - [info] User Directory : /home/nol/.node-red
+    25 Mar 22:51:10 - [warn] Projects disabled : set editorTheme.projects.enabled=true to enable
     25 Mar 22:51:10 - [info] Server now running at http://127.0.0.1:1880/
     25 Mar 22:51:10 - [info] Creating new flows file : flows_noltop.json
     25 Mar 22:51:10 - [info] Starting flows
@@ -40,10 +42,13 @@ Node-REDは`node-red`コマンドで起動できます。:
 
 ### コマンドラインの使用方法
 
-    使用方法: node-red [-v] [-?] [--settings settings.js] [--userDir DIR] [flows.json]
+    使用方法: node-red [-v] [-?] [--port 1880] [--settings settings.js] [--userDir DIR] [flows.json]
 
     オプション:
+      -p, --port           エディタのWeb UIを指定のTCPポートで起動
+          --safe           フローを実行せずにNode-REDのエディタを起動
       -s, --settings FILE  設定ファイルのパスを指定する
+          --title TITLE    プロセスウィンドウのタイトルを指定する
       -u, --userDir  DIR   ユーザディレクトリのパスを指定する
       -v                   詳細ログの表示
       -?, --help           使用方法の確認
