@@ -52,6 +52,9 @@ Node-REDは`node-red`コマンドで起動できます。:
       -u, --userDir  DIR   ユーザディレクトリのパスを指定する
       -v                   詳細ログの表示
       -?, --help           使用方法の確認
+      [flows.json]         使用したいデータファイルの名前。
+                           greenhouse.jsonやrobot.jsonのなど、用途別に違う名前を指定することができます。
+                           指定しない場合は、デフォルトでflows_xxxxxxxx.jsonとなります。xxxxxxxxは実行しているサーバー名です。
 
 ----
 
