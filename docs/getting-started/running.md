@@ -42,16 +42,20 @@ Node-REDは`node-red`コマンドで起動できます。:
 
 ### コマンドラインの使用方法
 
-    使用方法: node-red [-v] [-?] [--port 1880] [--settings settings.js] [--userDir DIR] [flows.json]
+    使用方法: node-red [-v] [-?] [--port PORT] [--safe] [--settings settings.js]
+                       [--title TITLE] [--userDir DIR] [flows.json]
 
     オプション:
-      -p, --port           エディタのWeb UIを指定のTCPポートで起動
+      -p, --port PORT      エディタのWeb UIを指定のTCPポートで起動
           --safe           フローを実行せずにNode-REDのエディタを起動
       -s, --settings FILE  設定ファイルのパスを指定する
           --title TITLE    プロセスウィンドウのタイトルを指定する
       -u, --userDir  DIR   ユーザディレクトリのパスを指定する
       -v                   詳細ログの表示
       -?, --help           使用方法の確認
+      flows.json           使用したいフローファイルの名前。
+                           greenhouse.jsonやrobot.jsonのなど、用途別に違う名前を指定することができます。
+                           指定しない場合は、デフォルトでflows_xxx.jsonとなります。xxxは実行しているサーバー名です。
 
 ----
 

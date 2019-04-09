@@ -32,6 +32,19 @@ Note: <code>sudo</code>はLinuxまたはOS Xの実行環境でのインストー
 Windows環境であれば、<a href="../platforms/windows">Windows環境でのインストール手順</a>をご覧ください。
 </div>
 
+### Install via SNAP
+
+OSが [SNAPs](https://snapcraft.io/docs/core/install) をサポートしていれば、次のようにNode-REDをインストールできます。
+
+    snap install node-red
+
+しかし、これはセキュアコンテナ内で実行されるため、
+ネイティブプラグインを持つノードをコンパイルするための
+gcc、git(プロジェクト用)、GPIOへの直接アクセス、その他の外部プログラムなど
+あなたが必要とするかもしれない外部の資源にアクセスできないことを注意してください。
+コンテナのセキュリティを下げた"classic"モードでの実行もできますが、
+我々はそれを読者の練習のために残しています。
+
 #### 次のステップ
 
 インストールが終わったら[Node-REDの実行](running.html)を行います。
